@@ -5,6 +5,7 @@ import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { AuthProvider } from './src/context/AuthContext';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,7 +20,9 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <NavigationContainer>
-        <AppNavigator />
+        <AuthProvider>
+          <AppNavigator />
+        </AuthProvider>
       </NavigationContainer>
     </SafeAreaView>
   );

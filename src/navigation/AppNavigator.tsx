@@ -3,11 +3,11 @@
 import React from 'react';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
+import { useAuth } from '../context/AuthContext';
 
-
-const isAuthenticated = false;
 
 const AppNavigator = () => {
+  const { isAuthenticated } = useAuth();
   return isAuthenticated ? <MainNavigator /> : <AuthNavigator />;
 };
 

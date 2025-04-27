@@ -10,13 +10,16 @@ import styles from './styles';
 import { Text } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
 import { LoginFormData } from '../../../types/auth';
+import { useAuth } from '../../../context/AuthContext';
 
 const LoginForm = () => {
   const navigation = useNavigation();
   const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+  const { login } = useAuth();
 
   const onSubmit = (data: LoginFormData) => {
     console.log('Login data:', data);
+    login();
   };
   return (
     <View style={styles.form}>
