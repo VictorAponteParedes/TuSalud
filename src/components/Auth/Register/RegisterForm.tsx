@@ -18,10 +18,10 @@ type RegisterFormData = {
 };
 
 const RegisterForm = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
+  const { control, handleSubmit, formState: { errors } } = useForm();
   const navigation = useNavigation();
 
-  const onSubmit = (data: RegisterFormData) => {
+  const onSubmit = (data) => {
     console.log('Register data:', data);
   };
 
@@ -31,34 +31,48 @@ const RegisterForm = () => {
         <Input
           label={translate('firstName')}
           placeholder={translate("insertFirstName")}
+          control={control}
+          name="firstName"
         />
         <Input
           label={translate('lastName')}
           placeholder={translate("insertLastName")}
+          control={control}
+          name="lastName"
 
         />
         <Input
           label={translate('phone')}
           placeholder={translate("insertPhone")}
+          control={control}
+          name="phone"
         />
         <Input
           label={translate('address')}
           placeholder={translate("insertAddress")}
+          control={control}
+          name="address"
 
         />
         <Input
           label={translate('email')}
           placeholder={translate("insertEmail")}
+          control={control}
+          name="email"
         />
         <Input
           label={translate('password')}
           placeholder={translate("insertPassword")}
           secureTextEntry={true}
+          control={control}
+          name="password"
         />
         <Input
           label={translate('confirmPassword')}
           placeholder={translate("insertConfirmPassword")}
           secureTextEntry={true}
+          control={control}
+          name="confirmPassword"
         />
       </ScrollView>
       <Button

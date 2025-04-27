@@ -8,19 +8,27 @@ import Routes from '../../../navigation/routes';
 
 import styles from './styles';
 import { Text } from 'react-native-gesture-handler';
+import { useForm } from 'react-hook-form';
 
 const LoginForm = () => {
   const navigation = useNavigation();
+  const { control, handleSubmit, formState: { errors } } = useForm();
   return (
     <View style={styles.form}>
       <Input
         label={translate('Username')}
         placeholder={translate("InsertUsername")}
+        control={control}
+        name="username"
+        requered={true}
       />
       <Input
         label={translate('Password')}
         placeholder={translate("InsertPassword")}
         secureTextEntry={true}
+        control={control}
+        name="password"
+        requered={true}
       />
       <Button
         title={translate('Login')}
