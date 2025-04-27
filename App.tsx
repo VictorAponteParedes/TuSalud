@@ -19,11 +19,11 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <NavigationContainer>
-        <AuthProvider>
+      <AuthProvider>
+        <NavigationContainer>
           <AppNavigator />
-        </AuthProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </AuthProvider>
     </SafeAreaView>
   );
 }
