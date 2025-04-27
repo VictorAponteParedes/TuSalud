@@ -77,7 +77,7 @@ const RegisterForm = () => {
       </ScrollView>
       <Button
         title={translate('title')}
-        onPress={() => console.log('Botón presionado')}
+        onPress={() => handleSubmit(onSubmit)()}
         loading={false}
         disabled={false}
       />
