@@ -29,9 +29,13 @@ const Input = (props: InputProps) => {
           <TextInput
             style={[styles.input, error && styles.inputError]}
             placeholderTextColor="#999"
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value}
             {...textInputProps}
           />
         )}
+
       />
 
       {error && <Text style={styles.error}>{error}</Text>}
