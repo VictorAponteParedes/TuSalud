@@ -6,12 +6,13 @@ import colors from '../../theme/colors';
 
 interface ButtonProps {
   title: string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, loading = false }) => {
+const Button = (props: ButtonProps) => {
+  const { title, onPress, disabled = false, loading = false } = props;
   return (
     <TouchableOpacity
       style={[styles.button, disabled && styles.buttonDisabled]}
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#A5D6A7',
   },
   text: {
-    color: '#ffffff',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '600',
   },
