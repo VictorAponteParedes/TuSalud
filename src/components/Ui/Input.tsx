@@ -1,22 +1,39 @@
 // src/components/ui/Input.tsx
 
 import React from 'react';
+import { Controller } from 'react-hook-form';
 import { TextInput, Text, View, StyleSheet, TextInputProps } from 'react-native';
+
 
 interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
+  control: any;
+  name: string;
+  requered?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ label, error, ...textInputProps }) => {
+
+const Input = (props: InputProps) => {
+  const { label, error, control, name, requered, ...textInputProps } = props;
+
+
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput
-        style={[styles.input, error && styles.inputError]}
-        placeholderTextColor="#999"
-        {...textInputProps}
+      <Controller
+        control={control}
+        name={name}
+        rules={{ required: requered }}
+        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+          <TextInput
+            style={[styles.input, error && styles.inputError]}
+            placeholderTextColor="#999"
+            {...textInputProps}
+          />
+        )}
       />
+
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
