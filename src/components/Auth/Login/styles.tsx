@@ -3,7 +3,6 @@ import colors from '../../../theme/colors';
 const styles = StyleSheet.create({
   form: {
     flex: 1,
-    // justifyContent: 'center',
     padding: 16,
   },
   input: {
@@ -26,6 +25,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+  },
+  registerButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    padding: 12,
+    marginTop: 16,
+  },
+  registerText: {
+    color: colors.white,
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 export default styles;
