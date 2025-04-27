@@ -18,8 +18,12 @@ const LoginForm = () => {
   const { login } = useAuth();
 
   const onSubmit = (data: LoginFormData) => {
-    console.log('Login data:', data);
-    login();
+    if (data.email === "prueba@gmail.com" && data.password === "123456") {
+      console.log('Login data:', data);
+      login();
+    } else {
+      console.log("Invalid credentials", data);
+    }
   };
   return (
     <View style={styles.form}>
