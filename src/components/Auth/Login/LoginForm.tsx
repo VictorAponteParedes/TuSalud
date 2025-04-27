@@ -13,6 +13,10 @@ import { useForm } from 'react-hook-form';
 const LoginForm = () => {
   const navigation = useNavigation();
   const { control, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => {
+    console.log('Login data:', data);
+  };
   return (
     <View style={styles.form}>
       <Input
@@ -32,7 +36,7 @@ const LoginForm = () => {
       />
       <Button
         title={translate('Login')}
-        onPress={() => console.log('Botón presionado')}
+        onPress={() => handleSubmit(onSubmit)()}
         loading={false}
         disabled={false}
       />
