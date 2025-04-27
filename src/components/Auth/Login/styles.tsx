@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import colors from '../../../theme/colors';
 const styles = StyleSheet.create({
   form: {
     flex: 1,
@@ -10,6 +11,21 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     padding: 12,
+  },
+  DontHaveAccount: {
+    fontSize: 14,
+    color: colors.black,
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  customHandle: {
+    width: '100%',
+    height: 30,
+    backgroundColor: '#ccc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
 });
 export default styles;
