@@ -2,26 +2,20 @@
 
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import styles from './styles';
 import { translate } from '../../../lang';
-import { useNavigation } from '@react-navigation/native';
-import Routes from '../../../navigation/routes';
-import CustomHeader from '../../customHeader';
 import Input from '../../ui/Input';
 import Button from '../../ui/Button';
+import { RegisterFormData } from '../../../types/auth';
 
-type RegisterFormData = {
-  fullName: string;
-  email: string;
-  password: string;
-};
+
 
 const RegisterForm = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm();
-  const navigation = useNavigation();
+  const { control, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
 
-  const onSubmit = (data) => {
+
+  const onSubmit = (data: RegisterFormData) => {
     console.log('Register data:', data);
   };
 
