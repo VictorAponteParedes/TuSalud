@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   registerButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary[500],
     borderRadius: 8,
     padding: 12,
     marginTop: 16,
