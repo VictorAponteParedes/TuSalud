@@ -22,5 +22,7 @@
   "TwoFactorCode": "Introduce el código enviado a tu dispositivo.",
   "ResendCode": "Reenviar código",
   "InvalidCode": "Código inválido. Intenta de nuevo.",
-  "WelcomeBack": "Bienvenido de nuevo!"
+  "WelcomeBack": "Bienvenido de nuevo!",
+  "passwordRequerd": "Contraseña requerida",
+  "usernameRequerd": "Nombre de usuario requerido"
 }

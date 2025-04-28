@@ -59,6 +59,7 @@ const LoginForm = () => {
         control={control}
         name="email"
         requered={true}
+        error={translate('usernameRequerd')}
       />
       <Input
         label={translate('Password')}
@@ -67,6 +68,7 @@ const LoginForm = () => {
         control={control}
         name="password"
         requered={true}
+        error={translate('passwordRequerd')}
       />
       <Button
         title={translate('Login')}
