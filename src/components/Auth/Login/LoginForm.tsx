@@ -12,7 +12,6 @@ import { useForm } from 'react-hook-form';
 import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
 import Toast from 'react-native-toast-message';
-import ToastMessage from '../../toasMessage';
 
 const LoginForm = () => {
   const navigation = useNavigation();
@@ -25,13 +24,12 @@ const LoginForm = () => {
 
   const onSubmit = (data: LoginFormData) => {
     if (data.email === 'prueba@gmail.com' && data.password === '123456') {
-      console.log('Login data:', data);
       login();
       Toast.show({
         type: 'success',
         position: 'top',
-        text1: '¡Inicio de sesión exitoso!',
-        text2: 'Bienvenido al sistema.',
+        text1: translate('credentialSuccess'),
+        text2: translate('welcomeHome'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
@@ -39,12 +37,11 @@ const LoginForm = () => {
         text2Style: {color: 'black'},
       });
     } else {
-      console.log('Invalid credentials', data);
       Toast.show({
         type: 'error',
         position: 'top',
-        text1: 'Credenciales incorrectas',
-        text2: 'Por favor, verifica tu correo y contraseña.',
+        text1: translate('titleIvalidCredentials'),
+        text2: translate('InvalidCredentials'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
