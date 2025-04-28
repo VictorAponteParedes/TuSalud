@@ -31,7 +31,7 @@ const Button = (props: ButtonProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary[400],
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
