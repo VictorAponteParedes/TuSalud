@@ -34,19 +34,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: height * 0.6,
+    height: height * 0.4,
     backgroundColor: colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 20,
     elevation: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
+    shadowOffset: {width: 0, height: -2},
     shadowOpacity: 0.1,
     shadowRadius: 8,
     justifyContent: 'center',
   },
-
-
 });
 export default styles;  

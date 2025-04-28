@@ -2,16 +2,8 @@
 
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { TextInput, Text, View, StyleSheet, TextInputProps } from 'react-native';
-
-
-interface InputProps extends TextInputProps {
-  label?: string;
-  error?: string;
-  control: any;
-  name: string;
-  requered?: boolean;
-}
+import {TextInput, Text, View, StyleSheet} from 'react-native';
+import {InputProps} from '../../types/InputCustom';
 
 
 const Input = (props: InputProps) => {
