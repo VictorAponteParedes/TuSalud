@@ -11,32 +11,61 @@ import { Text } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
 import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
+import Toast from 'react-native-toast-message';
+import ToastMessage from '../../toasMessage';
 
 const LoginForm = () => {
   const navigation = useNavigation();
-  const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
-  const { login } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<LoginFormData>();
+  const {login} = useAuth();
 
   const onSubmit = (data: LoginFormData) => {
-    if (data.email === "prueba@gmail.com" && data.password === "123456") {
+    if (data.email === 'prueba@gmail.com' && data.password === '123456') {
       console.log('Login data:', data);
       login();
+      Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: '¡Inicio de sesión exitoso!',
+        text2: 'Bienvenido al sistema.',
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: 30,
+        text1Style: {color: 'black'},
+        text2Style: {color: 'black'},
+      });
     } else {
-      console.log("Invalid credentials", data);
+      console.log('Invalid credentials', data);
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Credenciales incorrectas',
+        text2: 'Por favor, verifica tu correo y contraseña.',
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: 30,
+        text1Style: {color: 'black'},
+        text2Style: {color: 'black'},
+      });
     }
   };
+
   return (
     <View style={styles.form}>
       <Input
         label={translate('Username')}
-        placeholder={translate("InsertUsername")}
+        placeholder={translate('InsertUsername')}
         control={control}
         name="email"
         requered={true}
       />
       <Input
         label={translate('Password')}
-        placeholder={translate("InsertPassword")}
+        placeholder={translate('InsertPassword')}
         secureTextEntry={true}
         control={control}
         name="password"
@@ -51,10 +80,8 @@ const LoginForm = () => {
 
       <TouchableOpacity
         onPress={() => navigation.navigate(Routes.REGISTER)}
-        style={styles.registerButton}
-      >
-        <Text style={styles.registerText}>
-          {translate('DontHaveAccount')}</Text>
+        style={styles.registerButton}>
+        <Text style={styles.registerText}>{translate('DontHaveAccount')}</Text>
       </TouchableOpacity>
     </View>
   );

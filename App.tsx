@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { AuthProvider } from './src/context/AuthContext';
+import Toast from 'react-native-toast-message';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -14,7 +15,7 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, ...backgroundStyle }}>
+    <SafeAreaView style={{flex: 1, ...backgroundStyle}}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -22,6 +23,7 @@ function App(): React.JSX.Element {
       <AuthProvider>
         <NavigationContainer>
           <AppNavigator />
+          <Toast />
         </NavigationContainer>
       </AuthProvider>
     </SafeAreaView>
