@@ -7,6 +7,8 @@ const Routes = {
 
   HOME: 'Home',
   PROFILE: 'Profile',
+
+  TAB_NAVIGATOR: 'TabNavigator',
 } as const;
 
 export default Routes;
