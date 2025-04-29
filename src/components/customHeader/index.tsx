@@ -7,10 +7,17 @@ import Routes from '../../navigation/routes';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import { CustomHeaderProps } from "../../types/auth";
-
+import BackIcon from '../../assets/svg/backIcon.svg';
 
 const CustomHeader = (props: CustomHeaderProps) => {
-  const { title, titleBack, onBackPress, imageProfile, gradientColors } = props;
+  const {
+    title,
+    titleBack,
+    onBackPress,
+    imageProfile,
+    gradientColors,
+    iconBack,
+  } = props;
   const navigation = useNavigation();
 
   return (
@@ -24,7 +31,14 @@ const CustomHeader = (props: CustomHeaderProps) => {
       }
       style={styles.container}>
       {onBackPress && (
-        <TouchableOpacity onPress={onBackPress}>
+        <TouchableOpacity
+          onPress={onBackPress}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          {iconBack && <BackIcon width={24} height={24} fill="red" />}
+
           <Text style={styles.backButton}>
             {titleBack || translate('back')}
           </Text>
@@ -36,10 +50,10 @@ const CustomHeader = (props: CustomHeaderProps) => {
           <Image
             source={
               typeof imageProfile === 'string'
-                ? { uri: imageProfile }
+                ? {uri: imageProfile}
                 : imageProfile
             }
-            style={{ width: 40, height: 40, borderRadius: 20 }}
+            style={{width: 40, height: 40, borderRadius: 20}}
           />
         </TouchableOpacity>
       )}
