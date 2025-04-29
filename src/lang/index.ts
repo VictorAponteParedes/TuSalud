@@ -2,6 +2,7 @@
 import login from './Login.json';
 import register from './Register.json';
 import home from './Home.json';
+import profile from './Profile.json';
 
 // Definir el idioma actual, por ejemplo, 'es' para español
 const currentLanguage = 'es';
@@ -13,6 +14,7 @@ const translations = {
         ...login,
         ...register,
         ...home,
+        ...profile,
         // puedes agregar más archivos de traducción aquí, por ejemplo:
         // ...otherTranslations
     },
