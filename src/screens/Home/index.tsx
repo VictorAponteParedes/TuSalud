@@ -1,11 +1,12 @@
 import React from "react";
 import {View, Text, ScrollView} from 'react-native';
 import CustomHeader from '../../components/customHeader';
-import {profileImage} from '../../assets';
+import {profileImage, infoCovid} from '../../assets';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import {translate} from '../../lang';
-import {informationHome} from '../../mock/modalCard';
+import {informationHome, informationCovid} from '../../mock/modalCard';
+import CardInfo from '../../components/modals/cardInfo';
 
 const HomeScreen = () => {
   return (
@@ -25,6 +26,14 @@ const HomeScreen = () => {
               />
             ))}
             <Text style={styles.title}>{translate('informationCovid')}</Text>
+            {informationCovid.map((item, index) => (
+              <CardInfo
+                key={index}
+                title={item.title}
+                description={item.description}
+                image={item.image}
+              />
+            ))}
           </View>
         </View>
       </ScrollView>

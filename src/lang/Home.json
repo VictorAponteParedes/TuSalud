@@ -2,5 +2,7 @@
   "newServices": "Nuevos Servicios",
   "citas": "Citas",
   "appontment": "Agenda tus proximas citas",
-  "informationCovid": "Información sobre Covid"
+  "informationCovid": "Información sobre Covid",
+  "covidInfo": "Prevención del COVID-19",
+  "covidInfoHome": "Lávate las manos con frecuencia, usa mascarilla en lugares cerrados y mantén distancia física para prevenir el contagio."
 }

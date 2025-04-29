@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   title: {
     color: colors.black,
     fontSize: sizeText.title.title,
+    fontWeight: 'bold',
     marginBottom: 20,
   },
   cardsContainer: {
