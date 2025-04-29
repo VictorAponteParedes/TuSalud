@@ -16,6 +16,7 @@ const RegisterScreen = () => {
       <CustomHeader
         titleBack={translate('backToLogin')}
         onBackPress={navigation.goBack}
+        iconBack={true}
       />
       <View style={styles.container}>
         <Text style={styles.title}>{translate('welcome')}</Text>

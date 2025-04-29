@@ -19,4 +19,5 @@ export interface CustomHeaderProps {
     onBackPress?: () => void;
     imageProfile?: string;
     gradientColors?: string[];
+    iconBack?: boolean;
 }
