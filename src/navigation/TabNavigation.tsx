@@ -1,13 +1,16 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SvgXml} from 'react-native-svg';
-import HomeScreen from '../screens/Home';
-import ProfileScreen from '../screens/Profile';
 import Routes from './routes';
 import profileIcon from '../assets/svg/profile.svg';
 import homeIcon from '../assets/svg/home.svg';
+import quotesIcon from '../assets/svg/quotes.svg';
 import colors from '../theme/colors';
 import {translate} from '../lang';
+
+//Views
+import HomeScreen from '../screens/Home';
+import ProfileScreen from '../screens/Profile';
+import Quotes from '../screens/Quotes';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +36,14 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: profileIcon,
           tabBarLabel: translate('Profile'),
+        }}
+      />
+      <Tab.Screen
+        name={Routes.QUOTES}
+        component={Quotes}
+        options={{
+          tabBarIcon: quotesIcon,
+          tabBarLabel: translate('Quotes'),
         }}
       />
     </Tab.Navigator>

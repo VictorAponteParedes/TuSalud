@@ -4,11 +4,12 @@ import register from './Register.json';
 import home from './Home.json';
 import profile from './Profile.json';
 import config from './Config.json';
+import appointments from './Appointments.json';
 
 // Definir el idioma actual, por ejemplo, 'es' para español
 const currentLanguage = 'es';
 
-// Almacenar las traducciones en un objeto
+
 const translations = {
     es: {
         // Traducciones para el idioma español
@@ -17,16 +18,23 @@ const translations = {
         ...home,
         ...profile,
         ...config,
-        // puedes agregar más archivos de traducción aquí, por ejemplo:
-        // ...otherTranslations
+        ...appointments,
     },
-    // puedes agregar más idiomas en el futuro, por ejemplo:
-    // en: require('./English.json')
+ 
 };
 
 // Función para obtener la traducción
 const translate = (key) => {
-    return translations[currentLanguage][key] || key;
-};
+    const keys = key.split('.');
+    let result = translations[currentLanguage];
+    
+    for (const k of keys) {
+      result = result[k];
+      if (result === undefined) return key; // Devuelve la clave si no encuentra la traducción
+    }
+    
+    return result || key;
+  };
+  
 
 export { translate };

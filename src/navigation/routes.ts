@@ -7,6 +7,7 @@ const Routes = {
 
   HOME: 'Home',
   PROFILE: 'Profile',
+  QUOTES: 'Quotes',
 
   TAB_NAVIGATOR: 'TabNavigator',
 } as const;
