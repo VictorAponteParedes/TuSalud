@@ -12,3 +12,11 @@ export type LoginFormData = {
     email: string;
     password: string;
 };
+
+export interface CustomHeaderProps {
+    title?: string;
+    titleBack?: string;
+    onBackPress?: () => void;
+    imageProfile?: string;
+    gradientColors?: string[];
+}
