@@ -1,8 +1,7 @@
 import React from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useAuth} from '../../context/AuthContext';
+import {View, Text} from 'react-native';
 import CustomHeader from '../../components/customHeader';
-import {profileImage, itemMedicine} from '../../assets';
+import {profileImage} from '../../assets';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import {translate} from '../../lang';
