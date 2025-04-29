@@ -6,10 +6,9 @@ import {profileImage, itemMedicine} from '../../assets';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import {translate} from '../../lang';
+import {informationHome} from '../../mock/modalCard';
 
 const HomeScreen = () => {
-  const {logout} = useAuth();
-
   return (
     <>
       <CustomHeader imageProfile={profileImage} title="Home" />
@@ -17,31 +16,16 @@ const HomeScreen = () => {
         <Text style={styles.title}>{translate('newServices')}</Text>
 
         <View style={styles.cardsContainer}>
-          <ModalCards
-            imagenItem={itemMedicine}
-            title={translate('Citas')}
-            subTitile={translate('appontment')}
-          />
-          <ModalCards
-            imagenItem={itemMedicine}
-            title={translate('Citas')}
-            subTitile={translate('appontment')}
-          />
-          <ModalCards
-            imagenItem={itemMedicine}
-            title={translate('Citas')}
-            subTitile={translate('appontment')}
-          />
-          <ModalCards
-            imagenItem={itemMedicine}
-            title={translate('Citas')}
-            subTitile={translate('appontment')}
-          />
+          {informationHome.map((item, index) => (
+            <ModalCards
+              key={index}
+              imagenItem={item.image}
+              title={item.title}
+              subTitile={item.description}
+            />
+          ))}
+          <Text style={styles.title}>{translate('informationCovid')}</Text>
         </View>
-
-        <TouchableOpacity onPress={logout}>
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
       </View>
     </>
   );
