@@ -4,16 +4,12 @@ import styles from './styles';
 import { ModalCardsProps } from "../../../types/modals";
 
 const ModalCards = (props: ModalCardsProps) => {
-  const { imagenItem, title, subTitile } = props;
+  const {imagenItem, title, subTitile} = props;
 
   return (
     <View style={styles.card}>
       <Image
-        source={
-          typeof imagenItem === 'string'
-            ? { uri: imagenItem }
-            : imagenItem
-        }
+        source={typeof imagenItem === 'string' ? {uri: imagenItem} : imagenItem}
         style={styles.image}
       />
       <Text style={styles.title}>{title}</Text>
