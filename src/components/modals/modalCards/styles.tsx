@@ -15,10 +15,22 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
   },
-  image: {
+  imageContainer: {
     width: '100%',
     height: 200,
-    resizeMode: 'contain',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 16,
@@ -33,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-  export default styles;
+export default styles;

@@ -1,26 +1,26 @@
 import { translate } from "../lang"
-import { itemMedicine, infoCovid, bolsaIv} from "../assets"
+import { itemMedicine, infoCovid, consultas , resultadosMedicos, doctorPerfil, farmaciaIcon} from "../assets"
 
 export const informationHome = [
     {
         title: translate('cosultation.title'),
         description: translate('cosultation.description'),
-        image: bolsaIv,
+        image: consultas,
     },
     {
-        title: translate('citas'),
-        description: translate('appontment'),
-        image: itemMedicine,
+        title: translate('results.title'),
+        description: translate('results.description'),
+        image: resultadosMedicos,
     },
     {
-        title: translate('citas'),
-        description: translate('appontment'),
-        image: itemMedicine,
+        title: translate('doctor.title'),
+        description: translate('doctor.description'),
+        image: doctorPerfil,
     },
     {
-        title: translate('citas'),
-        description: translate('appontment'),
-        image: itemMedicine,
+        title: translate('farmacy.title'),
+        description: translate('farmacy.description'),
+        image: farmaciaIcon,
     },
     
     
