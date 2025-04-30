@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import {fontsOpenSans} from '../../../types/fonts';
 
 const styles = StyleSheet.create({
   card: {
@@ -21,13 +22,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: fontsOpenSans.regular,
     marginBottom: 6,
   },
   subtitle: {
     fontSize: 14,
     color: '#666',
     textAlign: 'left',
+    fontFamily: fontsOpenSans.regular,
   },
 });
 

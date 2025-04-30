@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import {fontsOpenSans} from '../../types/fonts';
 
 type SpecialityProps = {
   name: string;
@@ -29,26 +30,26 @@ const Speciality = (props: SpecialityProps) => {
 };
 
 const styles = StyleSheet.create({
-card: {
-    width: width * 0.28, 
+  card: {
+    width: width * 0.28,
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 10,
     marginHorizontal: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
     alignItems: 'center',
-    },
-    imageContainer: {
+  },
+  imageContainer: {
     width: '100%',
     height: 70,
     marginBottom: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    },
+  },
   image: {
     width: '100%',
     height: '100%',
@@ -60,7 +61,7 @@ card: {
   },
   name: {
     fontSize: 13,
-    fontWeight: 'bold',
+    fontFamily: fontsOpenSans.regular,
     textAlign: 'center',
     marginBottom: 4,
   },

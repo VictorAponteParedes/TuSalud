@@ -2,6 +2,7 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../theme/colors';
 import sizeText from '../../theme/size';
+import {fontsOpenSans} from '../../types/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,8 +12,8 @@ const styles = StyleSheet.create({
   title: {
     color: colors.black,
     fontSize: sizeText.title.title,
-    fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily: fontsOpenSans.regular,
   },
   cardsContainer: {
     flexDirection: 'row',

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import colors from "../../../theme/colors";
+import {fontsOpenSans} from '../../../types/fonts';
 
 type CardInfoProps = {
   image?: string;
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     elevation: 4, // sombra en Android
     shadowColor: '#000', // sombra en iOS
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginBottom: 16,
@@ -58,13 +59,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: fontsOpenSans.regular,
     marginBottom: 4,
-    color:colors.black
+    color: colors.black,
   },
   description: {
     fontSize: 14,
     color: colors.grayDark,
-
+    fontFamily: fontsOpenSans.regular,
   },
 });
