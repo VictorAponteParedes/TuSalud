@@ -35,6 +35,7 @@ import React from 'react';
 import {Controller, useController} from 'react-hook-form';
 import {TextInput, Text, View, StyleSheet, TextInputProps} from 'react-native';
 import {InputProps} from '../../types/InputCustom';
+import { fontsOpenSans } from '../../types/fonts';
 
 const Input = (props: InputProps) => {
   const {label, error, control, name, requered, ...textInputProps} = props;
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 4,
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: fontsOpenSans.regular,
     color: '#333',
   },
   input: {
@@ -81,14 +82,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
     backgroundColor: '#fff',
+    fontFamily: fontsOpenSans.regular,
   },
   inputError: {
     borderColor: 'red',
+    fontFamily: fontsOpenSans.regular,
   },
   error: {
     marginTop: 4,
     color: 'red',
     fontSize: 12,
+    fontFamily: fontsOpenSans.regular,
   },
 });
 

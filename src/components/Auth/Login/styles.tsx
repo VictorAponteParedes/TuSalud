@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
+import {fontsOpenSans} from '../../../types/fonts';
 const styles = StyleSheet.create({
   form: {
     flex: 1,
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     textAlign: 'center',
+    fontFamily: fontsOpenSans.regular,
   },
 });
 export default styles;

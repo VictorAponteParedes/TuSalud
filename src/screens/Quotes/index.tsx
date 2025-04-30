@@ -11,7 +11,6 @@ import sizeText from "../../theme/size";
 
 const { width } = Dimensions.get('window');
 
-// Función para dividir el array en grupos de 3 elementos
 const groupArray = (array, groupSize) => {
   const groups = [];
   for (let i = 0; i < array.length; i += groupSize) {

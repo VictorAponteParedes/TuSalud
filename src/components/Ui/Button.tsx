@@ -3,6 +3,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent, ActivityIndicator } from 'react-native';
 import colors from '../../theme/colors';
+import { fontsOpenSans } from '../../types/fonts';
 
 interface ButtonProps {
   title: string;
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: fontsOpenSans.regular,
   },
 });
 
