@@ -1,3 +1,20 @@
 {
-    "logout": "Cerrar sesión"
+  "profile": {
+    "title": "Perfil",
+    "description": "Aquí puedes ver y editar tu perfil.",
+    "name": "Hola, Victor Aponte",
+    "edit": {
+      "title": "Editar perfil",
+      "description": "Aquí puedes editar tu perfil.",
+      "save": "Guardar cambios",
+      "cancel": "Cancelar"
+    },
+    "delete": {
+      "title": "Eliminar cuenta",
+      "description": "¿Estás seguro de que quieres eliminar tu cuenta?",
+      "confirm": "Sí, eliminar cuenta",
+      "cancel": "No, mantener cuenta"
+    }
+  },
+  "logout": "Cerrar sesión"
 }
