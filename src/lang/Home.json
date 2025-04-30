@@ -14,11 +14,11 @@
     "description": "Consulta los resultados de tus exámenes médicos en línea."
   },
   "doctor": {
-    "title": "Médico",
+    "title": "Médicos",
     "description": "Consulta con nuestros médicos especialistas desde"
   },
   "farmacy": {
-    "title": "Farmacia",
+    "title": "Farmacias",
     "description": "Compra tus medicamentos en línea y recíbelos en la puerta de tu casa."
   }
 }
