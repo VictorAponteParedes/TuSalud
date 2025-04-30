@@ -11,7 +11,10 @@ import CardInfo from '../../components/modals/cardInfo';
 const HomeScreen = () => {
   return (
     <>
-      <CustomHeader imageProfile={profileImage} title="Hola, Victor Aponte" />
+      <CustomHeader
+        imageProfile={profileImage}
+        title={translate('profile.name')}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.title}>{translate('newServices')}</Text>
