@@ -27,9 +27,9 @@ const ModalCards = (props: ModalCardsProps) => {
             }}>
             {title}
           </Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
       </View>
-      <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
   );
 };

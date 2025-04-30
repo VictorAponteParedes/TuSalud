@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'left',
+    fontSize: 10,
+    color: colors.white,
+    textAlign: 'center',
     fontFamily: fontsOpenSans.regular,
   },
 });

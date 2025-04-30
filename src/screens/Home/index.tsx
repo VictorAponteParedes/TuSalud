@@ -22,7 +22,7 @@ const HomeScreen = () => {
                 key={index}
                 imagenItem={item.image}
                 title={item.title}
-                subTitile={item.description}
+                subtitle={item.description}
               />
             ))}
             <Text style={styles.title}>{translate('informationCovid')}</Text>
