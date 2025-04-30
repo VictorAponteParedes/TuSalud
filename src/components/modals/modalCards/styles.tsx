@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import {fontsOpenSans} from '../../../types/fonts';
+import colors from "../../../theme/colors";
 
 const styles = StyleSheet.create({
   card: {
     width: '48%',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderRadius: 12,
-    padding: 16,
+    padding: 10,
     marginBottom: 16,
     shadowColor: '#000',
     shadowOpacity: 0.1,
@@ -15,10 +16,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   image: {
-    width: 60,
-    height: 60,
-    marginBottom: 10,
-    borderRadius: 30,
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 16,

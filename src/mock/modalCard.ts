@@ -1,11 +1,11 @@
 import { translate } from "../lang"
-import { itemMedicine, infoCovid } from "../assets"
+import { itemMedicine, infoCovid, bolsaIv} from "../assets"
 
 export const informationHome = [
     {
-        title: translate('citas'),
-        description: translate('appontment'),
-        image: itemMedicine,
+        title: translate('cosultation.title'),
+        description: translate('cosultation.description'),
+        image: bolsaIv,
     },
     {
         title: translate('citas'),

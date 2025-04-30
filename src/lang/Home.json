@@ -4,5 +4,9 @@
   "appontment": "Agenda tus proximas citas",
   "informationCovid": "Información sobre Covid",
   "covidInfo": "Prevención del COVID-19",
-  "covidInfoHome": "Lávate las manos con frecuencia, usa mascarilla en lugares cerrados y mantén distancia física para prevenir el contagio."
+  "covidInfoHome": "Lávate las manos con frecuencia, usa mascarilla en lugares cerrados y mantén distancia física para prevenir el contagio.",
+  "cosultation": {
+    "title": "Consulta",
+    "description": "Consulta con nuestros médicos especialistas desde la comodidad de tu hogar."
+  }
 }
