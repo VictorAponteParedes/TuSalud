@@ -28,13 +28,44 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingHorizontal: 2,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.primary[200],
+    flexDirection: 'row',
+
   },
   menuText: {
     fontSize: 16,
-    color: '#333',
+    color: colors.primary[400],
+    fontFamily: fontsOpenSans.regular,
+    marginLeft: 5,
+  },
+  closeSession: {
+    fontSize: 16,
+    color: colors.error,
+    fontFamily: fontsOpenSans.regular,
+    marginLeft: 5,
+  },
+  menuContainer: {
+    flex: 1,
+  },
+
+  mainMenu: {
+    flex: 1,
+  },
+
+  logoutContainer: {
+    marginTop: 'auto', // Esto empujará el botón hacia abajo
+    paddingBottom: 20, // Espacio extra en la parte inferior
+  },
+
+  logoutButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderTopWidth: 1,
+    borderTopColor: colors.primary[200],
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 
