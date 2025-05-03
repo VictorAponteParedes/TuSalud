@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../theme/colors';
-import {fontsOpenSans} from '../../types/fonts';
+import { fontsOpenSans } from '../../types/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     color: colors.white,
     marginHorizontal: 5,
     fontFamily: fontsOpenSans.regular,
+  },
+  leftContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minWidth: 40,
   },
 });
 
