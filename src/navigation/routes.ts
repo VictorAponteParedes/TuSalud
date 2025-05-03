@@ -6,6 +6,7 @@ const Routes = {
 
 
   HOME: 'Home',
+  SETTINGS: 'Settings',
   PROFILE: 'Profile',
   QUOTES: 'Quotes',
 
@@ -13,4 +14,3 @@ const Routes = {
 } as const;
 
 export default Routes;
-  
