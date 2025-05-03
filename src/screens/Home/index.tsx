@@ -7,7 +7,7 @@ import styles from './styles';
 import { translate } from '../../lang';
 import { informationHome, informationCovid } from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
-import DrawerModal from "../../components/DrawerModal";
+import DrawerHome from "../../components/DrawerHome";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -24,23 +24,11 @@ const HomeScreen = () => {
         showMenu={true}
         onMenuPress={toggleDrawer}
       />
-      <DrawerModal
-        isVisible={isDrawerVisible}
-        onClose={toggleDrawer}
-      >
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Inicio</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Perfil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Configuración</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Cerrar Sesión</Text>
-        </TouchableOpacity>
-      </DrawerModal>
+      <DrawerHome
+        isDrawerVisible={isDrawerVisible}
+        toggleDrawer={toggleDrawer}
+      />
+
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
