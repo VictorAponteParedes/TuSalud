@@ -2,7 +2,7 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../theme/colors';
 import sizeText from '../../theme/size';
-import {fontsOpenSans} from '../../types/fonts';
+import { fontsOpenSans } from '../../types/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +26,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'blue',
   },
+  menuItem: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  menuText: {
+    fontSize: 16,
+    color: '#333',
+  },
 });
 
-  export default styles;
+export default styles;
