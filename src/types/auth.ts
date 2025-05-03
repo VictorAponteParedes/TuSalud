@@ -20,4 +20,6 @@ export interface CustomHeaderProps {
     imageProfile?: string;
     gradientColors?: string[];
     iconBack?: boolean;
+    showMenu?: boolean;
+    onMenuPress?: () => void;
 }
