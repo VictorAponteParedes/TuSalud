@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     },
 
     logoutContainer: {
-        marginTop: 'auto', // Esto empujará el botón hacia abajo
-        paddingBottom: 20, // Espacio extra en la parte inferior
+        marginTop: 'auto',
+        paddingBottom: 20,
     },
 
     logoutButton: {
