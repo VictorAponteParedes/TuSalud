@@ -8,9 +8,9 @@ import { specialities } from "../../mock/speciality";
 import Swiper from "react-native-swiper";
 import colors from "../../theme/colors";
 import sizeText from "../../theme/size";
-import {fontsOpenSans} from '../../types/fonts';
+import { fontsOpenSans } from '../../types/fonts';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const groupArray = (array, groupSize) => {
   const groups = [];
@@ -35,8 +35,6 @@ const Quotes = () => {
           <Text style={styles.title}>{translate('speciality.title')}</Text>
           <Swiper
             showsPagination={false}
-            dotColor="#D3D3D3"
-            activeDotColor="#6200ee"
             loop={true}
             autoplay={true}
             autoplayTimeout={6}

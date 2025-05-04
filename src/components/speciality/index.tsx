@@ -1,26 +1,36 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
-import {fontsOpenSans} from '../../types/fonts';
+import { fontsOpenSans } from '../../types/fonts';
+import SvgWrapper from "../SvgWrapper";
 
 type SpecialityProps = {
   name: string;
   description?: string;
   imageUrl: string | number;
+  svgIcon?: any;
+  svgColor?: string;
+  svgSize?: number
 };
 
 const { width } = Dimensions.get('window');
 
 const Speciality = (props: SpecialityProps) => {
-  const { name, description, imageUrl } = props;
+  const { name, description, imageUrl, svgIcon, svgColor, svgSize } = props;
 
   return (
     <View style={styles.card}>
       <View style={styles.imageContainer}>
-        <Image
-          source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        {imageUrl ? (
+          <Image
+            source={typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        ) : (
+          <SvgWrapper color={svgColor} size={svgSize}>
+            {svgIcon}
+          </SvgWrapper>
+        )}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.name}>{name}</Text>
@@ -37,7 +47,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 5,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
