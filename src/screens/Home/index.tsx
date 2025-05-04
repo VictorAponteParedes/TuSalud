@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import CustomHeader from '../../components/customHeader';
-import { profileImage, infoCovid } from '../../assets';
+import { profileImage } from '../../assets';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import { translate } from '../../lang';
