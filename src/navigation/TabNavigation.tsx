@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Routes from './routes';
 import HomeIcon from "../assets/svg/home.svg";
-import ProfileIcon from "../assets/svg/profile.svg";
 import CalendarIcon from "../assets/svg/calendar.svg";
 import SettingIcon from "../assets/svg/settings.svg";
 import { translate } from '../lang';
@@ -11,7 +10,6 @@ import colors from '../theme/colors';
 // Views
 import HomeScreen from '../screens/Home';
 import SettingsScreen from '../screens/Settings';
-import ProfileScreen from '../screens/Profile';
 import Quotes from '../screens/Quotes';
 
 const Tab = createBottomTabNavigator();

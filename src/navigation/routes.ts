@@ -7,6 +7,7 @@ const Routes = {
 
   HOME: 'Home',
   SETTINGS: 'Settings',
+  NOTIFICATIONS: 'Notifications',
   PROFILE: 'Profile',
   QUOTES: 'Quotes',
 
