@@ -1,11 +1,13 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from 'react-native';
 import { translate } from '../../lang';
+import Routes from "../../navigation/routes";
 import { useAuth } from "../../context/AuthContext";
 import styles from './styles';
 import SvgWrapper from "../../components/SvgWrapper";
 import DrawerModal from "../DrawerModal";
 import colors from "../../theme/colors";
+import { useNavigation } from "@react-navigation/native";
 
 import Home from "../../assets/svg/home.svg";
 import Profile from "../../assets/svg/profile.svg";
@@ -19,50 +21,45 @@ type DrawerHomeProps = {
     toggleDrawer: () => void;
 }
 
+
 const DrawerHome = (props: DrawerHomeProps) => {
     const { isDrawerVisible, toggleDrawer } = props;
+    const navigation = useNavigation();
     const { logout } = useAuth();
+
+    const menuOptions = [
+        { label: 'Inicio', icon: <Home />, route: Routes.HOME },
+        { label: 'Perfil', icon: <Profile />, route: Routes.PROFILE },
+        { label: 'Agendar citas', icon: <Calendar />, route: Routes.QUOTES },
+        { label: 'Notificaciones', icon: <Notifications />, route: Routes.NOTIFICATIONS },
+        { label: 'Configuración', icon: <Setting />, route: Routes.SETTINGS },
+    ];
+
+
+
+
     return (
         <DrawerModal
-            isVisible={isDrawerVisible}
+            isVisible={!isDrawerVisible}
             onClose={toggleDrawer}
         >
             <View style={styles.menuContainer}>
                 {/* Contenido principal del menú */}
                 <View style={styles.mainMenu}>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <SvgWrapper color={colors.primary[400]} size={24}>
-                            <Home />
-                        </SvgWrapper>
-                        <Text style={styles.menuText}>Inicio</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <SvgWrapper color={colors.primary[400]} size={24}>
-                            <Profile />
-                        </SvgWrapper>
-                        <Text style={styles.menuText}>Perfil</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <SvgWrapper color={colors.primary[400]} size={24}>
-                            <Calendar />
-                        </SvgWrapper>
-                        <Text style={styles.menuText}>Agendar citas</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <SvgWrapper color={colors.primary[400]} size={24}>
-                            <Notifications />
-                        </SvgWrapper>
-                        <Text style={styles.menuText}>Notificaciones</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem}>
-                        <SvgWrapper color={colors.primary[400]} size={24}>
-                            <Setting />
-                        </SvgWrapper>
-                        <Text style={styles.menuText}>Configuración</Text>
-                    </TouchableOpacity>
+                    {menuOptions.map((item, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            style={styles.menuItem}
+                            onPress={() => navigation.navigate(item.route)}
+                        >
+                            <SvgWrapper color={colors.primary[400]} size={24}>
+                                {item.icon}
+                            </SvgWrapper>
+                            <Text style={styles.menuText}>{item.label}</Text>
+                        </TouchableOpacity>
+                    ))}
+
                 </View>
-
-
                 <TouchableOpacity style={styles.logoutButton} onPress={logout}>
                     <SvgWrapper color={colors.error} size={24}>
                         <Logout />
