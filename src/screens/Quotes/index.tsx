@@ -13,17 +13,38 @@ import { specialities } from "../../mock/speciality";
 import colors from "../../theme/colors";
 import { translate } from "../../lang";
 import SvgWrapper from "../../components/SvgWrapper";
-import { Close, Heart } from "../../helpers";
 import styles from "./styles";
+import { Close } from "../../helpers";
 
 const Quotes = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
 
-  const handleSelect = (speciality: any) => {
+  const handleSelect = (speciality) => {
     setSelectedSpeciality(speciality);
     setModalVisible(false);
+  };
+
+  const renderIcon = (speciality) => {
+    // Si es un componente SVG (como Heart)
+    if (typeof speciality.imageUrl === 'function') {
+      const SvgComponent = speciality.imageUrl;
+      return (
+        <SvgWrapper color={colors.primary[400]} size={34}>
+          <SvgComponent />
+        </SvgWrapper>
+      );
+    }
+    // Si es una imagen (require o URI)
+    return (
+      <Image
+        source={typeof speciality.imageUrl === 'string' ?
+          { uri: speciality.imageUrl } : speciality.imageUrl}
+        style={styles.icon}
+        resizeMode="contain"
+      />
+    );
   };
 
   return (
@@ -64,13 +85,7 @@ const Quotes = () => {
                     style={styles.modalItem}
                     onPress={() => handleSelect(s)}
                   >
-                    {s.imageUrl ? (
-                      <Image source={s.imageUrl} style={styles.icon} />
-                    ) : (
-                      <SvgWrapper color={colors.error} size={34}>
-                        <Heart />
-                      </SvgWrapper>
-                    )}
+                    {renderIcon(s)}
                     <Text style={styles.itemText}>{s.name}</Text>
                   </TouchableOpacity>
                 ))}
@@ -82,7 +97,5 @@ const Quotes = () => {
     </>
   );
 };
-
-
 
 export default Quotes;

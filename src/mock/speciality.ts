@@ -1,13 +1,13 @@
 import heart from '../assets/svg/heart.svg';
 import { infoCovid } from '../assets';
-import { Heart, } from '../helpers';
+import { Heart, Close } from '../helpers';
 
 export const specialities = [
     {
         id: 1,
         name: 'Cardiologia',
         description: 'Cardiologia es la especialidad médica que se ocupa del diagnóstico y tratamiento de las enfermedades del corazón y del sistema circulatorio.',
-        imageUrl: null,
+        imageUrl: Heart,
     },
     {
         id: 2,
