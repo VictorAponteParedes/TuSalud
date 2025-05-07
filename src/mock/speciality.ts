@@ -1,5 +1,6 @@
 import heart from '../assets/svg/heart.svg';
 import { infoCovid } from '../assets';
+import { Heart } from '../helpers';
 
 export const specialities = [
     {

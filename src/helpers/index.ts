@@ -4,6 +4,16 @@ import Calendar from "../assets/svg/calendar.svg";
 import Setting from "../assets/svg/settings.svg";
 import Logout from "../assets/svg/logout.svg";
 import Notifications from "../assets/svg/notifications.svg";
+import Heart from "../assets/svg/heart.svg";
+import Close from "../assets/svg/close.svg";
+
+export const groupArray = (array: [], groupSize: number) => {
+    const groups = [];
+    for (let i = 0; i < array.length; i += groupSize) {
+        groups.push(array.slice(i, i + groupSize));
+    }
+    return groups;
+};
 
 
 export {
@@ -12,5 +22,7 @@ export {
     Calendar,
     Setting,
     Logout,
-    Notifications
+    Notifications,
+    Heart,
+    Close
 }

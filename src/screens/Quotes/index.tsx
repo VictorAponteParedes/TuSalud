@@ -1,28 +1,31 @@
-import React from "react";
-import { View, StyleSheet, Dimensions, Text, ScrollView } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Modal,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import CustomHeader from "../../components/customHeader";
-import { translate } from "../../lang";
 import { useNavigation } from "@react-navigation/native";
-import Speciality from "../../components/speciality";
 import { specialities } from "../../mock/speciality";
-import Swiper from "react-native-swiper";
 import colors from "../../theme/colors";
-import sizeText from "../../theme/size";
-import { fontsOpenSans } from '../../types/fonts';
-
-const { width } = Dimensions.get('window');
-
-const groupArray = (array: [], groupSize: number) => {
-  const groups = [];
-  for (let i = 0; i < array.length; i += groupSize) {
-    groups.push(array.slice(i, i + groupSize));
-  }
-  return groups;
-};
+import { translate } from "../../lang";
+import SvgWrapper from "../../components/SvgWrapper";
+import { Close } from "../../helpers";
+import styles from "./styles";
 
 const Quotes = () => {
   const navigation = useNavigation();
-  const groupedSpecialities = groupArray(specialities, 3);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+
+  const handleSelect = (speciality: any) => {
+    setSelectedSpeciality(speciality);
+    setModalVisible(false);
+  };
+
   return (
     <>
       <CustomHeader
@@ -30,57 +33,50 @@ const Quotes = () => {
         onBackPress={navigation.goBack}
         iconBack={true}
       />
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.title}>{translate('speciality.title')}</Text>
-          <Swiper
-            showsPagination={false}
-            loop={true}
-            autoplay={true}
-            autoplayTimeout={6}
-            showsButtons={false}>
-            {groupedSpecialities.map((group, groupIndex) => (
-              <View key={groupIndex} style={styles.slideGroup}>
-                {group.map((item: any, index: any) => (
-                  <View key={index} style={styles.specialityContainer}>
-                    <Speciality
-                      name={item.name}
-                      description={item.description}
-                      imageUrl={item.imageUrl}
-                    />
-                  </View>
-                ))}
-              </View>
-            ))}
-          </Swiper>
-          <Text style={styles.title}>
-            {translate('speciality.doctorsavailable')}
+      <View style={styles.container}>
+        <Text style={styles.label}>Especialidad</Text>
+
+        <TouchableOpacity
+          style={styles.input}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.inputText}>
+            {selectedSpeciality ? selectedSpeciality.name : "Seleccionar especialidad"}
           </Text>
-        </View>
-      </ScrollView>
+        </TouchableOpacity>
+
+        {/* Modal */}
+        <Modal visible={modalVisible} animationType="slide" transparent={true}>
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Selecciona una especialidad</Text>
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <SvgWrapper color={colors.primary[400]} size={24}>
+                    <Close />
+                  </SvgWrapper>
+                </TouchableOpacity>
+              </View>
+              <ScrollView>
+                {specialities.map((s) => (
+                  <TouchableOpacity
+                    key={s.id}
+                    style={styles.modalItem}
+                    onPress={() => handleSelect(s)}
+                  >
+                    <Image source={{ uri: s.imageUrl }} style={styles.icon} />
+                    <Text style={styles.itemText}>{s.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
+      </View>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  slideGroup: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  specialityContainer: {
-    width: width / 3.5,
-  },
-  title: {
-    color: colors.black,
-    fontSize: sizeText.title.title,
-    marginBottom: 20,
-    fontFamily: fontsOpenSans.regular,
-  },
-});
+
 
 export default Quotes;
