@@ -55,14 +55,14 @@ const Quotes = () => {
         iconBack={true}
       />
       <View style={styles.container}>
-        <Text style={styles.label}>Especialidad</Text>
+        <Text style={styles.label}>{translate('speciality.title')}</Text>
 
         <TouchableOpacity
           style={styles.input}
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.inputText}>
-            {selectedSpeciality ? selectedSpeciality.name : "Seleccionar especialidad"}
+            {selectedSpeciality ? selectedSpeciality.name : translate('input.placeholder')}
           </Text>
         </TouchableOpacity>
 
@@ -71,7 +71,7 @@ const Quotes = () => {
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>Selecciona una especialidad</Text>
+                <Text style={styles.modalTitle}>{translate('modal.title')}</Text>
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
                   <SvgWrapper color={colors.primary[400]} size={24}>
                     <Close />

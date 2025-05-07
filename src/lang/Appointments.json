@@ -1,7 +1,13 @@
 {
-    "speciality": {
-      "title": "Especialidades",
-      "description": "Seleccione una especialidad...",
-      "doctorsavailable": "Doctores disponibles"
-    }
+  "speciality": {
+    "title": "Especialidades",
+    "description": "Seleccione una especialidad...",
+    "doctorsavailable": "Doctores disponibles"
+  },
+  "input": {
+    "placeholder": "Seleccionar especialidad"
+  },
+  "modal": {
+    "title": "Selecciona una especialidad"
   }
+}
