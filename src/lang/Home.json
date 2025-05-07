@@ -20,5 +20,13 @@
   "farmacy": {
     "title": "Farmacias",
     "description": "Compra tus medicamentos en línea y recíbelos en la puerta de tu casa."
+  },
+  "drawer": {
+    "home": "Inicio",
+    "profile": "Perfil",
+    "schedule": "Agendar citas",
+    "notifications": "Notificaciones",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
   }
 }
