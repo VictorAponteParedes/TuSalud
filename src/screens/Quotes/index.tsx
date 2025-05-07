@@ -12,7 +12,7 @@ import { fontsOpenSans } from '../../types/fonts';
 
 const { width } = Dimensions.get('window');
 
-const groupArray = (array, groupSize) => {
+const groupArray = (array: [], groupSize: number) => {
   const groups = [];
   for (let i = 0; i < array.length; i += groupSize) {
     groups.push(array.slice(i, i + groupSize));
@@ -41,7 +41,7 @@ const Quotes = () => {
             showsButtons={false}>
             {groupedSpecialities.map((group, groupIndex) => (
               <View key={groupIndex} style={styles.slideGroup}>
-                {group.map((item, index) => (
+                {group.map((item: any, index: any) => (
                   <View key={index} style={styles.specialityContainer}>
                     <Speciality
                       name={item.name}
