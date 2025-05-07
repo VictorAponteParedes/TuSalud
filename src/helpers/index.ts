@@ -6,6 +6,9 @@ import Logout from "../assets/svg/logout.svg";
 import Notifications from "../assets/svg/notifications.svg";
 import Heart from "../assets/svg/heart.svg";
 import Close from "../assets/svg/close.svg";
+import Pediatria from "../assets/svg/pediatria.svg";
+import RadioGrafia from "../assets/svg/radiografia.svg"
+import IconBrain from "../assets/svg/brain.svg"
 
 export const groupArray = (array: [], groupSize: number) => {
     const groups = [];
@@ -24,5 +27,8 @@ export {
     Logout,
     Notifications,
     Heart,
-    Close
+    Close,
+    Pediatria,
+    RadioGrafia,
+    IconBrain
 }
