@@ -8,18 +8,9 @@ import SvgWrapper from "../../components/SvgWrapper";
 import DrawerModal from "../DrawerModal";
 import colors from "../../theme/colors";
 import { useNavigation } from "@react-navigation/native";
+import { Home, Profile, Calendar, Notifications, Setting, Logout } from "../../helpers";
+import { DrawerHomeProps } from "../../types/modals";
 
-import Home from "../../assets/svg/home.svg";
-import Profile from "../../assets/svg/profile.svg";
-import Calendar from "../../assets/svg/calendar.svg";
-import Setting from "../../assets/svg/settings.svg";
-import Logout from "../../assets/svg/logout.svg";
-import Notifications from "../../assets/svg/notifications.svg";
-
-type DrawerHomeProps = {
-    isDrawerVisible: boolean;
-    toggleDrawer: () => void;
-}
 
 
 const DrawerHome = (props: DrawerHomeProps) => {
@@ -28,11 +19,11 @@ const DrawerHome = (props: DrawerHomeProps) => {
     const { logout } = useAuth();
 
     const menuOptions = [
-        { label: 'Inicio', icon: <Home />, route: Routes.HOME },
-        { label: 'Perfil', icon: <Profile />, route: Routes.PROFILE },
-        { label: 'Agendar citas', icon: <Calendar />, route: Routes.QUOTES },
-        { label: 'Notificaciones', icon: <Notifications />, route: Routes.NOTIFICATIONS },
-        { label: 'Configuración', icon: <Setting />, route: Routes.SETTINGS },
+        { label: translate("drawer.home"), icon: <Home />, route: Routes.HOME },
+        { label: translate("drawer.profile"), icon: <Profile />, route: Routes.PROFILE },
+        { label: translate("drawer.schedule"), icon: <Calendar />, route: Routes.QUOTES },
+        { label: translate("drawer.notifications"), icon: <Notifications />, route: Routes.NOTIFICATIONS },
+        { label: translate("drawer.settings"), icon: <Setting />, route: Routes.SETTINGS },
     ];
 
 
@@ -64,7 +55,7 @@ const DrawerHome = (props: DrawerHomeProps) => {
                     <SvgWrapper color={colors.error} size={24}>
                         <Logout />
                     </SvgWrapper>
-                    <Text style={styles.closeSession}>Cerrar Sesión</Text>
+                    <Text style={styles.closeSession}>{translate("drawer.logout")}</Text>
                 </TouchableOpacity>
             </View>
         </DrawerModal>
