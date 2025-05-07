@@ -13,7 +13,7 @@ import { specialities } from "../../mock/speciality";
 import colors from "../../theme/colors";
 import { translate } from "../../lang";
 import SvgWrapper from "../../components/SvgWrapper";
-import { Close } from "../../helpers";
+import { Close, Heart } from "../../helpers";
 import styles from "./styles";
 
 const Quotes = () => {
@@ -64,7 +64,13 @@ const Quotes = () => {
                     style={styles.modalItem}
                     onPress={() => handleSelect(s)}
                   >
-                    <Image source={{ uri: s.imageUrl }} style={styles.icon} />
+                    {s.imageUrl ? (
+                      <Image source={s.imageUrl} style={styles.icon} />
+                    ) : (
+                      <SvgWrapper color={colors.error} size={34}>
+                        <Heart />
+                      </SvgWrapper>
+                    )}
                     <Text style={styles.itemText}>{s.name}</Text>
                   </TouchableOpacity>
                 ))}
