@@ -19,3 +19,8 @@ export type SvgWrapperProps = {
   size?: number;
   style?: object;
 };
+
+export type DrawerHomeProps = {
+  isDrawerVisible: boolean;
+  toggleDrawer: () => void;
+}
