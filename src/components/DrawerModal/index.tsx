@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Dimensions } from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../../theme/colors';
-import CloseCirucule from '../../assets/svg/closeCircule.svg';
+import {CloseCirucule} from '../../helpers';
 import SvgWrapper from '../SvgWrapper';
 import styles from './styles';
 import { DrawerModalProps } from '../../types/modals';
