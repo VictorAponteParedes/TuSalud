@@ -54,8 +54,8 @@ const LoginForm = () => {
   return (
     <View style={styles.form}>
       <Input
-        label={translate('Username')}
-        placeholder={translate('InsertUsername')}
+        label={translate('email')}
+        placeholder={translate('email')}
         control={control}
         name="email"
         requered={true}
