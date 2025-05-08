@@ -13,11 +13,7 @@ const RegisterScreen = () => {
   const navigation = useNavigation();
   return (
     <>
-      <CustomHeader
-        titleBack={translate('backToLogin')}
-        onBackPress={navigation.goBack}
-        iconBack={true}
-      />
+      <CustomHeader onBackPress={navigation.goBack} iconBack={true} />
       <View style={styles.container}>
         <Text style={styles.title}>{translate('welcome')}</Text>
         <View style={styles.modal}>
