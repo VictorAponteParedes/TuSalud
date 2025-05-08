@@ -28,13 +28,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   registerButton: {
-    backgroundColor: colors.primary[500],
+    backgroundColor: colors.white,
     borderRadius: 8,
+    borderColor: colors.primary[400],
+    borderWidth: 1,
     padding: 12,
     marginTop: 16,
   },
   registerText: {
-    color: colors.white,
+    color: colors.primary[400],
     fontSize: 16,
     textAlign: 'center',
     fontFamily: fontsOpenSans.regular,
