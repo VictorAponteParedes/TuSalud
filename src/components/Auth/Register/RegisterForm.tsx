@@ -76,6 +76,7 @@ const RegisterForm = () => {
           label="Credenciales"
           buttonNextText="Siguiente"
           buttonPreviousText="Atras"
+          buttonFinishText="Registrarse"
           onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={translate('password')}
