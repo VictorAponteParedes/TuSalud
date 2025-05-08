@@ -1,12 +1,10 @@
 // src/components/Auth/RegisterForm.tsx
 
 import React, {useState} from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {useForm} from 'react-hook-form';
-import styles from './styles';
 import {translate} from '../../../lang';
 import Input from '../../ui/Input';
-import Button from '../../ui/Button';
 import {RegisterFormData} from '../../../types/auth';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 import colors from '../../../theme/colors';
@@ -77,7 +75,8 @@ const RegisterForm = () => {
         <ProgressStep
           label="Credenciales"
           buttonNextText="Siguiente"
-          buttonPreviousText="Atras">
+          buttonPreviousText="Atras"
+          onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={translate('password')}
             placeholder={translate('insertPassword')}
