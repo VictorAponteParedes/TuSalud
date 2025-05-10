@@ -4,12 +4,16 @@ import React, { useState } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { translate } from '../../../lang';
-import Input from '../../ui/Input';
 import { RegisterFormData } from '../../../types/auth';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import colors from '../../../theme/colors';
 import { fontsOpenSans } from '../../../types/fonts';
 import sizeText from '../../../theme/size';
+
+import PersonalInfoStep from './PersonalInfoStep';
+import MedicalInfoStep from './MedicalInfoStep';
+import SecurityStep from './SecurityStep';
+
 
 const RegisterForm = () => {
   const {
@@ -28,73 +32,49 @@ const RegisterForm = () => {
       <ProgressSteps
         activeStepIconBorderColor={colors.primary[400]}
         completedProgressBarColor={colors.primary[400]}
-        activeStepIconColor={colors.primary[400]}
         completedStepIconColor={colors.primary[400]}
         labelFontFamily={fontsOpenSans.regular}
-        labelColor={colors.black}
         activeLabelColor={colors.primary[400]}
         disabledStepNumColor={colors.primary[400]}
         completedCheckColor={colors.white}
         activeStep={0}>
 
         <ProgressStep
-          label="Datos personales"
-          buttonNextText="Seguiente"
-          buttonPreviousText="Atras"
+          label={translate('personalInfo.title')}
+          buttonNextText={translate('buttons.next')}
+          buttonPreviousText={translate('buttons.preview')}
           buttonFillColor={colors.primary[400]}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Input
-              label={translate('firstName')}
-              placeholder={translate('insertFirstName')}
+            <PersonalInfoStep
               control={control}
-              name="firstName"
-            />
-            <Input
-              label={translate('lastName')}
-              placeholder={translate('insertLastName')}
-              control={control}
-              name="lastName"
-            />
-            <Input
-              label={translate('phone')}
-              placeholder={translate('insertPhone')}
-              control={control}
-              name="phone"
-            />
-            <Input
-              label={translate('address')}
-              placeholder={translate('insertAddress')}
-              control={control}
-              name="address"
-            />
-            <Input
-              label={translate('email')}
-              placeholder={translate('insertEmail')}
-              control={control}
-              name="email"
             />
           </ScrollView>
         </ProgressStep>
+
+
         <ProgressStep
-          label="Credenciales"
-          buttonNextText="Siguiente"
-          buttonPreviousText="Atras"
-          buttonFinishText="Registrarse"
-          onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            label={translate('password')}
-            placeholder={translate('insertPassword')}
-            secureTextEntry={true}
-            control={control}
-            name="password"
-          />
-          <Input
-            label={translate('confirmPassword')}
-            placeholder={translate('insertConfirmPassword')}
-            secureTextEntry={true}
-            control={control}
-            name="confirmPassword"
-          />
+          label={translate('medicalInformation.title')}
+          buttonNextText={translate('buttons.next')}
+          buttonPreviousText={translate('buttons.preview')}
+          buttonFillColor={colors.primary[400]}
+          buttonPreviousTextColor={colors.primary[400]}
+          buttonBorderColor={colors.primary[400]}
+        >
+          <MedicalInfoStep control={control} />
+        </ProgressStep>
+
+
+        <ProgressStep
+          label={translate('security.title')}
+          buttonNextText={translate('buttons.next')}
+          buttonPreviousText={translate('buttons.preview')}
+          buttonFinishText={translate('buttons.register')}
+          buttonPreviousTextColor={colors.primary[400]}
+          buttonFillColor={colors.primary[400]}
+          buttonBorderColor={colors.primary[400]}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <SecurityStep control={control} />
         </ProgressStep>
       </ProgressSteps>
     </View>

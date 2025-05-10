@@ -1,9 +1,9 @@
 
 const sizeText = {
-    title:{
-        
+    title: {
+
         title: 20,
-        subtitle: 16,
+        subtitle: 18,
         text: 14,
     }
 }
