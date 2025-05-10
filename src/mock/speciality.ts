@@ -1,6 +1,6 @@
 import heart from '../assets/svg/heart.svg';
 import { infoCovid } from '../assets';
-import { Heart, RadioGrafia, Pediatria, IconBrain } from '../helpers';
+import { Heart, RadioGrafia, Pediatria, IconBrain, Finger } from '../helpers';
 
 export const specialities = [
     {
@@ -13,7 +13,7 @@ export const specialities = [
         id: 2,
         name: 'Dermatologia',
         description: 'Dermatologia es la especialidad médica que se ocupa del diagnóstico y tratamiento de las enfermedades de la piel, cabello y uñas.',
-        imageUrl: infoCovid,
+        imageUrl: Finger,
     },
     {
         id: 3,
