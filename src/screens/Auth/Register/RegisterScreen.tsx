@@ -1,13 +1,10 @@
-// src/screens/Auth/RegisterScreen.tsx
-
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import RegisterForm from '../../../components/Auth/Register/RegisterForm';
 import styles from './styles';
 import CustomHeader from '../../../components/customHeader';
 import { translate } from '../../../lang';
 import { useNavigation } from '@react-navigation/native';
-
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -18,15 +15,22 @@ const RegisterScreen = () => {
         iconBack={true}
         titleBack={translate('backToLogin')}
       />
-      <View style={styles.container}>
-        <View style={styles.modal}>
-          <RegisterForm />
-        </View>
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+        style={styles.container}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.modal}>
+            <RegisterForm />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 };
 
 export default RegisterScreen;
-
-
