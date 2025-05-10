@@ -76,5 +76,9 @@ const styles = StyleSheet.create({
         fontFamily: fontsOpenSans.regular,
         color: colors.primary[600],
     },
+    listContainer: {
+        paddingBottom: 60,
+    },
+
 });
 export default styles

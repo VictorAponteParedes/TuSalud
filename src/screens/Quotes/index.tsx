@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  FlatList
 } from "react-native";
 import CustomHeader from "../../components/customHeader";
 import { useNavigation } from "@react-navigation/native";
@@ -15,19 +16,26 @@ import { translate } from "../../lang";
 import SvgWrapper from "../../components/SvgWrapper";
 import styles from "./styles";
 import { Close } from "../../helpers";
+import DoctorCard from "../../components/DoctorCard";
+import { doctors } from "../../mock/doctors";
 
 const Quotes = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+  const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
   const handleSelect = (speciality) => {
     setSelectedSpeciality(speciality);
     setModalVisible(false);
+    // Filtrar doctores por especialidad seleccionada
+    const filtered = doctors.filter(doctor =>
+      doctor.speciality.toLowerCase().includes(speciality.name.toLowerCase())
+    );
+    setFilteredDoctors(filtered);
   };
 
   const renderIcon = (speciality) => {
-    // Si es un componente SVG (como Heart)
     if (typeof speciality.imageUrl === 'function') {
       const SvgComponent = speciality.imageUrl;
       return (
@@ -36,7 +44,6 @@ const Quotes = () => {
         </SvgWrapper>
       );
     }
-    // Si es una imagen (require o URI)
     return (
       <Image
         source={typeof speciality.imageUrl === 'string' ?
@@ -66,7 +73,16 @@ const Quotes = () => {
           </Text>
         </TouchableOpacity>
 
-        {/* Modal */}
+
+        <FlatList
+          data={filteredDoctors}
+          renderItem={({ item }) => <DoctorCard doctor={item} />}
+          keyExtractor={item => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+
+        {/* Modal de selección de especialidad */}
         <Modal visible={modalVisible} animationType="slide" transparent={true}>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
