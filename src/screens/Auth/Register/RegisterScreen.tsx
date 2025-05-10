@@ -6,7 +6,7 @@ import RegisterForm from '../../../components/Auth/Register/RegisterForm';
 import styles from './styles';
 import CustomHeader from '../../../components/customHeader';
 import { translate } from '../../../lang';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 
 const RegisterScreen = () => {
@@ -19,7 +19,6 @@ const RegisterScreen = () => {
         titleBack={translate('backToLogin')}
       />
       <View style={styles.container}>
-        <Text style={styles.title}>{translate('welcome')}</Text>
         <View style={styles.modal}>
           <RegisterForm />
         </View>

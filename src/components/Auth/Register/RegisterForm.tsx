@@ -1,20 +1,21 @@
 // src/components/Auth/RegisterForm.tsx
 
-import React, {useState} from 'react';
-import {View, ScrollView} from 'react-native';
-import {useForm} from 'react-hook-form';
-import {translate} from '../../../lang';
+import React, { useState } from 'react';
+import { View, ScrollView, Text } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { translate } from '../../../lang';
 import Input from '../../ui/Input';
-import {RegisterFormData} from '../../../types/auth';
-import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
+import { RegisterFormData } from '../../../types/auth';
+import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import colors from '../../../theme/colors';
-import {fontsOpenSans} from '../../../types/fonts';
+import { fontsOpenSans } from '../../../types/fonts';
+import sizeText from '../../../theme/size';
 
 const RegisterForm = () => {
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<RegisterFormData>();
 
   const onSubmit = (data: RegisterFormData) => {
@@ -22,7 +23,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
+      <Text style={{ textAlign: 'center', fontFamily: fontsOpenSans.regular, fontSize: sizeText.title.title }}>{translate('welcome')}</Text>
       <ProgressSteps
         activeStepIconBorderColor={colors.primary[400]}
         completedProgressBarColor={colors.primary[400]}
@@ -34,6 +36,7 @@ const RegisterForm = () => {
         disabledStepNumColor={colors.primary[400]}
         completedCheckColor={colors.white}
         activeStep={0}>
+
         <ProgressStep
           label="Datos personales"
           buttonNextText="Seguiente"
