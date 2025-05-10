@@ -73,14 +73,19 @@ const Quotes = () => {
           </Text>
         </TouchableOpacity>
 
+        <Text style={styles.label}>Lista de doctores</Text>
 
-        <FlatList
-          data={filteredDoctors}
-          renderItem={({ item }) => <DoctorCard doctor={item} />}
-          keyExtractor={item => item.id}
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-        />
+        <View style={styles.doctorsContainer}>
+          <FlatList
+            data={filteredDoctors}
+            renderItem={({ item }) => <DoctorCard doctor={item} />}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.listContainer}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+
+
 
         {/* Modal de selección de especialidad */}
         <Modal visible={modalVisible} animationType="slide" transparent={true}>

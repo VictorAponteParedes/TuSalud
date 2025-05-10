@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     label: {
-        fontSize: sizeText.title.text,
+        fontSize: sizeText.title.title,
         fontFamily: fontsOpenSans.regular,
-        marginBottom: 10,
+        marginVertical: 10,
         color: colors.black,
     },
     input: {
@@ -76,8 +76,16 @@ const styles = StyleSheet.create({
         fontFamily: fontsOpenSans.regular,
         color: colors.primary[600],
     },
+    doctorsContainer: {
+
+        paddingVertical: 20,
+        height: 350,
+        borderRadius: 12,
+        marginTop: 20,
+        backgroundColor: colors.grayLight
+    },
     listContainer: {
-        paddingBottom: 60,
+        paddingBottom: 20
     },
 
 });
