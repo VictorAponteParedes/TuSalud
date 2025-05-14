@@ -29,7 +29,6 @@ class AuthServices {
     }
 
     async loginUser(loginData: LoginFormData) {
-        console.log("Descodificando token user: ", loginData)
         try {
             const response = await api.post('/auth/login', loginData);
             const decodedToken = jwtDecode(response.data.access_token);
@@ -39,9 +38,9 @@ class AuthServices {
             return {
                 access_token: response.data.access_token,
                 user: {
-                    email: decodedToken.email, // Extraído del token
-                    id: decodedToken.sub,      // sub es el ID en el token
-                    role: decodedToken.role    // Rol del token
+                    email: decodedToken.email,
+                    id: decodedToken.sub,
+                    role: decodedToken.role
                 }
             };
         } catch (error) {
