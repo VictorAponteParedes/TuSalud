@@ -85,8 +85,6 @@ const Quotes = () => {
           />
         </View>
 
-
-
         {/* Modal de selección de especialidad */}
         <Modal visible={modalVisible} animationType="slide" transparent={true}>
           <View style={styles.modalOverlay}>
