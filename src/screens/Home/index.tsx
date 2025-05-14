@@ -8,19 +8,27 @@ import { translate } from '../../lang';
 import { informationHome, informationCovid } from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
 import DrawerHome from "../../components/DrawerHome";
+import { useAuth } from "../../context/AuthContext";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const { user } = useAuth();
 
   const toggleDrawer = () => {
     setIsDrawerVisible(!isDrawerVisible);
   };
 
+  const userName = user
+    ? `${user.firstName} ${user.lastName}`
+    : translate('profile.name');
+
+  console.log("nombre del usuario:  ", userName)
+
   return (
     <>
       <CustomHeader
         imageProfile={profileImage}
-        title={translate('profile.name')}
+        title={userName}
         showMenu={true}
         onMenuPress={toggleDrawer}
       />

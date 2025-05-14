@@ -40,7 +40,9 @@ class AuthServices {
                 user: {
                     email: decodedToken.email,
                     id: decodedToken.sub,
-                    role: decodedToken.role
+                    role: decodedToken.role,
+                    firstName: decodedToken.firstName,
+                    lastName: decodedToken.lastName
                 }
             };
         } catch (error) {
