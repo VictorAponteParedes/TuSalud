@@ -6,6 +6,10 @@ export type RegisterFormData = {
     email: string;
     password: string;
     confirmPassword?: string;
+    dateBirth: string;
+    bloodType: string
+    allergies: string
+    contactEmergency: string
 };
 
 export type LoginFormData = {
