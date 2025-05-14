@@ -1,11 +1,11 @@
-import React from 'react';
+// src/components/Auth/LoginForm.tsx
+import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
 import { translate } from '../../../lang';
 import { useNavigation } from '@react-navigation/native';
 import Routes from '../../../navigation/routes';
-
 import styles from './styles';
 import { Text } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
@@ -15,16 +15,21 @@ import Toast from 'react-native-toast-message';
 
 const LoginForm = () => {
   const navigation = useNavigation();
+  const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<LoginFormData>();
-  const {login} = useAuth();
 
-  const onSubmit = (data: LoginFormData) => {
-    if (data.email === 'prueba@gmail.com' && data.password === '123456') {
-      login();
+  const onSubmit = async (data: LoginFormData) => {
+    console.log("Datos en  antes onsumit:", data.email, data.password)
+    try {
+      setIsLoading(true);
+      await login(data.email, data.password);
+
       Toast.show({
         type: 'success',
         position: 'top',
@@ -33,21 +38,25 @@ const LoginForm = () => {
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: {color: 'black'},
-        text2Style: {color: 'black'},
+        text1Style: { color: 'black' },
+        text2Style: { color: 'black' },
       });
-    } else {
+
+      console.log("Datos en  onsumit:", data.email, data.password)
+    } catch (error) {
       Toast.show({
         type: 'error',
         position: 'top',
         text1: translate('titleIvalidCredentials'),
-        text2: translate('InvalidCredentials'),
+        text2: error.message || translate('InvalidCredentials'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: {color: 'black'},
-        text2Style: {color: 'black'},
+        text1Style: { color: 'black' },
+        text2Style: { color: 'black' },
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -58,23 +67,37 @@ const LoginForm = () => {
         placeholder={translate('email')}
         control={control}
         name="email"
-        requered={true}
-        error={translate('usernameRequerd')}
+        rules={{
+          required: translate('usernameRequerd'),
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: translate('invalidEmailFormat')
+          }
+        }}
+        error={errors.email?.message}
       />
+
       <Input
         label={translate('Password')}
         placeholder={translate('InsertPassword')}
         secureTextEntry={true}
         control={control}
         name="password"
-        requered={true}
-        error={translate('passwordRequerd')}
+        rules={{
+          required: translate('passwordRequerd'),
+          minLength: {
+            value: 6,
+            message: translate('passwordMinLength')
+          }
+        }}
+        error={errors.password?.message}
       />
+
       <Button
         title={translate('Login')}
-        onPress={() => handleSubmit(onSubmit)()}
-        loading={false}
-        disabled={false}
+        onPress={handleSubmit(onSubmit)}
+        loading={isLoading}
+        disabled={isLoading}
       />
 
       <TouchableOpacity
