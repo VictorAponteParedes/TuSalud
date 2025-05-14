@@ -1,13 +1,13 @@
 import axios from "axios";
-import { RegisterFormData } from "../types/auth";
-
-const API_BASE_URL = "http://192.168.0.101:3000";
+import { RegisterFormData, LoginFormData } from "../types/auth";
+import api from "./api";
+import { jwtDecode } from 'jwt-decode';
 
 class AuthServices {
     async registerUser(userData: RegisterFormData) {
         try {
-            const response = await axios.post(
-                `${API_BASE_URL}/users/register`,
+            const response = await api.post(
+                '/users/register',
                 userData,
                 {
                     headers: {
@@ -25,6 +25,34 @@ class AuthServices {
                 );
             }
             throw new Error("Error desconocido al registrar el usuario");
+        }
+    }
+
+    async loginUser(loginData: LoginFormData) {
+        console.log("Descodificando token user: ", loginData)
+        try {
+            const response = await api.post('/auth/login', loginData);
+            const decodedToken = jwtDecode(response.data.access_token);
+
+            console.log("Descodificando token user: ", decodedToken)
+
+            return {
+                access_token: response.data.access_token,
+                user: {
+                    email: decodedToken.email, // Extraído del token
+                    id: decodedToken.sub,      // sub es el ID en el token
+                    role: decodedToken.role    // Rol del token
+                }
+            };
+        } catch (error) {
+            if (error.response) {
+                throw new Error(
+                    error.response.data?.message ||
+                    error.response.data?.error ||
+                    'Credenciales inválidas'
+                );
+            }
+            throw new Error('Error de conexión al iniciar sesión');
         }
     }
 }
