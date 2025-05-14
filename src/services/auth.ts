@@ -3,7 +3,7 @@ import { RegisterFormData } from "../types/auth";
 
 const API_BASE_URL = "http://192.168.0.101:3000";
 
-class RegisterServices {
+class AuthServices {
     async registerUser(userData: RegisterFormData) {
         try {
             const response = await axios.post(
@@ -29,4 +29,4 @@ class RegisterServices {
     }
 }
 
-export default RegisterServices
+export default AuthServices

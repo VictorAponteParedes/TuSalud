@@ -14,12 +14,12 @@ import { useNavigation } from '@react-navigation/native';
 import PersonalInfoStep from './PersonalInfoStep';
 import MedicalInfoStep from './MedicalInfoStep';
 import SecurityStep from './SecurityStep';
-import RegisterServices from '../../../services/register';
+import AuthServices from '../../../services/auth';
 
 
 const RegisterForm = () => {
   const navigation = useNavigation()
-  const { registerUser } = new RegisterServices()
+  const { registerUser } = new AuthServices()
   const {
     control,
     handleSubmit,
