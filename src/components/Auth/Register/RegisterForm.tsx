@@ -9,21 +9,32 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import colors from '../../../theme/colors';
 import { fontsOpenSans } from '../../../types/fonts';
 import sizeText from '../../../theme/size';
-
+import Routes from '../../../navigation/routes';
+import { useNavigation } from '@react-navigation/native';
 import PersonalInfoStep from './PersonalInfoStep';
 import MedicalInfoStep from './MedicalInfoStep';
 import SecurityStep from './SecurityStep';
+import RegisterServices from '../../../services/register';
 
 
 const RegisterForm = () => {
+  const navigation = useNavigation()
+  const { registerUser } = new RegisterServices()
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>();
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log('Register data:', data);
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      console.log('Register data:', data);
+      const response = await registerUser(data)
+      console.log('Register data del reponse:', response);
+      navigation.navigate(Routes.LOGIN);
+    } catch (e) {
+      console.log('Error al registrar', e);
+    }
   };
 
   return (
