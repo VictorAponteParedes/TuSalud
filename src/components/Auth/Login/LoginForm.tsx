@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
 import Toast from 'react-native-toast-message';
+import colors from '../../../theme/colors';
 
 const LoginForm = () => {
   const navigation = useNavigation();
@@ -33,27 +34,27 @@ const LoginForm = () => {
       Toast.show({
         type: 'success',
         position: 'top',
-        text1: translate('credentialSuccess'),
-        text2: translate('welcomeHome'),
+        text1: translate('successRegister.title'),
+        text2: translate('successRegister.subTile'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: { color: 'black' },
-        text2Style: { color: 'black' },
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
       });
 
       console.log("Datos en  onsumit:", data.email, data.password)
-    } catch (error) {
+    } catch (error: any) {
       Toast.show({
         type: 'error',
         position: 'top',
-        text1: translate('titleIvalidCredentials'),
-        text2: error.message || translate('InvalidCredentials'),
+        text1: translate('errorRegister.title'),
+        text2: error.message || translate('errorRegister.subTitle'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: { color: 'black' },
-        text2Style: { color: 'black' },
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
       });
     } finally {
       setIsLoading(false);

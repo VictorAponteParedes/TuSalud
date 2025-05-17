@@ -44,5 +44,13 @@
     "preview": "Atrás",
     "next": "Siguiente",
     "register": "Registrarse"
+  },
+  "successRegister": {
+    "title": "Registro exitoso",
+    "subTitle": "Inicie sesion"
+  },
+  "errorRegister": {
+    "title": "Ups orcurrio un error",
+    "subTitle": "Intente mas tarde"
   }
 }

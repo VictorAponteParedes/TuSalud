@@ -15,6 +15,7 @@ import PersonalInfoStep from './PersonalInfoStep';
 import MedicalInfoStep from './MedicalInfoStep';
 import SecurityStep from './SecurityStep';
 import AuthServices from '../../../services/auth';
+import Toast from 'react-native-toast-message';
 
 
 const RegisterForm = () => {
@@ -60,16 +61,32 @@ const RegisterForm = () => {
       console.log('Datos del usuario a registrar:', userData);
 
       const response = await registerUser(userData);
-      console.log('Usuario registrado:', response);
+      Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: translate('credentialSuccess'),
+        text2: translate('welcomeHome'),
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: 30,
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
+      });
+
 
       navigation.navigate(Routes.LOGIN);
     } catch (error) {
-      console.log('Error completo en onSubmit:', {
-        message: error.message,
-        stack: error.stack,
-        response: error.response?.data
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: translate('titleIvalidCredentials'),
+        text2: error.message || translate('InvalidCredentials'),
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: 30,
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
       });
-      Alert.alert('Error al registrar', error.message);
     }
   };
 
