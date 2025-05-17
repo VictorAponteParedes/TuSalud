@@ -1,5 +1,10 @@
 {
     "Information": {
-        "title": "Información Personal"
+        "title": "Información Personal",
+        "bloodType": "Grupo Sanguíneo:",
+        "dateBith": "Nacimiento:",
+        "madicalSecure": "Seguro Médico:",
+        "phone": "Telefono",
+        "email": "Correo"
     }
 }
