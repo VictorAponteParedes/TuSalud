@@ -30,8 +30,6 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      console.log('Datos antes de subir imagen:', data);
-
       const formData = new FormData();
 
       if (data.profileImage) {
@@ -46,25 +44,32 @@ const RegisterForm = () => {
         });
       }
 
-      console.log('FormData a enviar:', formData);
+      let imageUrl = null;
+      if (formData._parts.length > 0) {
+        const uploadResponse = await uploadImage(formData);
+        imageUrl = uploadResponse.id;
+        console.log('Imagen subida:', uploadResponse);
+      }
 
-      const uploadResponse = await uploadImage(formData);
-      console.log('Imagen subida:', uploadResponse);
-
+      // Registrar usuario
       const userData = {
         ...data,
-        profileImage: uploadResponse.url,
+        profileImageId: imageUrl
       };
+
+      console.log('Datos del usuario a registrar:', userData);
 
       const response = await registerUser(userData);
       console.log('Usuario registrado:', response);
 
       navigation.navigate(Routes.LOGIN);
     } catch (error) {
-      console.log('Error completo al registrar:', error);
-      if (error.response) {
-        console.log('Respuesta del error:', error.response.data);
-      }
+      console.log('Error completo en onSubmit:', {
+        message: error.message,
+        stack: error.stack,
+        response: error.response?.data
+      });
+      Alert.alert('Error al registrar', error.message);
     }
   };
 
