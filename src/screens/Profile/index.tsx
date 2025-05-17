@@ -13,6 +13,7 @@ import MedicalHistoryCard from "../../components/CardInformacionPersonal/Medical
 import { Edit } from "../../helpers";
 import SvgWrapper from "../../components/SvgWrapper";
 import styles from "./styles";
+import DocumentCard from "../../components/CardInformacionPersonal/DocumentCard";
 
 
 type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
@@ -175,6 +176,63 @@ const ProfileScreen = () => {
                 historyName="Blood Test"
                 description="Complete blood count results within normal ranges"
                 date="April 28, 2023"
+              />
+            </>
+          )}
+          {activeTab === 'documents' && (
+            <>
+              <DocumentCard
+                documentName="Informe de Rayos X Torácicos"
+                date="12/05/2023"
+                onPress={() => console.log('Rayos X presionado')}
+              />
+
+              <DocumentCard
+                documentName="Análisis de Sangre Completo"
+                date="28/04/2023"
+              />
+
+              <DocumentCard
+                documentName="Informe de Ecografía Abdominal"
+                date="03/06/2023"
+                onPress={() => console.log('Ecografía presionada')}
+              />
+
+              <DocumentCard
+                documentName="Prescripción de Medicamentos"
+                date="15/05/2023"
+              />
+
+              <DocumentCard
+                documentName="Resultados de Prueba COVID-19"
+                date="20/03/2023"
+              />
+
+              <DocumentCard
+                documentName="Informe de Consulta Cardiológica"
+                date="08/06/2023"
+                onPress={() => console.log('Cardiología presionado')}
+              />
+
+              <DocumentCard
+                documentName="Autorización para Cirugía"
+                date="01/07/2023"
+              />
+
+              <DocumentCard
+                documentName="Resultados de Prueba de Alergias"
+                date="14/04/2023"
+              />
+
+              <DocumentCard
+                documentName="Informe de Resonancia Magnética"
+                date="22/05/2023"
+              />
+
+              <DocumentCard
+                documentName="Certificado Médico Laboral"
+                date="05/06/2023"
+                onPress={() => console.log('Certificado presionado')}
               />
             </>
           )}

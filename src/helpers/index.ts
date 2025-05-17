@@ -17,21 +17,7 @@ import Phone from "../assets/svg/phone.svg"
 import Email from "../assets/svg/email.svg"
 import Historial from "../assets/svg/historial.svg"
 import Edit from "../assets/svg/edit.svg"
-
-
-import { LOCAL_IP } from "../constants";
-
-export const groupArray = (array: [], groupSize: number) => {
-    const groups = [];
-    for (let i = 0; i < array.length; i += groupSize) {
-        groups.push(array.slice(i, i + groupSize));
-    }
-    return groups;
-};
-
-export const fixUrl = (url: string) => {
-    return url.replace('localhost', LOCAL_IP);
-};
+import Donwload from "../assets/svg/donwload.svg"
 
 
 export {
@@ -53,5 +39,26 @@ export {
     Phone,
     Email,
     Historial,
-    Edit
+    Edit,
+    Donwload
 }
+
+
+
+
+
+import { LOCAL_IP } from "../constants";
+
+export const groupArray = (array: [], groupSize: number) => {
+    const groups = [];
+    for (let i = 0; i < array.length; i += groupSize) {
+        groups.push(array.slice(i, i + groupSize));
+    }
+    return groups;
+};
+
+export const fixUrl = (url: string) => {
+    return url.replace('localhost', LOCAL_IP);
+};
+
+
