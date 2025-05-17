@@ -29,6 +29,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minWidth: 40,
   },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: colors.white,
+  },
+  emptyProfile: {
+    width: 40,
+    height: 40,
+  },
 });
 
 export default styles;
