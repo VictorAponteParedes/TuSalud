@@ -3,7 +3,29 @@ import { RegisterFormData, LoginFormData } from "../types/auth";
 import api from "./api";
 import { jwtDecode } from 'jwt-decode';
 
+const uploadApi = axios.create({
+    baseURL: 'http://192.168.0.101:3000',
+    timeout: 10000,
+    headers: {
+        'Accept': 'application/json',
+    },
+});
+
 class AuthServices {
+    async uploadImage(formDataUser: FormData) {
+        console.log('Datos imagen services: ', formDataUser)
+        try {
+            const response = await uploadApi.post('/upload', formDataUser, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response.data;
+        } catch (e) {
+            console.log('Error detallado:', e.response?.data || e.message);
+            throw e;
+        }
+    }
     async registerUser(userData: RegisterFormData) {
         try {
             const response = await api.post(
