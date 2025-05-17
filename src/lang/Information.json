@@ -6,5 +6,8 @@
         "madicalSecure": "Seguro Médico:",
         "phone": "Telefono",
         "email": "Correo"
+    },
+    "Appointment": {
+        "title": "Citas"
     }
 }

@@ -66,7 +66,7 @@ const ProfileScreen = () => {
             styles.tabText,
             activeTab === 'personal' && styles.activeTabText
           ]}>
-            Personal Info
+            {translate('Information.title')}
           </Text>
         </TouchableOpacity>
 
@@ -81,7 +81,7 @@ const ProfileScreen = () => {
             styles.tabText,
             activeTab === 'appointments' && styles.activeTabText
           ]}>
-            Appointments
+            {translate('Appointment.title')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     borderRadius: 8,
-    backgroundColor: '#f1f2f6',
+    backgroundColor: colors.grayLight,
     overflow: 'hidden',
   },
   tabButton: {
@@ -172,12 +172,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   activeTab: {
-    backgroundColor: '#0984e3',
+    backgroundColor: colors.primary[400],
   },
   tabText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#636e72',
+    color: colors.primary[400],
   },
   activeTabText: {
     color: 'white',
