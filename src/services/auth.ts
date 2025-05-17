@@ -12,6 +12,16 @@ const uploadApi = axios.create({
 });
 
 class AuthServices {
+    async getProfileImage(userId: any) {
+        try {
+            const response = await api.get(`/users/${userId}/profile-image`);
+            console.log("Dat perfil imagen: ", response.data.url)
+            return response.data.url;
+        } catch (error) {
+            console.log('Error al obtener imagen de perfil', error);
+            return null;
+        }
+    }
     async uploadImage(formDataUser: FormData) {
         console.log('Datos imagen services: ', formDataUser)
         try {
@@ -39,14 +49,22 @@ class AuthServices {
             );
             return response.data;
         } catch (error) {
-            if (axios.isAxiosError(error)) {
+            console.log('Error completo al registrar:', error);
 
-                throw new Error(
-                    error.response?.data?.message ||
-                    "Error al registrar el usuario"
-                );
+            if (axios.isAxiosError(error)) {
+                console.log('Datos del error:', {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    headers: error.response?.headers
+                });
+
+                const errorMessage = error.response?.data?.message ||
+                    error.response?.data?.error ||
+                    'Error al registrar el usuario';
+                throw new Error(errorMessage);
             }
-            throw new Error("Error desconocido al registrar el usuario");
+
+            throw new Error(error.message || "Error desconocido al registrar el usuario");
         }
     }
 
