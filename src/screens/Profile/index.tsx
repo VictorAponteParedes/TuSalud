@@ -13,7 +13,7 @@ import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
 
 
 
-type TabType = 'personal' | 'appointments';
+type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -66,10 +66,10 @@ const ProfileScreen = () => {
             styles.tabText,
             activeTab === 'personal' && styles.activeTabText
           ]}>
-            {translate('Information.title')}
+            {/* {translate('Information.title')} */}
+            Personal
           </Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[
             styles.tabButton,
@@ -84,6 +84,38 @@ const ProfileScreen = () => {
             {translate('Appointment.title')}
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            activeTab === 'historial' && styles.activeTab
+          ]}
+          onPress={() => setActiveTab('historial')}
+        >
+          <Text style={[
+            styles.tabText,
+            activeTab === 'historial' && styles.activeTabText
+          ]}>
+
+            {translate('Historial.title')}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.tabButton,
+            activeTab === 'documents' && styles.activeTab
+          ]}
+          onPress={() => setActiveTab('documents')}
+        >
+          <Text style={[
+            styles.tabText,
+            activeTab === 'documents' && styles.activeTabText
+          ]}>
+            {translate('Documents.title')}
+          </Text>
+        </TouchableOpacity>
+
+
       </View>
 
       {/* Content Area */}

@@ -9,5 +9,11 @@
     },
     "Appointment": {
         "title": "Citas"
+    },
+    "Historial": {
+        "title": "Historial"
+    },
+    "Documents": {
+        "title": "Documentos"
     }
 }
