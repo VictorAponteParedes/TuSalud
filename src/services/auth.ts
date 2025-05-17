@@ -98,6 +98,21 @@ class AuthServices {
             throw new Error('Error de conexión al iniciar sesión');
         }
     }
+    async getUserInformation(token: any) {
+        try {
+            const response = await api.get('/auth/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log("user data information: ", response.data)
+            return response.data;
+        } catch (e) {
+            console.log('Error detallado:', e.response?.data || e.message);
+            throw e;
+        }
+    }
 }
 
 export default AuthServices
