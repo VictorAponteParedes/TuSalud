@@ -41,7 +41,7 @@ const HomeScreen = () => {
     }
   }, [user?.id, authServices]);
 
-  const LOCAL_IP = '192.168.0.101';
+  const LOCAL_IP = '192.168.0.102';
 
   const fixUrl = (url: string) => {
     return url.replace('localhost', LOCAL_IP);

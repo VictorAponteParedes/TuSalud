@@ -4,7 +4,7 @@ import api from "./api";
 import { jwtDecode } from 'jwt-decode';
 
 const uploadApi = axios.create({
-    baseURL: 'http://192.168.0.101:3000',
+    baseURL: 'http://192.168.0.102:3000',
     timeout: 10000,
     headers: {
         'Accept': 'application/json',
