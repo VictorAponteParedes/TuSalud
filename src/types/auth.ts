@@ -9,7 +9,8 @@ export type RegisterFormData = {
     dateBirth: string;
     bloodType: string
     allergies: string
-    contactEmergency: string
+    contactEmergency: string;
+    profileImage?: any;
 };
 
 export type LoginFormData = {
