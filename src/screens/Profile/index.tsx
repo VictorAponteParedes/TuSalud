@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import { translate } from '../../lang';
 import { useNavigation } from '@react-navigation/native';
@@ -8,9 +8,11 @@ import CardInformacionPersonal from "../../components/CardInformacionPersonal/pe
 import AppointmentCard from "../../components/CardInformacionPersonal/appointment";
 import { appointmentsData } from "./temporal";
 import colors from "../../theme/colors";
-import { fontsOpenSans } from "../../types/fonts";
 import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
-
+import MedicalHistoryCard from "../../components/CardInformacionPersonal/MedicalHistoryCard";
+import { Edit } from "../../helpers";
+import SvgWrapper from "../../components/SvgWrapper";
+import styles from "./styles";
 
 
 type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
@@ -29,25 +31,37 @@ const ProfileScreen = () => {
         iconBack={true}
       />
 
-      <View style={profileImageStyles.container}>
+      <View style={styles.containerImage}>
         {loadingImage ? (
-          <View style={[profileImageStyles.image, profileImageStyles.placeholder]}>
-            <Text style={profileImageStyles.placeholderText}>Cargando...</Text>
+          <View style={[styles.image, styles.placeholder]}>
+            <Text style={styles.placeholderText}>Cargando...</Text>
           </View>
         ) : profileImage ? (
           <>
-            <Image
-              source={{ uri: profileImage }}
-              style={profileImageStyles.image}
-              resizeMode="cover"
-            />
-            <Text style={profileImageStyles.placeholderText}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={{ uri: profileImage }}
+                style={styles.image}
+                resizeMode="cover"
+              />
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() => console.log('Editar foto')}
+              >
+                <View style={styles.editButtonBackground}>
+                  <SvgWrapper color={colors.white} size={20}>
+                    <Edit />
+                  </SvgWrapper>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.userNameText}>
               {user?.firstName} {user?.lastName}
             </Text>
           </>
         ) : (
-          <View style={[profileImageStyles.image, profileImageStyles.placeholder]}>
-            <Text style={profileImageStyles.placeholderText}>
+          <View style={[styles.image, styles.placeholder]}>
+            <Text style={styles.placeholderText}>
               {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
             </Text>
           </View>
@@ -148,6 +162,22 @@ const ProfileScreen = () => {
               ))}
             </>
           )}
+          {activeTab === 'historial' && (
+            <>
+              <MedicalHistoryCard
+                historyName="Allergy Test"
+                description="Tested positive for pollen and dust mite allergies"
+                date="May 15, 2023"
+                onPress={() => console.log('History card pressed')}
+              />
+
+              <MedicalHistoryCard
+                historyName="Blood Test"
+                description="Complete blood count results within normal ranges"
+                date="April 28, 2023"
+              />
+            </>
+          )}
         </View>
       </ScrollView>
 
@@ -158,89 +188,6 @@ const ProfileScreen = () => {
   );
 };
 
-const profileImageStyles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingVertical: 20,
-    marginBottom: 15,
-    backgroundColor: colors.primary[100]
-  },
-  image: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-  placeholder: {
-    backgroundColor: '#0984e3',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    color: colors.black,
-    fontSize: 20,
-    fontFamily: fontsOpenSans.regular,
-  },
-});
 
-// Estilos originales (sin modificar)
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    marginTop: 10,
-    marginBottom: 5,
-    borderRadius: 8,
-    backgroundColor: colors.grayLight,
-    overflow: 'hidden',
-  },
-  tabButton: {
-    flex: 1,
-    paddingVertical: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  activeTab: {
-    backgroundColor: colors.primary[400],
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.primary[400],
-  },
-  activeTabText: {
-    color: 'white',
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    paddingBottom: 20
-  },
-  paddingContainer: {
-    padding: 20
-  },
-  logoutButton: {
-    padding: 16,
-    alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-    borderTopWidth: 1,
-    borderTopColor: '#e9ecef'
-  },
-  logoutText: {
-    color: '#e74c3c',
-    fontWeight: 'bold'
-  },
-  screenTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 10
-  }
-});
 
 export default ProfileScreen;

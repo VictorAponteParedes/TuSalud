@@ -15,6 +15,8 @@ import Secure from "../assets/svg/secure.svg"
 import Drop from "../assets/svg/drop.svg"
 import Phone from "../assets/svg/phone.svg"
 import Email from "../assets/svg/email.svg"
+import Historial from "../assets/svg/historial.svg"
+import Edit from "../assets/svg/edit.svg"
 
 
 import { LOCAL_IP } from "../constants";
@@ -49,5 +51,7 @@ export {
     Secure,
     Drop,
     Phone,
-    Email
+    Email,
+    Historial,
+    Edit
 }
