@@ -1,7 +1,7 @@
 // src/components/Auth/RegisterForm.tsx
 
 import React, { useState } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, Platform } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { translate } from '../../../lang';
 import { RegisterFormData } from '../../../types/auth';
@@ -19,23 +19,56 @@ import AuthServices from '../../../services/auth';
 
 const RegisterForm = () => {
   const navigation = useNavigation()
-  const { registerUser } = new AuthServices()
+  const { registerUser, uploadImage } = new AuthServices()
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormData>();
 
+
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      console.log('Register data:', data);
-      const response = await registerUser(data)
-      console.log('Register data del reponse:', response);
+      console.log('Datos antes de subir imagen:', data);
+
+      const formData = new FormData();
+
+      if (data.profileImage) {
+        const imageUri = Platform.OS === 'android'
+          ? data.profileImage.uri
+          : data.profileImage.uri.replace('file://', '');
+
+        formData.append('file', {
+          uri: imageUri,
+          type: data.profileImage.type || 'image/jpeg',
+          name: data.profileImage.fileName || `profile_${Date.now()}.jpg`,
+        });
+      }
+
+      console.log('FormData a enviar:', formData);
+
+      const uploadResponse = await uploadImage(formData);
+      console.log('Imagen subida:', uploadResponse);
+
+      const userData = {
+        ...data,
+        profileImage: uploadResponse.url,
+      };
+
+      const response = await registerUser(userData);
+      console.log('Usuario registrado:', response);
+
       navigation.navigate(Routes.LOGIN);
-    } catch (e) {
-      console.log('Error al registrar', e);
+    } catch (error) {
+      console.log('Error completo al registrar:', error);
+      if (error.response) {
+        console.log('Respuesta del error:', error.response.data);
+      }
     }
   };
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -58,6 +91,7 @@ const RegisterForm = () => {
           <ScrollView showsVerticalScrollIndicator={false}>
             <PersonalInfoStep
               control={control}
+              setValue={setValue}
             />
           </ScrollView>
         </ProgressStep>
