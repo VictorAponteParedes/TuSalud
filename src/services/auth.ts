@@ -2,9 +2,11 @@ import axios from "axios";
 import { RegisterFormData, LoginFormData } from "../types/auth";
 import api from "./api";
 import { jwtDecode } from 'jwt-decode';
+import { API_BASE_URL } from "../constants";
+
 
 const uploadApi = axios.create({
-    baseURL: 'http://192.168.0.102:3000',
+    baseURL: API_BASE_URL,
     timeout: 10000,
     headers: {
         'Accept': 'application/json',
