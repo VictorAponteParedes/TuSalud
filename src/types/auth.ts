@@ -27,4 +27,5 @@ export interface CustomHeaderProps {
     iconBack?: boolean;
     showMenu?: boolean;
     onMenuPress?: () => void;
+    userId?: any;
 }

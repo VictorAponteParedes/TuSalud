@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { View, Text, ScrollView } from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import { profileImage } from '../../assets';
@@ -9,10 +9,14 @@ import { informationHome, informationCovid } from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
 import DrawerHome from "../../components/DrawerHome";
 import { useAuth } from "../../context/AuthContext";
+import AuthServices from "../../services/auth";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const { user } = useAuth();
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const authServices = useMemo(() => new AuthServices(), []);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const toggleDrawer = () => {
     setIsDrawerVisible(!isDrawerVisible);
@@ -22,21 +26,40 @@ const HomeScreen = () => {
     ? `${user.firstName} ${user.lastName}`
     : translate('profile.name');
 
-  console.log("nombre del usuario:  ", userName)
+  useEffect(() => {
+    if (user?.id) {
+      setLoadingImage(true);
+      authServices.getProfileImage(user.id)
+        .then(url => {
+          if (url) {
+            setProfileImageUrl(fixUrl(url));
+          } else {
+            setProfileImageUrl(null);
+          }
+        })
+        .finally(() => setLoadingImage(false));
+    }
+  }, [user?.id, authServices]);
+
+  const LOCAL_IP = '192.168.0.101';
+
+  const fixUrl = (url: string) => {
+    return url.replace('localhost', LOCAL_IP);
+  };
 
   return (
     <>
       <CustomHeader
-        imageProfile={profileImage}
+        imageProfile={profileImageUrl || profileImage}
         title={userName}
         showMenu={true}
         onMenuPress={toggleDrawer}
+        userId={user?.id}
       />
       <DrawerHome
         isDrawerVisible={isDrawerVisible}
         toggleDrawer={toggleDrawer}
       />
-
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
