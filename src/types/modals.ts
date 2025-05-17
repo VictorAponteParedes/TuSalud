@@ -24,3 +24,22 @@ export type DrawerHomeProps = {
   isDrawerVisible: boolean;
   toggleDrawer: () => void;
 }
+
+export type CardInformacionPersonalProps = {
+  email: string;
+  phone: string;
+  BloodGroup: string;
+  dateBirth: string;
+  medicalSecure: string;
+  style?: {}
+
+}
+
+export type AppointmentCardProps = {
+  date: string;
+  doctorName: string;
+  specialty: string;
+  availableTime: string;
+  onPress?: () => void;
+  style?: object;
+};
