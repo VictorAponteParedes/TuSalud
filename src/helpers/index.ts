@@ -11,6 +11,10 @@ import RadioGrafia from "../assets/svg/radiografia.svg"
 import IconBrain from "../assets/svg/brain.svg"
 import CloseCirucule from '../assets/svg/closeCircule.svg';
 import Finger from '../assets/svg/finger.svg';
+import Secure from "../assets/svg/secure.svg"
+import Drop from "../assets/svg/drop.svg"
+import Phone from "../assets/svg/phone.svg"
+import Email from "../assets/svg/email.svg"
 
 export const groupArray = (array: [], groupSize: number) => {
     const groups = [];
@@ -34,5 +38,9 @@ export {
     RadioGrafia,
     IconBrain,
     CloseCirucule,
-    Finger
+    Finger,
+    Secure,
+    Drop,
+    Phone,
+    Email
 }
