@@ -10,7 +10,7 @@ import CardInfo from '../../components/modals/cardInfo';
 import DrawerHome from "../../components/DrawerHome";
 import { useAuth } from "../../context/AuthContext";
 import AuthServices from "../../services/auth";
-import { LOCAL_IP } from "../../constants";
+import { fixUrl } from "../../helpers";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -43,9 +43,7 @@ const HomeScreen = () => {
   }, [user?.id, authServices]);
 
 
-  const fixUrl = (url: string) => {
-    return url.replace('localhost', LOCAL_IP);
-  };
+
 
   return (
     <>
