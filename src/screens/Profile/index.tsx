@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import { translate } from '../../lang';
@@ -14,6 +14,7 @@ import { Edit } from "../../helpers";
 import SvgWrapper from "../../components/SvgWrapper";
 import styles from "./styles";
 import DocumentCard from "../../components/CardInformacionPersonal/DocumentCard";
+import useUserInformation from "../../hooks/useUserInfo";
 
 
 type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
@@ -22,7 +23,13 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { loadingImage, logout, profileImage } = useShowPerfilImgen();
+  const { profileInformation, loading } = useUserInformation()
   const [activeTab, setActiveTab] = useState<TabType>('personal');
+
+
+  useEffect(() => {
+    console.log(profileInformation)
+  }, [])
 
   return (
     <View style={styles.container}>
