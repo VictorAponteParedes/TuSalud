@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView } from 'react-native';
 import CustomHeader from '../../components/customHeader';
-import { profileImage } from '../../assets';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import { translate } from '../../lang';
@@ -9,15 +8,12 @@ import { informationHome, informationCovid } from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
 import DrawerHome from "../../components/DrawerHome";
 import { useAuth } from "../../context/AuthContext";
-import AuthServices from "../../services/auth";
-import { fixUrl } from "../../helpers";
+import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const { user } = useAuth();
-  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
-  const authServices = useMemo(() => new AuthServices(), []);
-  const [loadingImage, setLoadingImage] = useState(false);
+  const { profileImage } = useShowPerfilImgen();
 
   const toggleDrawer = () => {
     setIsDrawerVisible(!isDrawerVisible);
@@ -27,28 +23,11 @@ const HomeScreen = () => {
     ? `${user.firstName} ${user.lastName}`
     : translate('profile.name');
 
-  useEffect(() => {
-    if (user?.id) {
-      setLoadingImage(true);
-      authServices.getProfileImage(user.id)
-        .then(url => {
-          if (url) {
-            setProfileImageUrl(fixUrl(url));
-          } else {
-            setProfileImageUrl(null);
-          }
-        })
-        .finally(() => setLoadingImage(false));
-    }
-  }, [user?.id, authServices]);
-
-
-
 
   return (
     <>
       <CustomHeader
-        imageProfile={profileImageUrl || profileImage}
+        imageProfile={profileImage}
         title={userName}
         showMenu={true}
         onMenuPress={toggleDrawer}
