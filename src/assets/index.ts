@@ -7,5 +7,6 @@ import consultas from './images/consultas.jpeg';
 import resultadosMedicos from './images/resultados-medicos.jpg';
 import doctorPerfil from './images/doctor-perfil.png';
 import farmaciaIcon from './images/farmacia.jpg';
+import salud360Logo from './images/salud360Logo.png';
 
-export { logoInicial, profileImage, itemMedicine, infoCovid, bolsaIv, consultas, resultadosMedicos, doctorPerfil, farmaciaIcon };
+export { logoInicial, profileImage, itemMedicine, infoCovid, bolsaIv, consultas, resultadosMedicos, doctorPerfil, farmaciaIcon, salud360Logo };
