@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RegisterFormData, LoginFormData, ForgotPasswordData } from "../types/auth";
+import { RegisterFormData, LoginFormData, ForgotPasswordData, ResetPassword } from "../types/auth";
 import api from "./api";
 import { jwtDecode } from 'jwt-decode';
 import { API_BASE_URL } from "../constants";
@@ -114,9 +114,10 @@ class AuthServices {
         }
     }
 
-    async forgotPasswordUser(forgotPassword: ForgotPasswordData) {
+    async forgotPasswordUser(email: string) {
+        console.log("datos recibidos forgot pass: ", email)
         try {
-            const response = await api.post('/users/forgot-password', forgotPassword);
+            const response = await api.post('/users/forgot-password', { email });
             return response.data
         } catch (error) {
             if (error.response) {
@@ -129,6 +130,18 @@ class AuthServices {
             throw new Error('Error de conexión reestablecer contrasena');
         }
     }
+
+    async resetPasswordUser({ token, newPassword }: ResetPassword) {
+    try {
+        const response = await api.post('/users/reset-password', {
+            token,
+            newPassword
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error de conexión reestablecer contrasena');
+    }
+}
 }
 
 export default AuthServices

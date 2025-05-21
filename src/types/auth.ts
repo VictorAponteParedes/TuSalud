@@ -21,6 +21,10 @@ export type LoginFormData = {
 export type ForgotPasswordData = {
     email: string
 }
+export type ResetPassword = {
+    token: string;
+    newPassword: string;
+}
 
 export interface CustomHeaderProps {
     title?: string;
