@@ -5,6 +5,7 @@ import InputImage from '../../ui/InputImage';
 import { translate } from '../../../lang';
 import { Control, UseFormSetValue } from 'react-hook-form';
 import { RegisterFormData } from '../../../types/auth';
+import {Directions, Email, Phone, Profile} from '../../../helpers';
 
 const PersonalInfoStep = ({
     control,
@@ -23,46 +24,51 @@ const PersonalInfoStep = ({
     };
 
     return (
-        <>
-            <Input
-                label={translate('personalInfo.name')}
-                placeholder={translate('personalInfo.insertName')}
-                control={control}
-                name="firstName"
-            />
-            <Input
-                label={translate('personalInfo.lastName')}
-                placeholder={translate('personalInfo.insertLastName')}
-                control={control}
-                name="lastName"
-            />
-            <Input
-                label={translate('personalInfo.phone')}
-                placeholder={translate('personalInfo.insertPhone')}
-                control={control}
-                name="phone"
-            />
-            <Input
-                label={translate('personalInfo.address')}
-                placeholder={translate('personalInfo.insertAddress')}
-                control={control}
-                name="address"
-            />
-            <Input
-                label={translate('personalInfo.email')}
-                placeholder={translate('personalInfo.insertEmail')}
-                control={control}
-                name="email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
-            <InputImage
-                label="Foto de perfil"
-                onImageSelected={onImageSelected}
-                imageUri={imageUri}
-            />
-        </>
-    )
+      <>
+        <Input
+          label={translate('personalInfo.name')}
+          placeholder={translate('personalInfo.insertName')}
+          control={control}
+          name="firstName"
+          iconName={<Profile />}
+        />
+        <Input
+          label={translate('personalInfo.lastName')}
+          placeholder={translate('personalInfo.insertLastName')}
+          control={control}
+          name="lastName"
+          iconName={<Profile />}
+        />
+        <Input
+          label={translate('personalInfo.phone')}
+          placeholder={translate('personalInfo.insertPhone')}
+          control={control}
+          name="phone"
+          iconName={<Phone />}
+        />
+        <Input
+          label={translate('personalInfo.address')}
+          placeholder={translate('personalInfo.insertAddress')}
+          control={control}
+          name="address"
+          iconName={<Directions />}
+        />
+        <Input
+          label={translate('personalInfo.email')}
+          placeholder={translate('personalInfo.insertEmail')}
+          control={control}
+          name="email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          iconName={<Email />}
+        />
+        <InputImage
+          label="Foto de perfil"
+          onImageSelected={onImageSelected}
+          imageUri={imageUri}
+        />
+      </>
+    );
 };
 
 export default PersonalInfoStep;

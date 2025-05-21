@@ -13,20 +13,21 @@ import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
 import Toast from 'react-native-toast-message';
 import colors from '../../../theme/colors';
+import {Email, Lock} from '../../../helpers';
 
 const LoginForm = () => {
   const navigation = useNavigation();
-  const { login } = useAuth();
+  const {login} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Datos antes de onSubmit:", data.email, data.password)
+    console.log('Datos antes de onSubmit:', data.email, data.password);
     try {
       setIsLoading(true);
       await login(data.email, data.password);
@@ -39,11 +40,11 @@ const LoginForm = () => {
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: { color: colors.black },
-        text2Style: { color: colors.black },
+        text1Style: {color: colors.black},
+        text2Style: {color: colors.black},
       });
 
-      console.log("Datos en onSubmit:", data.email, data.password)
+      console.log('Datos en onSubmit:', data.email, data.password);
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -53,8 +54,8 @@ const LoginForm = () => {
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: { color: colors.black },
-        text2Style: { color: colors.black },
+        text1Style: {color: colors.black},
+        text2Style: {color: colors.black},
       });
     } finally {
       setIsLoading(false);
@@ -64,8 +65,7 @@ const LoginForm = () => {
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContainer}
-      keyboardShouldPersistTaps="handled"
-    >
+      keyboardShouldPersistTaps="handled">
       <View style={styles.form}>
         <Input
           label={translate('email')}
@@ -76,10 +76,11 @@ const LoginForm = () => {
             required: translate('usernameRequerd'),
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: translate('invalidEmailFormat')
-            }
+              message: translate('invalidEmailFormat'),
+            },
           }}
           error={errors.email?.message}
+          iconName={<Email />}
         />
 
         <Input
@@ -92,17 +93,19 @@ const LoginForm = () => {
             required: translate('passwordRequerd'),
             minLength: {
               value: 6,
-              message: translate('passwordMinLength')
-            }
+              message: translate('passwordMinLength'),
+            },
           }}
           error={errors.password?.message}
+          iconName={<Lock />}
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate(Routes.FORGOT_PASSWORD)} // Corregí el typo en FORGOT_PASSOWORD
-          style={styles.forgotPasswordButton}
-        >
-          <Text style={styles.forgotPasswordText}>{translate('ForgotPassword')}</Text>
+          onPress={() => navigation.navigate(Routes.FORGOT_PASSWORD)}
+          style={styles.forgotPasswordButton}>
+          <Text style={styles.forgotPasswordText}>
+            {translate('ForgotPassword')}
+          </Text>
         </TouchableOpacity>
 
         <Button
@@ -115,7 +118,9 @@ const LoginForm = () => {
         <TouchableOpacity
           onPress={() => navigation.navigate(Routes.REGISTER)}
           style={styles.registerButton}>
-          <Text style={styles.registerText}>{translate('DontHaveAccount')}</Text>
+          <Text style={styles.registerText}>
+            {translate('DontHaveAccount')}
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

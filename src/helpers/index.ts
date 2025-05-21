@@ -18,7 +18,10 @@ import Email from "../assets/svg/email.svg"
 import Historial from "../assets/svg/historial.svg"
 import Edit from "../assets/svg/edit.svg"
 import Donwload from "../assets/svg/donwload.svg"
-
+import Lock from "../assets/svg/lock.svg"
+import Directions from "../assets/svg/directions.svg"
+import Photo from "../assets/svg/photo.svg"
+import Virus from "../assets/svg/virus.svg"
 
 export {
     Home,
@@ -40,7 +43,11 @@ export {
     Email,
     Historial,
     Edit,
-    Donwload
+    Donwload,
+    Lock,
+    Directions,
+    Photo,
+    Virus
 }
 
 
