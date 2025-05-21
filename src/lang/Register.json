@@ -53,5 +53,14 @@
     "title": "Ups orcurrio un error",
     "subTitle": "Intente mas tarde"
   },
-  "sendResetLink": "Enviar enlace de recuperación"
+  "sendResetLink": "Enviar código de verificación",
+  "reestablecerPassword": "Reestablecer contraseña",
+  "codeVerification": "Código de verificación",
+  "inputCode": "Código",
+  "forgotPassword": {
+    "successTitle": "Enlace enviado",
+    "successMessage": "Revisa tu correo para restablecer tu contraseña (incluye spam).",
+    "errorTitle": "Error",
+    "errorMessage": "Correo no válido o error de conexión"
+  }
 }
