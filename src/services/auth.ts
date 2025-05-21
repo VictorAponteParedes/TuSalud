@@ -131,10 +131,10 @@ class AuthServices {
         }
     }
 
-    async resetPasswordUser({ token, newPassword }: ResetPassword) {
+    async resetPasswordUser({ code, newPassword }: ResetPassword) {
     try {
         const response = await api.post('/users/reset-password', {
-            token,
+            code,
             newPassword
         });
         return response.data;

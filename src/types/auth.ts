@@ -22,7 +22,7 @@ export type ForgotPasswordData = {
     email: string
 }
 export type ResetPassword = {
-    token: string;
+    code: string;
     newPassword: string;
 }
 
