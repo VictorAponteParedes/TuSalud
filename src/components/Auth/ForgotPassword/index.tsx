@@ -26,36 +26,37 @@ const ForgotPasswordForm = () => {
     } = useForm<ForgotPasswordData>();
 
     const onSubmit = async (data: ForgotPasswordData) => {
-        try {
-            console.log('Email enviado a:', data.email);
-            await forgotPasswordUser(data.email)
+      console.log('Email enviado a:', data.email);
+      try {
+        await forgotPasswordUser(data.email);
 
-            Toast.show({
-                type: 'success',
-                position: 'top',
-                text1: translate('forgotPassword.successTitle'),
-                text2: translate('forgotPassword.successMessage'),
-                visibilityTime: 3000,
-                autoHide: true,
-                topOffset: 30,
-                text1Style: { color: colors.black },
-                text2Style: { color: colors.black },
-            });
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: translate('forgotPassword.successTitle'),
+          text2: translate('forgotPassword.successMessage'),
+          visibilityTime: 3000,
+          autoHide: true,
+          topOffset: 30,
+          text1Style: {color: colors.black},
+          text2Style: {color: colors.black},
+        });
 
-            navigation.navigate(Routes.LOGIN);
-        } catch (error) {
-            Toast.show({
-                type: 'error',
-                position: 'top',
-                text1: translate('forgotPassword.errorTitle'),
-                text2: translate('forgotPassword.errorMessage'),
-                visibilityTime: 3000,
-                autoHide: true,
-                topOffset: 30,
-                text1Style: { color: colors.black },
-                text2Style: { color: colors.black },
-            });
-        }
+        navigation.navigate(Routes.RESET_PASSWORD);
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: translate('forgotPassword.errorTitle'),
+          text2: translate('forgotPassword.errorMessage'),
+          visibilityTime: 3000,
+          autoHide: true,
+          topOffset: 30,
+          text1Style: {color: colors.black},
+          text2Style: {color: colors.black},
+        });
+        navigation.navigate(Routes.RESET_PASSWORD);
+      }
     };
 
     return (
