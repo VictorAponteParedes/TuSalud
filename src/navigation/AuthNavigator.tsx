@@ -4,6 +4,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Auth/Login/LoginScreen';
 import RegisterScreen from '../screens/Auth/Register/RegisterScreen';
+import ForgotPasswordScreen from '../screens/Auth/ForgotPassword';
 import Routes from './routes';
 
 export type AuthStackParamList = {
@@ -18,6 +19,7 @@ const AuthNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
       <Stack.Screen name={Routes.REGISTER} component={RegisterScreen} />
+      <Stack.Screen name={Routes.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
     </Stack.Navigator>
   );
 };

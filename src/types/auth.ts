@@ -18,6 +18,10 @@ export type LoginFormData = {
     password: string;
 };
 
+export type ForgotPasswordData = {
+    email: string
+}
+
 export interface CustomHeaderProps {
     title?: string;
     titleBack?: string;

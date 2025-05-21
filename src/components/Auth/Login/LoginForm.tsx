@@ -1,6 +1,6 @@
 // src/components/Auth/LoginForm.tsx
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
 import { translate } from '../../../lang';
@@ -26,7 +26,7 @@ const LoginForm = () => {
   } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Datos en  antes onsumit:", data.email, data.password)
+    console.log("Datos antes de onSubmit:", data.email, data.password)
     try {
       setIsLoading(true);
       await login(data.email, data.password);
@@ -43,7 +43,7 @@ const LoginForm = () => {
         text2Style: { color: colors.black },
       });
 
-      console.log("Datos en  onsumit:", data.email, data.password)
+      console.log("Datos en onSubmit:", data.email, data.password)
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -62,51 +62,63 @@ const LoginForm = () => {
   };
 
   return (
-    <View style={styles.form}>
-      <Input
-        label={translate('email')}
-        placeholder={translate('email')}
-        control={control}
-        name="email"
-        rules={{
-          required: translate('usernameRequerd'),
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: translate('invalidEmailFormat')
-          }
-        }}
-        error={errors.email?.message}
-      />
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View style={styles.form}>
+        <Input
+          label={translate('email')}
+          placeholder={translate('email')}
+          control={control}
+          name="email"
+          rules={{
+            required: translate('usernameRequerd'),
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: translate('invalidEmailFormat')
+            }
+          }}
+          error={errors.email?.message}
+        />
 
-      <Input
-        label={translate('Password')}
-        placeholder={translate('InsertPassword')}
-        secureTextEntry={true}
-        control={control}
-        name="password"
-        rules={{
-          required: translate('passwordRequerd'),
-          minLength: {
-            value: 6,
-            message: translate('passwordMinLength')
-          }
-        }}
-        error={errors.password?.message}
-      />
+        <Input
+          label={translate('Password')}
+          placeholder={translate('InsertPassword')}
+          secureTextEntry={true}
+          control={control}
+          name="password"
+          rules={{
+            required: translate('passwordRequerd'),
+            minLength: {
+              value: 6,
+              message: translate('passwordMinLength')
+            }
+          }}
+          error={errors.password?.message}
+        />
 
-      <Button
-        title={translate('Login')}
-        onPress={handleSubmit(onSubmit)}
-        loading={isLoading}
-        disabled={isLoading}
-      />
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Routes.FORGOT_PASSWORD)} // Corregí el typo en FORGOT_PASSOWORD
+          style={styles.forgotPasswordButton}
+        >
+          <Text style={styles.forgotPasswordText}>{translate('ForgotPassword')}</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate(Routes.REGISTER)}
-        style={styles.registerButton}>
-        <Text style={styles.registerText}>{translate('DontHaveAccount')}</Text>
-      </TouchableOpacity>
-    </View>
+        <Button
+          title={translate('Login')}
+          onPress={handleSubmit(onSubmit)}
+          loading={isLoading}
+          disabled={isLoading}
+        />
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Routes.REGISTER)}
+          style={styles.registerButton}>
+          <Text style={styles.registerText}>{translate('DontHaveAccount')}</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 

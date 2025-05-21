@@ -52,5 +52,6 @@
   "errorRegister": {
     "title": "Ups orcurrio un error",
     "subTitle": "Intente mas tarde"
-  }
+  },
+  "sendResetLink": "Enviar enlace de recuperación"
 }

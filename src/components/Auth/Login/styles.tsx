@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
-import {fontsOpenSans} from '../../../types/fonts';
+import { fontsOpenSans } from '../../../types/fonts';
 const styles = StyleSheet.create({
   form: {
     flex: 1,
@@ -40,6 +40,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontFamily: fontsOpenSans.regular,
+  },
+  forgotPasswordButton: {
+    alignSelf: 'flex-end',
+    marginBottom: 16,
+  },
+  forgotPasswordText: {
+    color: colors.primary[400],
+    fontSize: 14,
+    fontFamily: fontsOpenSans.regular,
+    textDecorationLine: 'underline',
   },
 });
 export default styles;

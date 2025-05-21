@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RegisterFormData, LoginFormData } from "../types/auth";
+import { RegisterFormData, LoginFormData, ForgotPasswordData } from "../types/auth";
 import api from "./api";
 import { jwtDecode } from 'jwt-decode';
 import { API_BASE_URL } from "../constants";
@@ -111,6 +111,22 @@ class AuthServices {
         } catch (e) {
             console.log('Error detallado:', e.response?.data || e.message);
             throw e;
+        }
+    }
+
+    async forgotPasswordUser(forgotPassword: ForgotPasswordData) {
+        try {
+            const response = await api.post('/users/forgot-password', forgotPassword);
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(
+                    error.response.data?.message ||
+                    error.response.data?.error ||
+                    'Credenciales inválidas'
+                );
+            }
+            throw new Error('Error de conexión reestablecer contrasena');
         }
     }
 }

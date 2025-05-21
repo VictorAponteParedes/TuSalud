@@ -3,8 +3,8 @@
 const Routes = {
   LOGIN: 'Login',
   REGISTER: 'Register',
-
-
+  FORGOT_PASSWORD: 'ForgotPassword',
+  RESET_PASSWORD: 'ResetPassword',
   HOME: 'Home',
   SETTINGS: 'Settings',
   NOTIFICATIONS: 'Notifications',
