@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView } from 'react-native';
+import {View, Text, ScrollView, Dimensions} from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
-import { translate } from '../../lang';
-import { informationHome, informationCovid } from '../../mock/modalCard';
+import {translate} from '../../lang';
+import {informationHome, informationCovid} from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
-import DrawerHome from "../../components/DrawerHome";
-import { useAuth } from "../../context/AuthContext";
-import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
+import DrawerHome from '../../components/DrawerHome';
+import {useAuth} from '../../context/AuthContext';
+import useShowPerfilImgen from '../../hooks/useShowPerfilImgen';
+import Carousel from 'react-native-reanimated-carousel';
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const { user } = useAuth();
-  const { profileImage } = useShowPerfilImgen();
+  const {user} = useAuth();
+  const {profileImage} = useShowPerfilImgen();
+  const screenWidth = Dimensions.get('window').width * 0.9;
 
   const toggleDrawer = () => {
     setIsDrawerVisible(!isDrawerVisible);
@@ -22,7 +24,6 @@ const HomeScreen = () => {
   const userName = user
     ? `${user.firstName} ${user.lastName}`
     : translate('profile.name');
-
 
   return (
     <>
@@ -52,14 +53,19 @@ const HomeScreen = () => {
               />
             ))}
             <Text style={styles.title}>{translate('informationCovid')}</Text>
-            {informationCovid.map((item, index) => (
-              <CardInfo
-                key={index}
-                title={item.title}
-                description={item.description}
-                image={item.image}
-              />
-            ))}
+
+            <Carousel
+              width={screenWidth} 
+              height={210}
+              data={informationCovid}
+              renderItem={({item, index}) => (
+                <CardInfo
+                  title={item.title}
+                  description={item.description}
+                  image={item.image}
+                />
+              )}
+            />
           </View>
         </View>
       </ScrollView>
