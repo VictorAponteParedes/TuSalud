@@ -65,7 +65,7 @@ const CustomHeader = (props: CustomHeaderProps) => {
                 ? { uri: imageProfile }
                 : imageProfile
             }
-            style={{ width: 40, height: 40, borderRadius: 20 }}
+            style={{ width: 40, height: 40, borderRadius: 20, borderColor: colors.white, borderWidth: 2 }}
           />
         </TouchableOpacity>
       ) : (
