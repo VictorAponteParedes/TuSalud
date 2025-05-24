@@ -22,7 +22,7 @@ type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
-  const { loadingImage, logout, profileImage } = useShowPerfilImgen();
+  const { loadingImage, logout, profileImageUri } = useShowPerfilImgen();
   const { profileInformation, loading } = useUserInformation()
   const [activeTab, setActiveTab] = useState<TabType>('personal');
 
@@ -44,11 +44,11 @@ const ProfileScreen = () => {
           <View style={[styles.image, styles.placeholder]}>
             <Text style={styles.placeholderText}>Cargando...</Text>
           </View>
-        ) : profileImage ? (
+        ) : profileImageUri ? (
           <>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: profileImage }}
+                source={{ uri: profileImageUri }}
                 style={styles.image}
                 resizeMode="cover"
               />
