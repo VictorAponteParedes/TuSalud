@@ -31,7 +31,7 @@ export interface CustomHeaderProps {
     title?: string;
     titleBack?: string;
     onBackPress?: () => void;
-    imageProfile?: string;
+    imageProfile?: string | null;
     gradientColors?: string[];
     iconBack?: boolean;
     showMenu?: boolean;

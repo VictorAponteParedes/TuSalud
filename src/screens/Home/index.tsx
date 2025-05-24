@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView } from 'react-native';
 import CustomHeader from '../../components/customHeader';
-import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
 import { translate } from '../../lang';
 import { informationHome, informationCovid } from '../../mock/modalCard';
@@ -41,8 +40,6 @@ const HomeScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.title}>{translate('newServices')}</Text>
-
-
           <SwiperWrapper
             data={informationHome}
             renderItem={(item) => (
@@ -53,6 +50,7 @@ const HomeScreen = () => {
               />
             )}
           />
+          <Text style={styles.title}>Informacion global</Text>
           <SwiperWrapper
             data={informationCovid}
             renderItem={(item) => (
