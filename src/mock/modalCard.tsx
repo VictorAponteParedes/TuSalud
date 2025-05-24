@@ -6,6 +6,7 @@ export const informationHome = [
         title: translate('cosultation.title'),
         description: translate('cosultation.description'),
         image: consultas,
+        screen: "Quotes"
     },
     {
         title: translate('results.title'),
