@@ -1,18 +1,23 @@
-import React from 'react';
-import {Controller, useController} from 'react-hook-form';
-import {TextInput, Text, View, StyleSheet, TextInputProps} from 'react-native';
-import {InputProps} from '../../types/InputCustom';
-import {fontsOpenSans} from '../../types/fonts';
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import { TextInput, Text, View, StyleSheet } from 'react-native';
+import { InputProps } from '../../types/InputCustom';
+import { fontsOpenSans } from '../../types/fonts';
 import SvgWrapper from '../SvgWrapper';
 import colors from '../../theme/colors';
 
 const Input = (props: InputProps) => {
-  const {label, error, control, name, requered, iconName, ...textInputProps} = props;
+  const { label, error, control, name, requered, iconName, ...textInputProps } = props;
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <View style={styles.inputContainer}>
+      <View style={[
+        styles.inputContainer,
+        isFocused && styles.inputFocused,
+        error && styles.inputError
+      ]}>
         {iconName && (
           <View style={styles.iconContainer}>
             <SvgWrapper color={colors.primary[400]} size={20}>
@@ -23,17 +28,21 @@ const Input = (props: InputProps) => {
         <Controller
           control={control}
           name={name}
-          rules={{required: requered}}
-          render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
+          rules={{ required: requered }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextInput
               style={[
-                styles.input, 
+                styles.input,
                 error && styles.inputError,
-                iconName && styles.inputWithIcon // Añade padding si hay icono
+                iconName && styles.inputWithIcon
               ]}
               placeholderTextColor="#999"
               onChangeText={onChange}
-              onBlur={onBlur}
+              onBlur={() => {
+                onBlur();
+                setIsFocused(false);
+              }}
+              onFocus={() => setIsFocused(true)}
               value={value}
               {...textInputProps}
             />
@@ -63,6 +72,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#fff',
   },
+  inputFocused: {
+    borderColor: colors.primary[400],
+    borderWidth: 2
+  },
   iconContainer: {
     paddingLeft: 12,
     paddingRight: 8,
@@ -75,7 +88,7 @@ const styles = StyleSheet.create({
     fontFamily: fontsOpenSans.regular,
   },
   inputWithIcon: {
-    paddingLeft: 0, // Reducimos el padding izquierdo cuando hay icono
+    paddingLeft: 0,
   },
   inputError: {
     borderColor: 'red',
