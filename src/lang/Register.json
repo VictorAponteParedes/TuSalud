@@ -34,11 +34,13 @@
     "phone": "Teléfono",
     "address": "Dirección",
     "email": "Correo electrónico",
+    "documentNumber": "Nro documento",
+    "inserDocumentNumber": "Nro documento",
     "insertName": "Inserte su nombre",
     "insertLastName": "Inserte su apellido",
     "insertPhone": "Inserte su teléfono",
     "insertAddress": "Inserte su dirección",
-    "insertEmail": "Inserte su correo electrónico"
+    "insertEmail": "Inserte su correo electrónico",
   },
   "buttons": {
     "preview": "Atrás",

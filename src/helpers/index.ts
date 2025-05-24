@@ -22,6 +22,7 @@ import Lock from "../assets/svg/lock.svg"
 import Directions from "../assets/svg/directions.svg"
 import Photo from "../assets/svg/photo.svg"
 import Virus from "../assets/svg/virus.svg"
+import UserScan from "../assets/svg/userScan.svg"
 
 export {
     Home,
@@ -47,7 +48,8 @@ export {
     Lock,
     Directions,
     Photo,
-    Virus
+    Virus,
+    UserScan
 }
 
 
