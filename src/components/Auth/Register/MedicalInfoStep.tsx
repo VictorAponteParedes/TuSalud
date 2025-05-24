@@ -1,12 +1,13 @@
 // src/components/Auth/RegisterSteps/MedicalInfoStep.tsx
 import React from 'react';
 import Input from '../../ui/Input';
+import DateInput from '../../ui/DateInput'; // Importa el nuevo componente
 import { translate } from '../../../lang';
-import {Calendar, Drop, Phone, Virus} from '../../../helpers';
+import { Calendar, Drop, Phone, Virus } from '../../../helpers';
 
-const MedicalInfoStep = ({control}: {control: any}) => (
+const MedicalInfoStep = ({ control }: { control: any }) => (
   <>
-    <Input
+    <DateInput
       label={translate('medicalInformation.birthDateLabel')}
       placeholder={translate('medicalInformation.birthDateInput')}
       control={control}
