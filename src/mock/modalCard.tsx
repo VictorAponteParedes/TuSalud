@@ -1,5 +1,5 @@
 import { translate } from "../lang"
-import { itemMedicine, infoCovid, consultas , resultadosMedicos, doctorPerfil, farmaciaIcon} from "../assets"
+import { itemMedicine, infoCovid, consultas, resultadosMedicos, doctorPerfil, farmaciaIcon } from "../assets"
 
 export const informationHome = [
     {
@@ -22,11 +22,16 @@ export const informationHome = [
         description: translate('farmacy.description'),
         image: farmaciaIcon,
     },
-    
-    
+
+
 ]
 
 export const informationCovid = [
+    {
+        image: infoCovid,
+        title: translate('covidInfo'),
+        description: translate('covidInfoHome'),
+    },
     {
         image: infoCovid,
         title: translate('covidInfo'),
