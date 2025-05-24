@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import ModalCards from '../../components/modals/modalCards';
 import styles from './styles';
-import {translate} from '../../lang';
-import {informationHome, informationCovid} from '../../mock/modalCard';
+import { translate } from '../../lang';
+import { informationHome, informationCovid } from '../../mock/modalCard';
 import CardInfo from '../../components/modals/cardInfo';
 import DrawerHome from '../../components/DrawerHome';
-import {useAuth} from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import useShowPerfilImgen from '../../hooks/useShowPerfilImgen';
 import Carousel from 'react-native-reanimated-carousel';
+import { profileImage } from "../../assets";
 
 const HomeScreen = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const {user} = useAuth();
-  const {profileImage} = useShowPerfilImgen();
+  const { user } = useAuth();
+  const { profileImageUri } = useShowPerfilImgen();
   const screenWidth = Dimensions.get('window').width * 0.9;
 
   const toggleDrawer = () => {
@@ -28,7 +29,7 @@ const HomeScreen = () => {
   return (
     <>
       <CustomHeader
-        imageProfile={profileImage}
+        imageProfile={profileImageUri}
         title={userName}
         showMenu={true}
         onMenuPress={toggleDrawer}
@@ -55,10 +56,10 @@ const HomeScreen = () => {
             <Text style={styles.title}>{translate('informationCovid')}</Text>
 
             <Carousel
-              width={screenWidth} 
+              width={screenWidth}
               height={210}
               data={informationCovid}
-              renderItem={({item, index}) => (
+              renderItem={({ item, index }) => (
                 <CardInfo
                   title={item.title}
                   description={item.description}

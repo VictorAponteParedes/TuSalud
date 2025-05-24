@@ -9,7 +9,8 @@ import styles from './styles';
 import { CustomHeaderProps } from "../../types/auth";
 import BackIcon from '../../assets/svg/backIcon.svg';
 import MenuIcon from '../../assets/svg/drawerCustom.svg';
-
+import SvgWrapper from "../SvgWrapper";
+import { Profile } from "../../helpers";
 
 const CustomHeader = (props: CustomHeaderProps) => {
   const {
@@ -68,7 +69,12 @@ const CustomHeader = (props: CustomHeaderProps) => {
           />
         </TouchableOpacity>
       ) : (
-        <View style={{ width: 40 }} />
+        <TouchableOpacity onPress={() => navigation.navigate(Routes.PROFILE)}>
+          <SvgWrapper color={colors.white} size={30}>
+            <Profile />
+          </SvgWrapper>
+        </TouchableOpacity>
+
       )}
     </LinearGradient>
   );

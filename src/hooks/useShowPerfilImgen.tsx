@@ -9,13 +9,13 @@ const useShowPerfilImgen = () => {
     const { user, logout } = useAuth();
     const authServices = new AuthServices();
 
-    const [profileImage, setProfileImage] = useState<string | null>(null);
+    const [profileImageUri, setProfileImageUri] = useState<string | null>(null);
     const [loadingImage, setLoadingImage] = useState(true);
     const fetchProfileImage = async () => {
         try {
             if (user?.id) {
                 const imageUrl = await authServices.getProfileImage(user.id);
-                setProfileImage(fixUrl(imageUrl));
+                setProfileImageUri(fixUrl(imageUrl));
             }
         } catch (error) {
             console.error('Error loading profile image:', error);
@@ -31,7 +31,7 @@ const useShowPerfilImgen = () => {
     }, [user?.id]);
 
     return {
-        profileImage,
+        profileImageUri,
         loadingImage,
         logout
     }
