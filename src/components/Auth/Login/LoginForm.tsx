@@ -13,17 +13,18 @@ import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
 import Toast from 'react-native-toast-message';
 import colors from '../../../theme/colors';
-import {Email, Lock} from '../../../helpers';
+import { Email, Lock } from '../../../helpers';
+import SecureInput from '../../ui/SecureInput';
 
 const LoginForm = () => {
   const navigation = useNavigation();
-  const {login} = useAuth();
+  const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
@@ -40,8 +41,8 @@ const LoginForm = () => {
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: {color: colors.black},
-        text2Style: {color: colors.black},
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
       });
 
       console.log('Datos en onSubmit:', data.email, data.password);
@@ -54,8 +55,8 @@ const LoginForm = () => {
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,
-        text1Style: {color: colors.black},
-        text2Style: {color: colors.black},
+        text1Style: { color: colors.black },
+        text2Style: { color: colors.black },
       });
     } finally {
       setIsLoading(false);
@@ -83,7 +84,7 @@ const LoginForm = () => {
           iconName={<Email />}
         />
 
-        <Input
+        <SecureInput
           label={translate('Password')}
           placeholder={translate('InsertPassword')}
           secureTextEntry={true}

@@ -23,6 +23,8 @@ import Directions from "../assets/svg/directions.svg"
 import Photo from "../assets/svg/photo.svg"
 import Virus from "../assets/svg/virus.svg"
 import UserScan from "../assets/svg/userScan.svg"
+import EyesOpen from "../assets/svg/eyesOpen.svg"
+import EyesClose from "../assets/svg/eyesClose.svg"
 
 export {
     Home,
@@ -49,7 +51,9 @@ export {
     Directions,
     Photo,
     Virus,
-    UserScan
+    UserScan,
+    EyesOpen,
+    EyesClose
 }
 
 
