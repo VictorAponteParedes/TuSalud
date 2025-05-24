@@ -46,10 +46,10 @@ const HomeScreen = () => {
           <SwiperWrapper
             data={informationHome}
             renderItem={(item) => (
-              <ModalCards
-                imagenItem={item.image}
+              <CardInfo
                 title={item.title}
-                subtitle={item.description}
+                description={item.description}
+                image={item.image}
               />
             )}
           />

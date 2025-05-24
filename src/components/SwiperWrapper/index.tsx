@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         marginVertical: 15, // Espacio vertical entre swipers
     },
     wrapper: {
-        borderRadius: 10,
+        borderRadius: 25,
         overflow: 'hidden',
     },
     dot: {
