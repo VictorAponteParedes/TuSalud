@@ -1,64 +1,68 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../context/AuthContext';
+import DrawerModal from '../DrawerModal';
+import SvgWrapper from '../SvgWrapper';
+import { Home, Profile, Calendar, Notifications, Setting, Logout } from '../../helpers';
+import colors from '../../theme/colors';
 import { translate } from '../../lang';
-import Routes from "../../navigation/routes";
-import { useAuth } from "../../context/AuthContext";
 import styles from './styles';
-import SvgWrapper from "../../components/SvgWrapper";
-import DrawerModal from "../DrawerModal";
-import colors from "../../theme/colors";
-import { useNavigation } from "@react-navigation/native";
-import { Home, Profile, Calendar, Notifications, Setting, Logout } from "../../helpers";
-import { DrawerHomeProps } from "../../types/modals";
 
+interface DrawerHomeProps {
+    isVisible: boolean;
+    onClose: () => void;
+}
 
+const menuItems = [
+    { icon: <Home />, label: 'drawer.home', route: 'HOME' },
+    { icon: <Profile />, label: 'drawer.profile', route: 'PROFILE' },
+    { icon: <Calendar />, label: 'drawer.schedule', route: 'QUOTES' },
+    { icon: <Notifications />, label: 'drawer.notifications', route: 'NOTIFICATIONS' },
+    { icon: <Setting />, label: 'drawer.settings', route: 'SETTINGS' },
+];
 
-const DrawerHome = (props: DrawerHomeProps) => {
-    const { isDrawerVisible, toggleDrawer } = props;
+const DrawerHome = ({ isVisible, onClose }: DrawerHomeProps) => {
     const navigation = useNavigation();
     const { logout } = useAuth();
 
-    const menuOptions = [
-        { label: translate("drawer.home"), icon: <Home />, route: Routes.HOME },
-        { label: translate("drawer.profile"), icon: <Profile />, route: Routes.PROFILE },
-        { label: translate("drawer.schedule"), icon: <Calendar />, route: Routes.QUOTES },
-        { label: translate("drawer.notifications"), icon: <Notifications />, route: Routes.NOTIFICATIONS },
-        { label: translate("drawer.settings"), icon: <Setting />, route: Routes.SETTINGS },
-    ];
-
-
-
+    const handleNavigation = (route: string) => {
+        navigation.navigate(route as never);
+        onClose();
+    };
 
     return (
-        <DrawerModal
-            isVisible={!isDrawerVisible}
-            onClose={toggleDrawer}
-        >
+        <DrawerModal isVisible={isVisible} onClose={onClose}>
             <View style={styles.menuContainer}>
-                {/* Contenido principal del menú */}
-                <View style={styles.mainMenu}>
-                    {menuOptions.map((item, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            style={styles.menuItem}
-                            onPress={() => navigation.navigate(item.route)}
-                        >
-                            <SvgWrapper color={colors.primary[400]} size={24}>
-                                {item.icon}
-                            </SvgWrapper>
-                            <Text style={styles.menuText}>{item.label}</Text>
-                        </TouchableOpacity>
-                    ))}
+                {menuItems.map((item, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.menuItem}
+                        onPress={() => handleNavigation(item.route)}
+                    >
+                        <SvgWrapper color={colors.primary[400]} size={24}>
+                            {item.icon}
+                        </SvgWrapper>
+                        <Text style={styles.menuText}>{translate(item.label)}</Text>
+                    </TouchableOpacity>
+                ))}
 
-                </View>
-                <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+                <TouchableOpacity
+                    style={styles.logoutButton}
+                    onPress={() => {
+                        logout();
+                        onClose();
+                    }}
+                >
                     <SvgWrapper color={colors.error} size={24}>
                         <Logout />
                     </SvgWrapper>
-                    <Text style={styles.closeSession}>{translate("drawer.logout")}</Text>
+                    <Text style={styles.closeSession}>{translate('drawer.logout')}</Text>
                 </TouchableOpacity>
             </View>
         </DrawerModal>
-    )
-}
+    );
+};
+
+
 export default DrawerHome;

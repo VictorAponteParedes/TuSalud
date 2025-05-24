@@ -17,14 +17,15 @@ const HomeScreen = () => {
   const { user } = useAuth();
   const { profileImageUri } = useShowPerfilImgen();
   const screenWidth = Dimensions.get('window').width * 0.9;
-
-  const toggleDrawer = () => {
-    setIsDrawerVisible(!isDrawerVisible);
-  };
-
   const userName = user
     ? `${user.firstName} ${user.lastName}`
     : translate('profile.name');
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+
+  const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+  const closeDrawer = () => setIsDrawerOpen(false);
 
   return (
     <>
@@ -36,8 +37,8 @@ const HomeScreen = () => {
         userId={user?.id}
       />
       <DrawerHome
-        isDrawerVisible={isDrawerVisible}
-        toggleDrawer={toggleDrawer}
+        isVisible={isDrawerOpen}
+        onClose={closeDrawer}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -55,7 +56,7 @@ const HomeScreen = () => {
             ))}
             <Text style={styles.title}>{translate('informationCovid')}</Text>
 
-            <Carousel
+            {/* <Carousel
               width={screenWidth}
               height={210}
               data={informationCovid}
@@ -66,7 +67,7 @@ const HomeScreen = () => {
                   image={item.image}
                 />
               )}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>

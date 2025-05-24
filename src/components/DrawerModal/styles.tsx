@@ -8,24 +8,30 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     container: {
-        width: Dimensions.get('window').width * 0.8,
+        width: Dimensions.get('window').width * 0.85,
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
+        shadowColor: colors.black,
+        shadowOffset: { width: 2, height: 0 },
+        shadowOpacity: 0.25,
+        shadowRadius: 10,
+        elevation: 5,
     },
     header: {
         height: 60,
+        width: '100%',
         backgroundColor: colors.primary[400],
         justifyContent: 'center',
-        paddingHorizontal: 15,
+        alignItems: 'flex-end',
+        paddingHorizontal: 20,
     },
     closeButton: {
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 'bold',
+        padding: 5,
     },
     content: {
         flex: 1,
-        padding: 15,
+        paddingHorizontal: 20,
+        paddingTop: 10,
     },
 });
 

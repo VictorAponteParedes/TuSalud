@@ -1,16 +1,18 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import colors from '../../theme/colors';
-import {CloseCirucule} from '../../helpers';
+import { CloseCirucule } from '../../helpers';
 import SvgWrapper from '../SvgWrapper';
 import styles from './styles';
-import { DrawerModalProps } from '../../types/modals';
 
+interface DrawerModalProps {
+    isVisible: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+}
 
-
-const DrawerModal = (props: DrawerModalProps) => {
-    const { isVisible, onClose, children } = props;
+const DrawerModal = ({ isVisible, onClose, children }: DrawerModalProps) => {
     return (
         <Modal
             isVisible={isVisible}
@@ -18,12 +20,16 @@ const DrawerModal = (props: DrawerModalProps) => {
             onBackButtonPress={onClose}
             animationIn="slideInLeft"
             animationOut="slideOutLeft"
+            backdropTransitionInTiming={300}
+            backdropTransitionOutTiming={300}
             backdropOpacity={0.5}
             style={styles.modal}
+            useNativeDriver={true}
+            hideModalContentWhileAnimating={true}
         >
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={onClose}>
+                    <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                         <SvgWrapper color={colors.white} size={24}>
                             <CloseCirucule />
                         </SvgWrapper>
