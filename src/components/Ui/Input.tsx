@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
     fontFamily: fontsOpenSans.regular,
+    color: colors.black
   },
   inputWithIcon: {
     paddingLeft: 0,
