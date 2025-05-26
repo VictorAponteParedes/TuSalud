@@ -25,6 +25,8 @@ import Virus from "../assets/svg/virus.svg"
 import UserScan from "../assets/svg/userScan.svg"
 import EyesOpen from "../assets/svg/eyesOpen.svg"
 import EyesClose from "../assets/svg/eyesClose.svg"
+import BackIcon from '../assets/svg/backIcon.svg';
+import MenuIcon from '../assets/svg/drawerCustom.svg';
 
 export {
     Home,
@@ -53,7 +55,9 @@ export {
     Virus,
     UserScan,
     EyesOpen,
-    EyesClose
+    EyesClose,
+    BackIcon,
+    MenuIcon
 }
 
 
@@ -71,9 +75,12 @@ export const groupArray = (array: [], groupSize: number) => {
 };
 
 export const fixUrl = (url: string) => {
-    return url.replace('localhost', LOCAL_IP);
-};
-
+    if (!url) return url;
+    if (url.includes('localhost')) {
+        return url.replace('localhost', LOCAL_IP); // Por si acaso el backend devuelve localhost
+    }
+    return url;
+}
 export const formatDate = (date: Date | string | null | undefined, placeholder: string | undefined) => {
     if (!date) return placeholder || 'Selecciona una fecha';
 

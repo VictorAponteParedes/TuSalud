@@ -7,8 +7,7 @@ import Routes from '../../navigation/routes';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import { CustomHeaderProps } from "../../types/auth";
-import BackIcon from '../../assets/svg/backIcon.svg';
-import MenuIcon from '../../assets/svg/drawerCustom.svg';
+import { BackIcon, MenuIcon } from "../../helpers";
 import SvgWrapper from "../SvgWrapper";
 import { Profile } from "../../helpers";
 
