@@ -4,16 +4,33 @@ import { Calendar } from '../../../helpers';
 import SvgWrapper from '../../SvgWrapper';
 import colors from '../../../theme/colors';
 import styles from './styles';
-import { AppointmentCardProps } from '../../../types/modals';
+import { AppointmentFormData } from '../../../types/appointment';
+import { API_BASE_URL } from '../../../constants';
+import { useNavigation } from '@react-navigation/native';
 
-const AppointmentCard = (props: AppointmentCardProps) => {
-    const { date, doctorName, specialty, availableTime, onPress, style } = props;
+interface Props {
+    appointment: AppointmentFormData;
+}
 
+const AppointmentCard = ({ appointment }: Props) => {
+    const navigate = useNavigation();
+
+
+    const imageUrl = appointment.doctor.profileImage?.path
+        ? `${API_BASE_URL}/${appointment.doctor.profileImage.path}`
+        : '/default-profile.png';
+
+    console.log("foto doctor:", appointment)
+
+    const goToDetails = () => {
+        // navigate.navigate(`/doctors/${doctor.id}`);
+        console.log("detalle de la cita")
+    };
 
     return (
         <TouchableOpacity
-            style={[styles.card, style]}
-            onPress={onPress}
+            style={[styles.card]}
+            onPress={goToDetails}
             activeOpacity={0.8}
         >
             <View style={styles.iconContainer}>
@@ -23,23 +40,28 @@ const AppointmentCard = (props: AppointmentCardProps) => {
             </View>
 
             <View style={styles.infoContainer}>
-                <Text style={styles.dateText}>{date}</Text>
+                <Text style={styles.dateText}>{`${appointment.appointmentDate} ${appointment.appointmentTime}`}</Text>
 
                 <View style={styles.doctorInfo}>
-                    <Text style={styles.doctorName}>{doctorName}</Text>
+                    <Text style={styles.doctorName}>{appointment.doctor.firstName}</Text>
                     <View style={styles.specialtyContainer}>
 
-                        <Text style={styles.specialtyText}>{specialty}</Text>
+                        <Text style={styles.specialtyText}>{appointment.doctor.experience}</Text>
                     </View>
                     <View style={styles.timeContainer}>
 
-                        <Text style={styles.timeText}>{availableTime}</Text>
+                        <Text style={styles.timeText}>{appointment.doctor.schedules?.map((item) => `${item.day} ${item.startTime} ${item.endTime}`)}</Text>
                     </View>
                 </View>
             </View>
 
             <View style={styles.rightIconContainer}>
-                <Image source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} style={styles.doctorImage} />
+                {/* <Image source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} style={styles.doctorImage} /> */}
+                <Image
+                    source={{ uri: imageUrl }}
+                    style={styles.doctorImage}
+                    resizeMode="cover"
+                />
             </View>
         </TouchableOpacity>
     );
