@@ -15,6 +15,7 @@ import SvgWrapper from "../../components/SvgWrapper";
 import styles from "./styles";
 import DocumentCard from "../../components/CardInformacionPersonal/DocumentCard";
 import useUserInformation from "../../hooks/useUserInfo";
+import { useAppointment } from "../../hooks/useAppointment";
 
 
 type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
@@ -25,11 +26,7 @@ const ProfileScreen = () => {
   const { loadingImage, logout, profileImageUri } = useShowPerfilImgen();
   const { profileInformation, loading } = useUserInformation()
   const [activeTab, setActiveTab] = useState<TabType>('personal');
-
-
-  useEffect(() => {
-    console.log(profileInformation)
-  }, [])
+  const { appointment } = useAppointment(user?.id);
 
   return (
     <View style={styles.container}>
@@ -158,16 +155,11 @@ const ProfileScreen = () => {
 
           {activeTab === 'appointments' && (
             <>
-              {appointmentsData.map(appointment => (
-                <AppointmentCard
-                  key={appointment.id}
-                  date={appointment.date}
-                  doctorName={appointment.doctorName}
-                  specialty={appointment.specialty}
-                  availableTime={appointment.availableTime}
-                  onPress={() => console.log('Card pressed', appointment.id)}
-                />
-              ))}
+              {
+                appointment.map((item) => (
+                  <AppointmentCard key={item.id} appointment={item} />
+                ))
+              }
             </>
           )}
           {activeTab === 'historial' && (
