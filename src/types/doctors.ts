@@ -1,36 +1,31 @@
-type Language = 'Español' | 'Inglés' | 'Francés' | 'Portugués' | string;
+// src/types/doctor.ts
+import type { SpecialtiesType } from "./specialties";
+import type { LanguageType } from "./language";
+import { RegisterFormData } from "./auth";
+import { ScheduleType } from "./schecule";
+import { ProfileImageType } from "./profileImage";
 
-type AvailabilityStatus = 'available' | 'unavailable' | 'on_vacation' | 'in_consultation';
-
-export type DoctorType = {
+export interface DoctorFormData {
     id: string;
-    name: string;
-    speciality: string;
-    imageUrl: string;
-    rating: number;
-    reviews: number;
-    status: AvailabilityStatus;
-    schedule: string;
-    languages: Language[];
-    experience: string;
-    description: string;
-    // Campos opcionales que podrías necesitar después
-    phone?: string;
-    email?: string;
-    consultationFee?: number;
-    isFavorite?: boolean;
-    clinic?: {
-        name: string;
-        address: string;
-        coordinates?: {
-            lat: number;
-            lng: number;
-        };
-    };
-    education?: Array<{
-        degree: string;
-        university: string;
-        year: number;
-    }>;
-    specialties?: string[];
-};
+    firstName: string;
+    lastName: string;
+    description?: string;
+    experience?: string;
+    languages?: LanguageType[];
+    patients: RegisterFormData[];
+    profileImage?: ProfileImageType;
+    rating: string | number;
+    reviews?: number;
+    schedules?: ScheduleType[];
+    specialties: SpecialtiesType[];
+    status: "available" | "unavailable" | "on_leave";
+    onViewDetails?: () => void;
+}
+
+
+
+
+
+
+
+
