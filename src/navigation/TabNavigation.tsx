@@ -10,7 +10,7 @@ import colors from '../theme/colors';
 // Views
 import HomeScreen from '../screens/Home';
 import SettingsScreen from '../screens/Settings';
-import Quotes from '../screens/Quotes';
+import Quotes from '../screens/Appointment';
 
 const Tab = createBottomTabNavigator();
 
