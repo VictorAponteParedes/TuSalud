@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Calendar } from '../../../helpers';
 import SvgWrapper from '../../../components/SvgWrapper';
 import colors from '../../../theme/colors';
-import styles from '../../../components/CardInformacionPersonal/appointment/styles';
+import styles from './styles';
 import { AppointmentFormData } from '../../../types/appointment';
 import { API_BASE_URL } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
