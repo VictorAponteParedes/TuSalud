@@ -6,7 +6,9 @@ import { translateError } from "../helpers/translateError";
 const appointmentService = new AppointmentService();
 
 export const useAppointment = (id?: string) => {
-    const [appointment, setAppointment] = useState<AppointmentFormData | null>(null);
+    const [appointment, setAppointment] = useState<
+      AppointmentFormData[] | null
+    >([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

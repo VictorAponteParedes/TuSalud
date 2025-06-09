@@ -45,14 +45,13 @@ const ProfileScreen = () => {
           <>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: profileImageUri }}
+                source={{uri: profileImageUri}}
                 style={styles.image}
                 resizeMode="cover"
               />
               <TouchableOpacity
                 style={styles.editButton}
-                onPress={() => console.log('Editar foto')}
-              >
+                onPress={() => console.log('Editar foto')}>
                 <View style={styles.editButtonBackground}>
                   <SvgWrapper color={colors.white} size={20}>
                     <Edit />
@@ -77,14 +76,14 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'personal' && styles.activeTab
+            activeTab === 'personal' && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('personal')}
-        >
-          <Text style={[
-            styles.tabText,
-            activeTab === 'personal' && styles.activeTabText
-          ]}>
+          onPress={() => setActiveTab('personal')}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'personal' && styles.activeTabText,
+            ]}>
             {/* {translate('Information.title')} */}
             Personal
           </Text>
@@ -92,29 +91,28 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'appointments' && styles.activeTab
+            activeTab === 'appointments' && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('appointments')}
-        >
-          <Text style={[
-            styles.tabText,
-            activeTab === 'appointments' && styles.activeTabText
-          ]}>
+          onPress={() => setActiveTab('appointments')}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'appointments' && styles.activeTabText,
+            ]}>
             {translate('Appointment.title')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'historial' && styles.activeTab
+            activeTab === 'historial' && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('historial')}
-        >
-          <Text style={[
-            styles.tabText,
-            activeTab === 'historial' && styles.activeTabText
-          ]}>
-
+          onPress={() => setActiveTab('historial')}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'historial' && styles.activeTabText,
+            ]}>
             {translate('Historial.title')}
           </Text>
         </TouchableOpacity>
@@ -122,30 +120,27 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'documents' && styles.activeTab
+            activeTab === 'documents' && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('documents')}
-        >
-          <Text style={[
-            styles.tabText,
-            activeTab === 'documents' && styles.activeTabText
-          ]}>
+          onPress={() => setActiveTab('documents')}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'documents' && styles.activeTabText,
+            ]}>
             {translate('Documents.title')}
           </Text>
         </TouchableOpacity>
-
-
       </View>
 
       {/* Content Area */}
       <ScrollView
         style={styles.contentContainer}
-        contentContainerStyle={styles.scrollContent}
-      >
+        contentContainerStyle={styles.scrollContent}>
         <View style={styles.paddingContainer}>
           {activeTab === 'personal' && (
             <CardInformacionPersonal
-              email={user?.email || "No disponible"}
+              email={user?.email || 'No disponible'}
               phone="+593 123 456 789"
               BloodGroup="O+"
               dateBirth="15/08/1990"
@@ -155,11 +150,10 @@ const ProfileScreen = () => {
 
           {activeTab === 'appointments' && (
             <>
-              {
-                appointment.map((item) => (
+              {appointment &&
+                appointment.map(item => (
                   <AppointmentCard key={item.id} appointment={item} />
-                ))
-              }
+                ))}
             </>
           )}
           {activeTab === 'historial' && (
