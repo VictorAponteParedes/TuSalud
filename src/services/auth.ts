@@ -3,6 +3,7 @@ import { RegisterFormData, LoginFormData, ForgotPasswordData, ResetPassword } fr
 import api from "./api";
 import { jwtDecode } from 'jwt-decode';
 import { API_BASE_URL } from "../constants";
+import { Users } from "../models/Users";
 
 
 const uploadApi = axios.create({
@@ -98,19 +99,20 @@ class AuthServices {
             throw new Error('Error de conexión al iniciar sesión');
         }
     }
-    async getUserInformation(token: any) {
+
+    async getUserInformation(token: string | null): Promise<Users> {
         try {
-            const response = await api.get('/auth/profile', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log("user data information: ", response.data)
-            return response.data;
+          const response = await api.get('/auth/profile', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          console.log("user data information: ", response.data);
+          return Users.fromJson(response.data);
         } catch (e) {
-            console.log('Error detallado:', e.response?.data || e.message);
-            throw e;
+          console.log('Error detallado:', e.response?.data || e.message);
+          throw e;
         }
     }
 
