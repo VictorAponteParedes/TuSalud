@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Calendar } from '../../../helpers';
-import SvgWrapper from '../../SvgWrapper';
+import SvgWrapper from '../../../components/SvgWrapper';
 import colors from '../../../theme/colors';
-import styles from './styles';
+import styles from '../../../components/CardInformacionPersonal/appointment/styles';
 import { AppointmentFormData } from '../../../types/appointment';
 import { API_BASE_URL } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';

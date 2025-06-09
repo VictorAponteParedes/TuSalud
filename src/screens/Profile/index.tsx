@@ -5,7 +5,7 @@ import { translate } from '../../lang';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
 import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
-import AppointmentCard from "../../components/CardInformacionPersonal/appointment";
+import AppointmentCard from '../Appointment/appointmentCard';
 import { appointmentsData } from "./temporal";
 import colors from "../../theme/colors";
 import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
