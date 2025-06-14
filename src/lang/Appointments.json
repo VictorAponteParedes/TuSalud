@@ -9,5 +9,24 @@
   },
   "modal": {
     "title": "Selecciona una especialidad"
-  }
+  },
+  "doctors": {
+    "title": "Doctores disponibles",
+    "experience": "Experiencia",
+    "status": "Estado",
+    "available": "Disponible",
+    "unavailable": "No disponible"
+  },
+  "reviews": "reseñas",
+  "availableSchedules": "Horarios disponibles",
+  "days": {
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
+  },
+  "backToLogin": "Volver"
 }

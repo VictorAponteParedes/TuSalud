@@ -1,92 +1,92 @@
-import { Dimensions, StyleSheet } from "react-native";
-import colors from "../../theme/colors";
-import { fontsOpenSans } from "../../types/fonts";
-import sizeText from "../../theme/size";
-
-
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
-        backgroundColor: colors.white,
         flex: 1,
+        padding: 16,
+        backgroundColor: "#f9fafa", // fondo claro y limpio
     },
+
     label: {
-        fontSize: sizeText.title.title,
-        fontFamily: fontsOpenSans.regular,
-        marginVertical: 10,
-        color: colors.black,
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 12,
+        color: "#333",
     },
-    input: {
+
+    specialtyButton: {
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        borderRadius: 10,
+        backgroundColor: "#e0f2f1", // verde suave
+        marginBottom: 10,
         borderWidth: 1,
-        borderColor: "#ccc",
-        padding: 12,
-        borderRadius: 8,
-        justifyContent: "center",
+        borderColor: "#b2dfdb",
     },
-    inputText: {
-        fontSize: sizeText.title.text,
-        fontFamily: fontsOpenSans.regular,
-        color: colors.grayDark,
+
+    specialtyButtonText: {
+        fontSize: 16,
+        color: "#00796b", // tono verde fuerte
+        textAlign: "center",
     },
-    modalOverlay: {
-        flex: 1,
-        backgroundColor: "rgba(0,0,0,0.3)",
-        justifyContent: "flex-end",
+
+    doctorsContainer: {
+        marginTop: 24,
+        paddingTop: 16,
+        borderTopWidth: 1,
+        borderTopColor: "#ccc",
     },
-    modalContent: {
-        backgroundColor: colors.white,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        padding: 20,
-        maxHeight: "80%",
+
+    doctorCard: {
+        backgroundColor: "#fff",
+        padding: 16,
+        marginBottom: 12,
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2, // Android shadow
+        borderWidth: 1,
+        borderColor: "#e0e0e0",
     },
-    modalHeader: {
+
+    doctorName: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#37474f",
+        marginBottom: 4,
+    },
+    scheduleContainer: {
+        marginTop: 12,
+        paddingTop: 8,
+        borderTopWidth: 1,
+        borderTopColor: "#ddd",
+    },
+
+    scheduleTitle: {
+        fontSize: 14,
+        fontWeight: "bold",
+        marginBottom: 6,
+        color: "#00796b",
+    },
+
+    scheduleItem: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 15,
+        marginBottom: 4,
     },
-    modalTitle: {
-        fontSize: sizeText.title.subtitle,
-        fontFamily: fontsOpenSans.regular,
-        color: colors.black,
-    },
-    closeText: {
-        fontSize: sizeText.title.text,
-        fontFamily: fontsOpenSans.regular,
-        color: colors.primary[300],
-    },
-    modalItem: {
-        flexDirection: "row",
-        alignItems: "center",
-        paddingVertical: 12,
-        borderBottomWidth: 1,
-        borderBottomColor: "#eee",
-    },
-    icon: {
-        width: 40,
-        height: 40,
-        borderRadius: 6,
-        marginRight: 15,
-        backgroundColor: "#ddd",
-    },
-    itemText: {
-        fontSize: sizeText.title.text,
-        fontFamily: fontsOpenSans.regular,
-        color: colors.primary[600],
-    },
-    doctorsContainer: {
 
-        paddingVertical: 20,
-        height: 350,
-        borderRadius: 12,
-        marginTop: 20,
-        backgroundColor: colors.grayLight
+    scheduleDay: {
+        fontSize: 14,
+        color: "#555",
     },
-    listContainer: {
-        paddingBottom: 20
+
+    scheduleTime: {
+        fontSize: 14,
+        color: "#444",
     },
 
 });
-export default styles
+
+export default styles;
