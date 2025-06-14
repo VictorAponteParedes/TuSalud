@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../theme/colors";
 
 
 const styles = StyleSheet.create({
@@ -19,17 +20,42 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         width: '100%',
     },
+    dateContainer: {
+        marginBottom: 6,
+    },
+
+    dateLabel: {
+        fontSize: 12,
+        color: colors.gray[500],
+        fontWeight: '500',
+    },
+
+    dateText: {
+        fontSize: 14,
+        color: colors.gray[800],
+        fontWeight: '600',
+    },
+
     iconContainer: {
         marginRight: 16,
     },
     infoContainer: {
         flex: 1,
     },
-    dateText: {
-        fontSize: 14,
-        color: '#636e72',
-        marginBottom: 8,
-        fontWeight: '500',
+    statusContainer: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8,
+        alignSelf: 'flex-start',
+        borderWidth: 1,
+        marginTop: 6,
+    },
+
+    statusText: {
+        fontSize: 12,
+        fontWeight: '600',
+        textTransform: 'capitalize',
+        color: colors.gray[800],
     },
     doctorInfo: {
         marginBottom: 4,

@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Controller } from 'react-hook-form';
 import SvgWrapper from '../SvgWrapper';
 import colors from '../../theme/colors';
-import { formatDate, formatForDatabase } from '../../helpers';
+import { formatDate, formatForDatabase } from '../../helpers/time';
 
 interface DateInputProps {
     label: string;
