@@ -14,21 +14,68 @@ const styles = StyleSheet.create({
         color: "#333",
     },
 
-    specialtyButton: {
-        paddingVertical: 14,
-        paddingHorizontal: 16,
+    selectButton: {
+        backgroundColor: "#e6e6e6",
+        padding: 12,
         borderRadius: 10,
-        backgroundColor: "#e0f2f1", // verde suave
-        marginBottom: 10,
-        borderWidth: 1,
-        borderColor: "#b2dfdb",
+        marginVertical: 10,
+        alignItems: "center",
+    },
+    selectButtonText: {
+        fontSize: 16,
+        color: "#333",
     },
 
-    specialtyButtonText: {
-        fontSize: 16,
-        color: "#00796b", // tono verde fuerte
-        textAlign: "center",
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
     },
+
+    modalContainer: {
+        backgroundColor: "#fff",
+        width: "80%",
+        maxHeight: "70%",
+        borderRadius: 15,
+        padding: 20,
+    },
+
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+
+    modalItem: {
+        paddingVertical: 12,
+        borderBottomWidth: 1,
+        borderColor: "#ccc",
+    },
+
+    modalItemText: {
+        fontSize: 16,
+    },
+
+    modalCloseButton: {
+        marginTop: 20,
+        backgroundColor: "#e53935",
+        paddingVertical: 10,
+        borderRadius: 8,
+        alignItems: "center",
+    },
+
+    modalCloseButtonText: {
+        color: "#fff",
+        fontWeight: "bold",
+    },
+    scheduleContainer: {
+        marginTop: 12,
+        paddingTop: 8,
+        borderTopWidth: 1,
+        borderTopColor: "#ddd",
+    },
+
 
     doctorsContainer: {
         marginTop: 24,
@@ -57,12 +104,7 @@ const styles = StyleSheet.create({
         color: "#37474f",
         marginBottom: 4,
     },
-    scheduleContainer: {
-        marginTop: 12,
-        paddingTop: 8,
-        borderTopWidth: 1,
-        borderTopColor: "#ddd",
-    },
+
 
     scheduleTitle: {
         fontSize: 14,
@@ -86,6 +128,55 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#444",
     },
+
+    specialtyButton: {
+        backgroundColor: "#f2f2f2",
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        borderRadius: 20,
+        marginRight: 10,
+        marginVertical: 10,
+    },
+    specialtyButtonSelected: {
+        backgroundColor: "#007bff",
+    },
+    specialtyButtonText: {
+        color: "#333",
+    },
+    selectedDoctorCard: {
+        borderWidth: 2,
+        borderColor: "#4caf50",
+    },
+
+    scheduleItemBox: {
+        borderWidth: 1,
+        borderColor: "#4caf50",
+        borderRadius: 10,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: "#f9f9f9",
+    },
+
+    selectedScheduleItem: {
+        backgroundColor: "#d0f0d0",
+        borderColor: "#2e7d32",
+    },
+
+    createAppointmentButton: {
+        backgroundColor: "#007bff",
+        padding: 14,
+        borderRadius: 10,
+        alignItems: "center",
+        marginVertical: 20,
+    },
+
+    createAppointmentText: {
+        color: "#fff",
+        fontWeight: "bold",
+        fontSize: 16,
+    },
+
+
 
 });
 
