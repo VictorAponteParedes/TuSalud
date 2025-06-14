@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,6 +16,10 @@ import CustomHeader from "../../components/customHeader";
 import useSpecialty from "../../hooks/useSpecialty";
 import type { SpecialtiesType } from "../../types/specialties";
 import type { DoctorFormData } from "../../types/doctors";
+import SvgWrapper from "../../components/SvgWrapper";
+import { Close } from "../../helpers";
+import colors from "../../theme/colors";
+import { API_BASE_URL } from "../../constants";
 
 const Appointment = () => {
   const navigation = useNavigation();
@@ -74,9 +79,20 @@ const Appointment = () => {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContainer}>
-              <Text style={styles.modalTitle}>
-                {translate("modal.title")}
-              </Text>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>
+                  {translate("modal.title")}
+                </Text>
+                <TouchableOpacity
+                  style={styles.modalCloseButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <SvgWrapper color={colors.white} size={24}>
+                    <Close />
+                  </SvgWrapper>
+                </TouchableOpacity>
+              </View>
+
               <FlatList
                 data={specialties}
                 keyExtractor={(item) => item.id}
@@ -89,18 +105,12 @@ const Appointment = () => {
                   </TouchableOpacity>
                 )}
               />
-              <TouchableOpacity
-                style={styles.modalCloseButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalCloseButtonText}>Cerrar</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </Modal>
 
         <ScrollView>
-          {selectedSpecialty && selectedSpecialty.doctors?.length > 0 && (
+          {selectedSpecialty && selectedSpecialty.doctors?.length > 0 ? (
             <View style={styles.doctorsContainer}>
               <Text style={styles.label}>{translate("doctors.title")}</Text>
 
@@ -119,21 +129,31 @@ const Appointment = () => {
                       setSelectedScheduleId(null);
                     }}
                   >
-                    <Text style={styles.doctorName}>
-                      {doctor.firstName} {doctor.lastName}
-                    </Text>
-                    <Text>{doctor.experience}</Text>
-                    <Text>{doctor.description}</Text>
-                    <Text>
-                      ⭐ {doctor.rating} ({doctor.reviews}{" "}
-                      {translate("reviews")})
-                    </Text>
-                    <Text>
-                      {translate("doctors.status")}:{" "}
-                      {doctor.status === "available"
-                        ? translate("doctors.available")
-                        : translate("doctors.unavailable")}
-                    </Text>
+                    <View style={styles.imageRow}>
+                      {doctor.profileImage?.path && (
+                        <Image
+                          source={{ uri: `${API_BASE_URL}/${doctor.profileImage.path}` }}
+                          style={styles.doctorImage}
+                          resizeMode="cover"
+                        />
+                      )}
+                      <View style={styles.doctorInfo}>
+                        <Text style={styles.doctorName}>
+                          {doctor.firstName} {doctor.lastName}
+                        </Text>
+                        <Text>{doctor.description}</Text>
+                        <Text>
+                          ⭐ {doctor.rating} ({doctor.reviews} {translate("reviews")})
+                        </Text>
+                        <Text>
+                          {translate("doctors.status")}:{" "}
+                          {doctor.status === "available"
+                            ? translate("doctors.available")
+                            : translate("doctors.unavailable")}
+                        </Text>
+                      </View>
+                    </View>
+
 
                     {doctor.schedules?.length > 0 &&
                       selectedDoctorId === doctor.id && (
@@ -142,14 +162,11 @@ const Appointment = () => {
                             {translate("availableSchedules")}
                           </Text>
                           {doctor.schedules.map((schedule) => {
-                            const isSelected =
-                              selectedScheduleId === schedule.id;
+                            const isSelected = selectedScheduleId === schedule.id;
                             return (
                               <TouchableOpacity
                                 key={schedule.id}
-                                onPress={() =>
-                                  setSelectedScheduleId(schedule.id)
-                                }
+                                onPress={() => setSelectedScheduleId(schedule.id)}
                                 style={[
                                   styles.scheduleItemBox,
                                   isSelected && styles.selectedScheduleItem,
@@ -170,6 +187,12 @@ const Appointment = () => {
                 );
               })}
             </View>
+          ) : selectedSpecialty && (
+            <View style={styles.emptyDoctorsContainer}>
+              <Text style={styles.emptyDoctorsText}>
+                No hay doctores disponibles para esta especialidad.
+              </Text>
+            </View>
           )}
 
           <TouchableOpacity
@@ -179,6 +202,7 @@ const Appointment = () => {
             <Text style={styles.createAppointmentText}>Crear cita</Text>
           </TouchableOpacity>
         </ScrollView>
+
       </View>
     </>
   );

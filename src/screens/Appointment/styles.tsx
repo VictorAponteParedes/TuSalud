@@ -1,4 +1,7 @@
 import { StyleSheet } from "react-native";
+import colors from "../../theme/colors";
+import { fontsOpenSans } from "../../types/fonts";
+import sizeText from "../../theme/size";
 
 const styles = StyleSheet.create({
     container: {
@@ -22,8 +25,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     selectButtonText: {
-        fontSize: 16,
-        color: "#333",
+        fontSize: sizeText.title.subtitle,
+        fontFamily: fontsOpenSans.regular,
+        color: colors.primary[400],
     },
 
     modalOverlay: {
@@ -34,8 +38,8 @@ const styles = StyleSheet.create({
     },
 
     modalContainer: {
-        backgroundColor: "#fff",
-        width: "80%",
+        backgroundColor: colors.white,
+        width: "90%",
         maxHeight: "70%",
         borderRadius: 15,
         padding: 20,
@@ -43,30 +47,36 @@ const styles = StyleSheet.create({
 
     modalTitle: {
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: fontsOpenSans.regular,
+        color: colors.gray[800],
+    },
+    modalHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         marginBottom: 10,
+
     },
 
     modalItem: {
         paddingVertical: 12,
         borderBottomWidth: 1,
-        borderColor: "#ccc",
+        borderColor: colors.gray[200],
     },
 
     modalItemText: {
         fontSize: 16,
+        color: colors.primary[500],
     },
 
     modalCloseButton: {
-        marginTop: 20,
-        backgroundColor: "#e53935",
-        paddingVertical: 10,
-        borderRadius: 8,
+        backgroundColor: colors.primary[400],
+        borderRadius: 10,
         alignItems: "center",
     },
 
     modalCloseButtonText: {
-        color: "#fff",
+        color: colors.white,
         fontWeight: "bold",
     },
     scheduleContainer: {
@@ -103,6 +113,21 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#37474f",
         marginBottom: 4,
+    },
+    imageRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12,
+    },
+    doctorImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        borderWidth: 3,
+        borderColor: colors.primary[400],
+    },
+    doctorInfo: {
+        flex: 1,
     },
 
 
@@ -144,26 +169,26 @@ const styles = StyleSheet.create({
         color: "#333",
     },
     selectedDoctorCard: {
-        borderWidth: 2,
-        borderColor: "#4caf50",
+        borderWidth: 1.5,
+        borderColor: colors.green[400],
     },
 
     scheduleItemBox: {
         borderWidth: 1,
-        borderColor: "#4caf50",
+        borderColor: colors.green[400],
         borderRadius: 10,
         padding: 10,
         marginBottom: 10,
-        backgroundColor: "#f9f9f9",
+        backgroundColor: colors.green[50],
     },
 
     selectedScheduleItem: {
-        backgroundColor: "#d0f0d0",
-        borderColor: "#2e7d32",
+        backgroundColor: colors.green[200],
+        borderColor: colors.green[400],
     },
 
     createAppointmentButton: {
-        backgroundColor: "#007bff",
+        backgroundColor: colors.primary[400],
         padding: 14,
         borderRadius: 10,
         alignItems: "center",
@@ -171,9 +196,23 @@ const styles = StyleSheet.create({
     },
 
     createAppointmentText: {
-        color: "#fff",
-        fontWeight: "bold",
+        color: colors.white,
+        fontFamily: fontsOpenSans.regular,
         fontSize: 16,
+    },
+    emptyDoctorsContainer: {
+        marginTop: 20,
+        padding: 16,
+        backgroundColor: "#fff8f8",
+        borderRadius: 10,
+        borderColor: "#f44336",
+        borderWidth: 1,
+    },
+
+    emptyDoctorsText: {
+        textAlign: "center",
+        color: "#f44336",
+        fontWeight: "600",
     },
 
 

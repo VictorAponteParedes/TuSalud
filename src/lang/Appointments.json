@@ -18,7 +18,7 @@
     "unavailable": "No disponible"
   },
   "reviews": "reseñas",
-  "availableSchedules": "Horarios disponibles",
+  "availableSchedules": "Horarios disponibles  (Selecciona un horario)",
   "days": {
     "monday": "Lunes",
     "tuesday": "Martes",
