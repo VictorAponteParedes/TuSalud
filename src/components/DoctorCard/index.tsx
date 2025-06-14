@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Rating } from 'react-native-ratings';
-import { DoctorFormData } from "../../types/doctors";
+import { DoctorType } from "../../types/doctors";
 import styles from "./styles";
 
 interface DoctorCardProps {
-    doctor: DoctorFormData;
+    doctor: DoctorType;
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {

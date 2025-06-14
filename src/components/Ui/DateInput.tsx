@@ -1,7 +1,7 @@
-// src/components/ui/DateInput.tsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Controller } from 'react-hook-form';
 import SvgWrapper from '../SvgWrapper';
 import colors from '../../theme/colors';
@@ -13,13 +13,40 @@ interface DateInputProps {
     control: any;
     name: string;
     iconName?: React.ReactNode;
+    minimumDate?: Date;
+    maximumDate?: Date;
+    isDateAllowed?: (date: Date) => boolean;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label, placeholder, control, name, iconName }) => {
+const DateInput: React.FC<DateInputProps> = ({
+    label,
+    placeholder,
+    control,
+    name,
+    iconName,
+    minimumDate,
+    maximumDate,
+    isDateAllowed
+}) => {
     const [showPicker, setShowPicker] = useState(false);
     const [internalDate, setInternalDate] = useState<Date | null>(null);
 
+    const handleDateChange = (selectedDate: Date | undefined, onChange: (value: string) => void) => {
+        if (!selectedDate) return;
 
+        if (isDateAllowed && !isDateAllowed(selectedDate)) {
+            Alert.alert(
+                "Día no disponible",
+                "El doctor no atiende este día. Por favor selecciona otro día.",
+                [{ text: "OK" }]
+            );
+            return;
+        }
+
+        setInternalDate(selectedDate);
+        onChange(formatForDatabase(selectedDate));
+        setShowPicker(Platform.OS === 'ios');
+    };
 
     return (
         <View style={styles.container}>
@@ -47,21 +74,40 @@ const DateInput: React.FC<DateInputProps> = ({ label, placeholder, control, name
                                 {formatDate(value || internalDate, placeholder)}
                             </Text>
                         </TouchableOpacity>
+
                         {showPicker && (
-                            <DateTimePicker
-                                value={value ? new Date(value) : internalDate || new Date()}
-                                mode="date"
-                                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                                maximumDate={new Date()}
-                                onChange={(event, selectedDate) => {
-                                    setShowPicker(Platform.OS === 'ios');
-                                    if (selectedDate) {
-                                        setInternalDate(selectedDate);
-                                        onChange(formatForDatabase(selectedDate));
-                                    }
-                                }}
-                                locale="es-ES"
-                            />
+                            Platform.OS === 'ios' ? (
+                                <DateTimePickerModal
+                                    isVisible={showPicker}
+                                    mode="date"
+                                    date={value ? new Date(value) : internalDate || new Date()}
+                                    minimumDate={minimumDate}
+                                    maximumDate={maximumDate}
+                                    onConfirm={(selectedDate) => {
+                                        handleDateChange(selectedDate, onChange);
+                                    }}
+                                    onCancel={() => setShowPicker(false)}
+                                    locale="es_ES"
+                                    validRange={{
+                                        startDate: minimumDate,
+                                        endDate: maximumDate,
+                                        disabledDates: (date) => isDateAllowed ? !isDateAllowed(date) : false
+                                    }}
+                                />
+                            ) : (
+                                <DateTimePicker
+                                    value={value ? new Date(value) : internalDate || new Date()}
+                                    mode="date"
+                                    display="calendar"
+                                    minimumDate={minimumDate}
+                                    maximumDate={maximumDate}
+                                    onChange={(event, selectedDate) => {
+                                        handleDateChange(selectedDate, onChange);
+                                        setShowPicker(false);
+                                    }}
+                                    locale="es-ES"
+                                />
+                            )
                         )}
                     </>
                 )}
