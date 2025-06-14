@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: "#f9fafa", // fondo claro y limpio
+        backgroundColor: colors.white,
     },
 
     label: {
