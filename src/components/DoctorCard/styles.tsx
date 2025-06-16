@@ -4,69 +4,93 @@ import colors from "../../theme/colors";
 const styles = StyleSheet.create({
     card: {
         backgroundColor: colors.white,
-        borderRadius: 12,
-        marginVertical: 8,
-        marginHorizontal: 16,
         padding: 16,
-        shadowColor: '#000',
+        marginBottom: 12,
+        borderRadius: 10,
+        shadowColor: colors.gray[800],
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
+        shadowRadius: 4,
+        elevation: 2,
+        borderWidth: 1,
+        borderColor: colors.gray[200],
     },
-    cardContent: {
+    selectedCard: {
+        borderWidth: 2,
+        borderColor: colors.primary[400],
+    },
+    imageRow: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        gap: 12,
     },
-    doctorImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        marginRight: 16,
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        borderWidth: 2,
+        borderColor: colors.primary[400],
+        backgroundColor: colors.gray[100],
     },
-    textContainer: {
+    infoContainer: {
         flex: 1,
+        gap: 6,
     },
-    doctorName: {
+    name: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
+        color: colors.gray[800],
     },
-    speciality: {
+    description: {
         fontSize: 14,
-        color: '#666',
-        marginTop: 4,
+        color: colors.gray[600],
+        lineHeight: 20,
     },
     ratingContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 6,
-    },
-    ratingText: {
-        fontSize: 12,
-        color: '#888',
-        marginLeft: 6,
+        gap: 8,
     },
     rating: {
-        alignSelf: 'flex-start',
-        marginRight: 5,
-        paddingVertical: 0,
+        fontSize: 14,
+        fontWeight: '600',
+        color: colors.yellow[600],
     },
-    statusBadge: {
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 12,
-        alignSelf: 'flex-start',
-    },
-    available: {
-        backgroundColor: '#E8F5E9',
-    },
-    unavailable: {
-        backgroundColor: '#FFEBEE',
-    },
-    statusText: {
+    reviews: {
         fontSize: 12,
-        fontWeight: '500',
-    }
+        color: colors.gray[500],
+    },
+    status: {
+        fontSize: 14,
+        fontStyle: 'italic',
+        color: colors.gray[700],
+    },
+    schedulesContainer: {
+        marginTop: 12,
+        paddingTop: 8,
+        borderTopWidth: 1,
+        borderTopColor: colors.gray[200],
+        gap: 8,
+    },
+    schedulesTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: colors.primary[400],
+    },
+    scheduleItem: {
+        backgroundColor: colors.primary[50],
+        padding: 12,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: colors.primary[100],
+    },
+    selectedSchedule: {
+        backgroundColor: colors.primary[100],
+        borderColor: colors.primary[400],
+    },
+    scheduleText: {
+        fontSize: 14,
+        color: colors.gray[700],
+    },
 });
 export default styles

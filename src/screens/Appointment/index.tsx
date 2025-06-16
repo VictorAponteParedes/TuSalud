@@ -29,6 +29,7 @@ import { StatusAppointment } from "../../enum/statusAppointment";
 import { useAuth } from "../../context/AuthContext";
 import DateInput from "../../components/ui/DateInput";
 import SpecialtyModal from "../../components/SpecialtyModal";
+import DoctorCard from "../../components/DoctorCard";
 
 const Appointment = () => {
   const navigation = useNavigation();
@@ -159,78 +160,20 @@ const Appointment = () => {
             <View style={styles.doctorsContainer}>
               <Text style={styles.label}>{translate("doctors.title")}</Text>
 
-              {selectedSpecialty.doctors.map((doctor: DoctorFormData) => {
-                const isSelected = selectedDoctorId === doctor.id;
-
-                return (
-                  <TouchableOpacity
-                    key={doctor.id}
-                    style={[
-                      styles.doctorCard,
-                      isSelected && styles.selectedDoctorCard,
-                    ]}
-                    onPress={() => {
-                      setSelectedDoctorId(doctor.id);
-                      setSelectedScheduleId(null);
-                    }}
-                  >
-                    <View style={styles.imageRow}>
-                      {doctor.profileImage?.path && (
-                        <Image
-                          source={{ uri: `${API_BASE_URL}/${doctor.profileImage.path}` }}
-                          style={styles.doctorImage}
-                          resizeMode="cover"
-                        />
-                      )}
-                      <View style={styles.doctorInfo}>
-                        <Text style={styles.doctorName}>
-                          {doctor.firstName} {doctor.lastName}
-                        </Text>
-                        <Text>{doctor.description}</Text>
-                        <Text>
-                          ⭐ {doctor.rating} ({doctor.reviews} {translate("reviews")})
-                        </Text>
-                        <Text>
-                          {translate("doctors.status")}:{" "}
-                          {doctor.status === "available"
-                            ? translate("doctors.available")
-                            : translate("doctors.unavailable")}
-                        </Text>
-                      </View>
-                    </View>
-
-
-                    {doctor.schedules?.length > 0 &&
-                      selectedDoctorId === doctor.id && (
-                        <View style={styles.scheduleContainer}>
-                          <Text style={styles.scheduleTitle}>
-                            {translate("availableSchedules")}
-                          </Text>
-                          {doctor.schedules.map((schedule) => {
-                            const isSelected = selectedScheduleId === schedule.id;
-                            return (
-                              <TouchableOpacity
-                                key={schedule.id}
-                                onPress={() => setSelectedScheduleId(schedule.id)}
-                                style={[
-                                  styles.scheduleItemBox,
-                                  isSelected && styles.selectedScheduleItem,
-                                ]}
-                              >
-                                <Text style={styles.scheduleDay}>
-                                  {translate(`days.${schedule.day}`)}{" "}
-                                  <Text style={styles.scheduleTime}>
-                                    {schedule.startTime} - {schedule.endTime}
-                                  </Text>
-                                </Text>
-                              </TouchableOpacity>
-                            );
-                          })}
-                        </View>
-                      )}
-                  </TouchableOpacity>
-                );
-              })}
+              {selectedSpecialty.doctors.map((doctor: DoctorFormData) => (
+                <DoctorCard
+                  key={doctor.id}
+                  doctor={doctor}
+                  isSelected={selectedDoctorId === doctor.id}
+                  onPress={() => {
+                    setSelectedDoctorId(doctor.id);
+                    setSelectedScheduleId(null);
+                  }}
+                  onScheduleSelect={setSelectedScheduleId}
+                  selectedScheduleId={selectedScheduleId}
+                  translate={translate}
+                />
+              ))}
             </View>
           ) : selectedSpecialty && (
             <View style={styles.emptyDoctorsContainer}>
