@@ -28,6 +28,8 @@ import { AppointmentFormData } from "../../types/appointment";
 import { StatusAppointment } from "../../enum/statusAppointment";
 import { useAuth } from "../../context/AuthContext";
 import DateInput from "../../components/ui/DateInput";
+import { isDateAllowed } from "../../helpers/appointmentHelpers";
+import SpecialtyModal from "../../components/SpecialtyModal";
 
 const Appointment = () => {
   const navigation = useNavigation();
@@ -146,43 +148,12 @@ const Appointment = () => {
           </Text>
         </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
+        <SpecialtyModal
           visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContainer}>
-              <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>
-                  {translate("modal.title")}
-                </Text>
-                <TouchableOpacity
-                  style={styles.modalCloseButton}
-                  onPress={() => setModalVisible(false)}
-                >
-                  <SvgWrapper color={colors.white} size={24}>
-                    <Close />
-                  </SvgWrapper>
-                </TouchableOpacity>
-              </View>
-
-              <FlatList
-                data={specialties}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={styles.modalItem}
-                    onPress={() => handleSelectSpecialty(item.id)}
-                  >
-                    <Text style={styles.modalItemText}>{item.name}</Text>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          </View>
-        </Modal>
+          specialties={specialties}
+          onClose={() => setModalVisible(false)}
+          onSelect={handleSelectSpecialty}
+        />
 
         <ScrollView>
           {selectedSpecialty && selectedSpecialty.doctors?.length > 0 ? (
