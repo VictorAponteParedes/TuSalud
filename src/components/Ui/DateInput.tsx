@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Controller } from 'react-hook-form';
@@ -29,23 +29,28 @@ const DateInput: React.FC<DateInputProps> = ({
     isDateAllowed
 }) => {
     const [showPicker, setShowPicker] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
     const [internalDate, setInternalDate] = useState<Date | null>(null);
 
     const handleDateChange = (selectedDate: Date | undefined, onChange: (value: string) => void) => {
         if (!selectedDate) return;
 
-        if (isDateAllowed && !isDateAllowed(selectedDate)) {
-            Alert.alert(
-                "Día no disponible",
-                "El doctor no atiende este día. Por favor selecciona otro día.",
-                [{ text: "OK" }]
-            );
+        const normalizedDate = new Date(selectedDate);
+        normalizedDate.setHours(12, 0, 0, 0);
+
+        if (isDateAllowed && !isDateAllowed(normalizedDate)) {
+            setShowErrorModal(true);
             return;
         }
 
-        setInternalDate(selectedDate);
-        onChange(formatForDatabase(selectedDate));
+        setInternalDate(normalizedDate);
+        onChange(formatForDatabase(normalizedDate));
         setShowPicker(Platform.OS === 'ios');
+    };
+
+    const getDisabledDates = (date: Date) => {
+        if (!isDateAllowed) return false;
+        return !isDateAllowed(date);
     };
 
     return (
@@ -85,13 +90,14 @@ const DateInput: React.FC<DateInputProps> = ({
                                     maximumDate={maximumDate}
                                     onConfirm={(selectedDate) => {
                                         handleDateChange(selectedDate, onChange);
+                                        setShowPicker(false);
                                     }}
                                     onCancel={() => setShowPicker(false)}
                                     locale="es_ES"
                                     validRange={{
                                         startDate: minimumDate,
                                         endDate: maximumDate,
-                                        disabledDates: (date) => isDateAllowed ? !isDateAllowed(date) : false
+                                        disabledDates: getDisabledDates
                                     }}
                                 />
                             ) : (
@@ -109,6 +115,31 @@ const DateInput: React.FC<DateInputProps> = ({
                                 />
                             )
                         )}
+
+                        {/* Modal personalizado para errores */}
+                        <Modal
+                            animationType="fade"
+                            transparent={true}
+                            visible={showErrorModal}
+                            onRequestClose={() => setShowErrorModal(false)}
+                        >
+                            <View style={styles.modalOverlay}>
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.modalHeader}>
+                                        <Text style={styles.modalTitle}>Día no disponible</Text>
+                                    </View>
+                                    <Text style={styles.modalText}>
+                                        El doctor no atiende este día. Por favor selecciona otro día.
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={styles.modalButton}
+                                        onPress={() => setShowErrorModal(false)}
+                                    >
+                                        <Text style={styles.modalButtonText}>Entendido</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
                     </>
                 )}
             />
@@ -146,6 +177,46 @@ const styles = StyleSheet.create({
     },
     placeholderText: {
         color: colors.gray[400],
+    },
+    // Estilos para el modal personalizado
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: colors.white,
+        borderRadius: 12,
+        padding: 20,
+        alignItems: 'center',
+    },
+    modalHeader: {
+        marginBottom: 15,
+    },
+    modalTitle: {
+        fontSize: 20,
+        fontFamily: 'OpenSans-Bold',
+        color: colors.error[500],
+    },
+    modalText: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 20,
+        color: colors.gray[700],
+        fontFamily: 'OpenSans-Regular',
+    },
+    modalButton: {
+        backgroundColor: colors.primary[500],
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 8,
+    },
+    modalButtonText: {
+        color: colors.white,
+        fontFamily: 'OpenSans-SemiBold',
+        fontSize: 16,
     },
 });
 
