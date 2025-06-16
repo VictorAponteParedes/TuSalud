@@ -39,7 +39,8 @@
       "validation": {
         "selectDoctor": "Selecciona un doctor y un horario"
       }
-    }
+    },
+    "createButton": "Crear cita"
   },
   "reviews": "reseñas",
   "availableSchedules": "Horarios disponibles  (Selecciona un horario)",

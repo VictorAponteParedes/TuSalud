@@ -24,6 +24,7 @@ import DateInput from "../../components/ui/DateInput";
 import SpecialtyModal from "../../components/SpecialtyModal";
 import DoctorCard from "../../components/DoctorCard";
 import { getAvailableDaysText, isDateAllowed } from "../../helpers/appointmentHelpers";
+import DropdownInput from "../../components/ui/DropdownInput";
 
 const Appointment = () => {
   const navigation = useNavigation();
@@ -112,16 +113,15 @@ const Appointment = () => {
       <View style={styles.container}>
         <Text style={styles.label}>{translate("speciality.title")}</Text>
 
-        <TouchableOpacity
-          style={styles.selectButton}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.selectButtonText}>
-            {selectedSpecialty
-              ? selectedSpecialty.name
-              : translate("input.placeholder")}
-          </Text>
-        </TouchableOpacity>
+        <DropdownInput
+          value={selectedSpecialtyId}
+          data={specialties.map(s => ({
+            label: s.name,
+            value: s.id
+          }))}
+          onChange={handleSelectSpecialty}
+          placeholder={translate("input.placeholder")}
+        />
 
         <SpecialtyModal
           visible={modalVisible}
