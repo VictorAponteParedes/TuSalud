@@ -36,7 +36,7 @@ const Appointment = () => {
   const [selectedDoctorId, setSelectedDoctorId] = useState<string | null>(null);
   const [selectedScheduleId, setSelectedScheduleId] = useState<string | null>(null);
   const { createAppointment } = useAppointment()
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { control, handleSubmit } = useForm({
 
     defaultValues: {
@@ -59,23 +59,23 @@ const Appointment = () => {
 
   const availableDays = selectedDoctor?.schedules.map(s => s.day.toLowerCase()) || [];
 
-  const availableDaysSet = new Set(availableDays); // Crear un Set una vez
-
   const isDateAllowed = (date: Date) => {
-    if (!availableDays || availableDays.length === 0) return false;
-    const dayName = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][date.getDay()];
-    return availableDaysSet.has(dayName);
+    const weekDayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const dayName = weekDayNames[date.getDay()];
+    return availableDays.includes(dayName);
   };
 
+  // Mostrar los días disponibles al usuario
+  const getAvailableDaysText = () => {
+    if (!selectedDoctor || !selectedDoctor.schedules?.length) return "";
 
+    const days = selectedDoctor.schedules.map(s =>
+      translate(`days.${s.day}`)
+    ).join(", ");
 
-
-
-  const getWeekDayName = (dateString: string) => {
-    const date = new Date(dateString);
-    const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    return days[date.getDay()];
+    return `Días disponibles: ${days}`;
   };
+
 
 
   const onSubmit = async (data: AppointmentFormData) => {
@@ -91,24 +91,14 @@ const Appointment = () => {
     const doctor = selectedSpecialty?.doctors.find(doc => doc.id === selectedDoctorId);
     const schedule = doctor?.schedules?.find(s => s.id === selectedScheduleId);
 
-    const selectedDayName = getWeekDayName(data.appointmentDate); // ej: "saturday"
-    if (selectedDayName !== schedule?.day.toLowerCase()) {
-      Toast.show({
-        type: "error",
-        text1: "Día inválido",
-        text2: `Este doctor solo atiende los días ${translate(`days.${schedule?.day}`)}`,
-      });
-      return;
-    }
-
     const appointmentData: AppointmentFormData = {
       ...data,
       doctorId: selectedDoctorId,
       patientId: user?.id ?? "",
       scheduleId: selectedScheduleId,
-      appointmentTime: selectedDoctor?.schedules.find(s => s.id === selectedScheduleId)?.startTime ?? "",
+      appointmentDate: data.appointmentDate,
+      appointmentTime: schedule?.startTime ?? "",
     };
-
 
     console.log("Datos de la cita:", appointmentData);
 
@@ -283,6 +273,11 @@ const Appointment = () => {
             isDateAllowed={isDateAllowed}
           />
 
+          {selectedDoctor && (
+            <Text style={styles.availableDaysText}>
+              {getAvailableDaysText()}
+            </Text>
+          )}
 
           <Input
             control={control}
