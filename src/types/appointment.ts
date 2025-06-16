@@ -6,7 +6,7 @@ export interface AppointmentFormData {
     appointmentDate: string;
     reason: string;
     notes?: string;
-    patientId: string;
+    patientId: string | number;
     doctorId: string;
     patient: RegisterFormData;
     doctor: DoctorFormData;

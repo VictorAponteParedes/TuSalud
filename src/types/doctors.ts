@@ -16,7 +16,7 @@ export interface DoctorFormData {
     profileImage?: ProfileImageType;
     rating: string | number;
     reviews?: number;
-    schedules?: ScheduleType[];
+    schedules: ScheduleType[];
     specialties: SpecialtiesType[];
     status: "available" | "unavailable" | "on_leave";
     onViewDetails?: () => void;
