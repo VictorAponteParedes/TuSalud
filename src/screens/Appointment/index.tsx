@@ -4,9 +4,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  Modal,
-  FlatList,
-  Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,10 +13,6 @@ import CustomHeader from "../../components/customHeader";
 import useSpecialty from "../../hooks/useSpecialty";
 import type { SpecialtiesType } from "../../types/specialties";
 import type { DoctorFormData } from "../../types/doctors";
-import SvgWrapper from "../../components/SvgWrapper";
-import { Close } from "../../helpers";
-import colors from "../../theme/colors";
-import { API_BASE_URL } from "../../constants";
 import { useAppointment } from "../../hooks/useAppointment";
 import Toast from "react-native-toast-message";
 import Input from "../../components/ui/Input";
@@ -30,6 +23,7 @@ import { useAuth } from "../../context/AuthContext";
 import DateInput from "../../components/ui/DateInput";
 import SpecialtyModal from "../../components/SpecialtyModal";
 import DoctorCard from "../../components/DoctorCard";
+import { getAvailableDaysText, isDateAllowed } from "../../helpers/appointmentHelpers";
 
 const Appointment = () => {
   const navigation = useNavigation();
@@ -62,27 +56,7 @@ const Appointment = () => {
   };
 
   const selectedDoctor = selectedSpecialty?.doctors.find(doc => doc.id === selectedDoctorId);
-
   const availableDays = selectedDoctor?.schedules?.map(s => s.day.toLowerCase()) || [];
-
-  const isDateAllowed = (date: Date) => {
-    const weekDayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    const dayName = weekDayNames[date.getDay()];
-    return availableDays.includes(dayName);
-  };
-
-  // Mostrar los días disponibles al usuario
-  const getAvailableDaysText = () => {
-    if (!selectedDoctor || !selectedDoctor.schedules?.length) return "";
-
-    const days = selectedDoctor.schedules.map(s =>
-      translate(`days.${s.day}`)
-    ).join(", ");
-
-    return `Días disponibles: ${days}`;
-  };
-
-
 
   const onSubmit = async (formValues: AppointmentFormData): Promise<void> => {
     if (!selectedDoctorId || !selectedScheduleId) {
@@ -189,12 +163,12 @@ const Appointment = () => {
             label="Fecha de la cita"
             placeholder="Selecciona una fecha"
             minimumDate={new Date()}
-            isDateAllowed={isDateAllowed}
+            isDateAllowed={(date) => isDateAllowed(date, availableDays)}
           />
 
           {selectedDoctor && (
             <Text style={styles.availableDaysText}>
-              {getAvailableDaysText()}
+              {getAvailableDaysText(selectedDoctor)}
             </Text>
           )}
 
