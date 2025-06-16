@@ -28,7 +28,6 @@ import { AppointmentFormData } from "../../types/appointment";
 import { StatusAppointment } from "../../enum/statusAppointment";
 import { useAuth } from "../../context/AuthContext";
 import DateInput from "../../components/ui/DateInput";
-import { isDateAllowed } from "../../helpers/appointmentHelpers";
 import SpecialtyModal from "../../components/SpecialtyModal";
 
 const Appointment = () => {

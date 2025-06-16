@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native';
 import { Close } from '../../helpers';
 import SvgWrapper from '../SvgWrapper';
 import colors from '../../theme/colors';
@@ -47,6 +47,7 @@ const SpecialtyModal: React.FC<SpecialtyModalProps> = ({
                             <TouchableOpacity
                                 style={styles.modalItem}
                                 onPress={() => onSelect(item.id)}
+                                activeOpacity={0.7}
                             >
                                 <Text style={styles.modalItemText}>{item.name}</Text>
                             </TouchableOpacity>
@@ -57,7 +58,6 @@ const SpecialtyModal: React.FC<SpecialtyModalProps> = ({
         </Modal>
     );
 };
-
 
 
 export default SpecialtyModal;

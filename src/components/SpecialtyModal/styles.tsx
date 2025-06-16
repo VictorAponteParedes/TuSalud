@@ -4,42 +4,41 @@ import colors from "../../theme/colors";
 const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContainer: {
         backgroundColor: colors.white,
         width: '90%',
-        maxHeight: '70%',
-        borderRadius: 15,
+        maxHeight: '80%',
+        borderRadius: 10,
         padding: 20,
     },
     modalHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 15,
     },
     modalTitle: {
         fontSize: 18,
-        fontFamily: 'OpenSans-Regular',
+        fontWeight: 'bold',
         color: colors.gray[800],
     },
     modalCloseButton: {
         backgroundColor: colors.primary[400],
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 8,
     },
     modalItem: {
-        paddingVertical: 12,
+        paddingVertical: 15,
         borderBottomWidth: 1,
-        borderColor: colors.gray[200],
+        borderBottomColor: colors.gray[200],
     },
     modalItemText: {
         fontSize: 16,
         color: colors.primary[500],
-        fontFamily: 'OpenSans-Regular',
     },
 });
 
