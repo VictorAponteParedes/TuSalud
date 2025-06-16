@@ -5,7 +5,15 @@
     "doctorsavailable": "Doctores disponibles"
   },
   "input": {
-    "placeholder": "Seleccionar especialidad"
+    "placeholder": "Seleccionar especialidad",
+    "reason": {
+      "label": "Motivo de la consulta",
+      "placeholder": "Motivo"
+    },
+    "date": {
+      "label": "Fecha de la cita",
+      "placeholder": "Selecciona una fecha"
+    }
   },
   "modal": {
     "title": "Selecciona una especialidad"
@@ -15,7 +23,23 @@
     "experience": "Experiencia",
     "status": "Estado",
     "available": "Disponible",
-    "unavailable": "No disponible"
+    "unavailable": "No disponible",
+    "noDoctors": "No hay doctores disponibles para esta especialidad."
+  },
+  "appointment": {
+    "messages": {
+      "success": {
+        "title": "Cita creada correctamente",
+        "message": "La cita se ha programado exitosamente"
+      },
+      "error": {
+        "title": "Error al crear cita",
+        "message": "Verifica los datos o intenta más tarde"
+      },
+      "validation": {
+        "selectDoctor": "Selecciona un doctor y un horario"
+      }
+    }
   },
   "reviews": "reseñas",
   "availableSchedules": "Horarios disponibles  (Selecciona un horario)",
@@ -28,5 +52,8 @@
     "saturday": "Sábado",
     "sunday": "Domingo"
   },
-  "backToLogin": "Volver"
+  "backToLogin": "Volver",
+  "common": {
+    "required": "Este campo es requerido"
+  }
 }

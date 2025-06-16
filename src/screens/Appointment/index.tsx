@@ -88,14 +88,15 @@ const Appointment = () => {
       await createAppointment(appointmentData);
       Toast.show({
         type: "success",
-        text1: "Cita creada correctamente",
+        text1: translate("appointment.messages.success.title"),
+        text2: translate("appointment.messages.success.message")
       });
       navigation.goBack();
     } catch (error) {
       Toast.show({
         type: "error",
-        text1: "Error al crear cita",
-        text2: "Verifica los datos o intenta más tarde",
+        text1: translate("appointment.messages.error.title"),
+        text2: translate("appointment.messages.error.message")
       });
     }
   };
@@ -152,7 +153,7 @@ const Appointment = () => {
           ) : selectedSpecialty && (
             <View style={styles.emptyDoctorsContainer}>
               <Text style={styles.emptyDoctorsText}>
-                No hay doctores disponibles para esta especialidad.
+                {translate("doctors.noDoctors")}
               </Text>
             </View>
           )}
@@ -160,30 +161,33 @@ const Appointment = () => {
           <DateInput
             control={control}
             name="appointmentDate"
-            label="Fecha de la cita"
-            placeholder="Selecciona una fecha"
+            label={translate("input.date.label")}
+            placeholder={translate("input.date.placeholder")}
             minimumDate={new Date()}
             isDateAllowed={(date) => isDateAllowed(date, availableDays)}
           />
 
+
           {selectedDoctor && (
             <Text style={styles.availableDaysText}>
-              {getAvailableDaysText(selectedDoctor)}
+              {translate("appointment.availableDays")} {getAvailableDaysText(selectedDoctor)}
             </Text>
           )}
 
           <Input
             control={control}
             name="reason"
-            placeholder="Motivo"
-            label="Motivo de la consulta"
+            placeholder={translate("input.reason.placeholder")}
+            label={translate("input.reason.label")}
           />
 
           <TouchableOpacity
             style={styles.createAppointmentButton}
             onPress={handleSubmit(onSubmit)}
           >
-            <Text style={styles.createAppointmentText}>Crear cita</Text>
+            <Text style={styles.createAppointmentText}>
+              {translate("appointment.createButton")}
+            </Text>
           </TouchableOpacity>
         </ScrollView>
 
