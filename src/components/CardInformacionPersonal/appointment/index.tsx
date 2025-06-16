@@ -24,6 +24,8 @@ const AppointmentCard = ({ appointment }: Props) => {
         console.log("detalle de la cita");
     };
 
+    const statusStyle = getStatusStyle(appointment.status);
+
     return (
         <TouchableOpacity
             style={[styles.card]}
@@ -45,15 +47,13 @@ const AppointmentCard = ({ appointment }: Props) => {
 
                 {/* Información del doctor */}
                 <View style={styles.doctorInfo}>
-                    <Text style={styles.doctorName}>{appointment.doctor.firstName}</Text>
-
-                    <View style={styles.specialtyContainer}>
-                        <Text style={styles.specialtyText}>{appointment.doctor.experience}</Text>
-                    </View>
-
+                    <Text style={styles.doctorName}>{appointment.doctor.firstName}{appointment.doctor.lastName}</Text>
                     {/* Estado de la cita */}
-                    <View style={[styles.statusContainer, getStatusStyle(appointment.status)]}>
-                        <Text style={styles.statusText}>{appointment.status}</Text>
+                    <View style={[styles.statusContainer, {
+                        backgroundColor: statusStyle.backgroundColor,
+                        borderColor: statusStyle.borderColor
+                    }]}>
+                        <Text style={styles.statusText}>{statusStyle.text}</Text>
                     </View>
                 </View>
             </View>
