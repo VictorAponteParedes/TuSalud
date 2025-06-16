@@ -1,18 +1,26 @@
-export const formatDate = (date: Date | string | null | undefined, placeholder: string | undefined) => {
-    if (!date) return placeholder || 'Selecciona una fecha';
+// helpers/time.ts
+export const formatDate = (dateString: string | Date | null, placeholder?: string) => {
+    if (!dateString) return placeholder || 'Selecciona una fecha';
 
-    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
 
-    return dateObj.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
+    // Ajustar para compensar la zona horaria
+    const adjustedDate = new Date(date);
+    adjustedDate.setMinutes(adjustedDate.getMinutes() + adjustedDate.getTimezoneOffset());
+
+    return adjustedDate.toLocaleDateString('es-ES', {
+        weekday: 'long',
         year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 };
 
-export const formatForDatabase = (date: Date): string => {
+export const formatForDatabase = (date: Date) => {
+    // Formato YYYY-MM-DD sin problemas de timezone
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
+
     return `${year}-${month}-${day}`;
 };
