@@ -18,8 +18,10 @@ const styles = StyleSheet.create({
     },
 
     selectButton: {
-        backgroundColor: "#e6e6e6",
+        backgroundColor: colors.grayLight,
         padding: 12,
+        borderColor: colors.primary[400],
+        borderWidth: 1,
         borderRadius: 10,
         marginVertical: 10,
         alignItems: "center",
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "bold",
         marginBottom: 6,
-        color: "#00796b",
+        color: colors.primary[400],
     },
 
     scheduleItem: {
@@ -170,21 +172,21 @@ const styles = StyleSheet.create({
     },
     selectedDoctorCard: {
         borderWidth: 1.5,
-        borderColor: colors.green[400],
+        borderColor: colors.primary[400],
     },
 
     scheduleItemBox: {
         borderWidth: 1,
-        borderColor: colors.green[400],
+        borderColor: colors.primary[400],
         borderRadius: 10,
         padding: 10,
         marginBottom: 10,
-        backgroundColor: colors.green[50],
+        backgroundColor: colors.primary[50],
     },
 
     selectedScheduleItem: {
-        backgroundColor: colors.green[200],
-        borderColor: colors.green[400],
+        backgroundColor: colors.primary[200],
+        borderColor: colors.primary[400],
     },
 
     createAppointmentButton: {
@@ -213,6 +215,14 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#f44336",
         fontWeight: "600",
+    },
+
+
+    availableDaysText: {
+        fontSize: 14,
+        color: colors.red[400],
+        marginBottom: 16,
+        fontStyle: 'italic',
     },
 
 
