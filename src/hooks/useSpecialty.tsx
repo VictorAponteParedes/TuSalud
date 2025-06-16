@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
 import { SpecialtyService } from "../services/specialty"
 import { translateError } from "../helpers/translateError"
-
+import { SpecialtiesType } from "../types/specialties"
 
 const useSpecialty = () => {
     const specialtyService = new SpecialtyService()
 
-    const [specialties, setSpecialties] = useState([])
+    const [specialties, setSpecialties] = useState<SpecialtiesType[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
