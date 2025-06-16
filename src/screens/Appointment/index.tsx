@@ -25,6 +25,7 @@ import Toast from "react-native-toast-message";
 import Input from "../../components/ui/Input";
 import { useForm } from "react-hook-form";
 import { AppointmentFormData } from "../../types/appointment";
+import { StatusAppointment } from "../../enum/statusAppointment";
 import { useAuth } from "../../context/AuthContext";
 import DateInput from "../../components/ui/DateInput";
 
@@ -39,9 +40,12 @@ const Appointment = () => {
   const { user } = useAuth();
   const { control, handleSubmit } = useForm({
 
+
     defaultValues: {
       reason: "",
-    },
+      notes: "",
+      appointmentDate: ""
+    }
   })
 
   const selectedSpecialty: SpecialtiesType | undefined = specialties.find(
@@ -57,7 +61,7 @@ const Appointment = () => {
 
   const selectedDoctor = selectedSpecialty?.doctors.find(doc => doc.id === selectedDoctorId);
 
-  const availableDays = selectedDoctor?.schedules.map(s => s.day.toLowerCase()) || [];
+  const availableDays = selectedDoctor?.schedules?.map(s => s.day.toLowerCase()) || [];
 
   const isDateAllowed = (date: Date) => {
     const weekDayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -78,7 +82,7 @@ const Appointment = () => {
 
 
 
-  const onSubmit = async (data: AppointmentFormData) => {
+  const onSubmit = async (formValues: AppointmentFormData): Promise<void> => {
     if (!selectedDoctorId || !selectedScheduleId) {
       Toast.show({
         type: "error",
@@ -88,18 +92,20 @@ const Appointment = () => {
       return;
     }
 
-    const doctor = selectedSpecialty?.doctors.find(doc => doc.id === selectedDoctorId);
-    const schedule = doctor?.schedules?.find(s => s.id === selectedScheduleId);
+    const doctor = selectedSpecialty?.doctors?.find(doc => doc.id === selectedDoctorId);
+
 
     const appointmentData: AppointmentFormData = {
-      ...data,
+      ...formValues,
+      id: "",
+      patientId: user.id,
       doctorId: selectedDoctorId,
-      patientId: user?.id ?? "",
       scheduleId: selectedScheduleId,
-      appointmentDate: data.appointmentDate,
-      appointmentTime: schedule?.startTime ?? "",
+      appointmentTime: doctor?.schedules?.find(s => s.id === selectedScheduleId)?.startTime || "",
+      status: StatusAppointment.PENDING,
+      patient: user,
+      doctor: doctor || {} as DoctorFormData
     };
-
     console.log("Datos de la cita:", appointmentData);
 
     try {
