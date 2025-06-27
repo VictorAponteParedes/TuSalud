@@ -1,4 +1,5 @@
 export type RegisterFormData = {
+    id?: string;
     firstName: string;
     lastName: string;
     phone: string;
@@ -38,3 +39,5 @@ export interface CustomHeaderProps {
     onMenuPress?: () => void;
     userId?: any;
 }
+
+export type PatientDataType = RegisterFormData;
