@@ -132,16 +132,26 @@ class AuthServices {
     }
 
     async resetPasswordUser({ code, newPassword }: ResetPassword) {
-    try {
-        const response = await api.post('/users/reset-password', {
-            code,
-            newPassword
-        });
-        return response.data;
-    } catch (error) {
-        throw new Error('Error de conexión reestablecer contrasena');
+        try {
+            const response = await api.post('/users/reset-password', {
+                code,
+                newPassword
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error('Error de conexión reestablecer contrasena');
+        }
     }
-}
+
+    async getPatientDetail(userId: string) {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/users/${userId}`,)
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching patients:', error);
+            throw error;
+        }
+    }
 }
 
 export default AuthServices
