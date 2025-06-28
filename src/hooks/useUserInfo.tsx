@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import AuthServices from "../services/auth";
-import {PatientDataType} from '../types/auth';
+import { PatientDataType } from "../types/patient";
 
 
 const useUserInformation = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const authServices = new AuthServices();
 
   const [profileInformation, setProfileInformation] = useState<string | null>(

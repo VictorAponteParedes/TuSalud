@@ -39,7 +39,3 @@ export interface CustomHeaderProps {
     onMenuPress?: () => void;
     userId?: any;
 }
-
-export type PatientDataType = RegisterFormData;
-
-export type TabType = 'personal' | 'appointments' | 'historial' | 'documents';

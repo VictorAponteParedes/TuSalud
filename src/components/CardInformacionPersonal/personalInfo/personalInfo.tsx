@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {Calendar, Secure, Drop, Phone, Email} from '../../../helpers';
+import { View, Text } from 'react-native';
+import { Calendar, Secure, Drop, Phone, Email } from '../../../helpers';
 import SvgWrapper from '../../SvgWrapper';
 import colors from '../../../theme/colors';
-import {translate} from '../../../lang';
+import { translate } from '../../../lang';
 import styles from './styles';
-import {PatientDataType} from '../../../types/auth';
+import { PatientDataType } from '../../../types/patient';
 
 export type CardInformacionPersonalProps = {
   patient: PatientDataType | null;
 };
 
-const CardInformacionPersonal = ({patient}: CardInformacionPersonalProps) => {
+const CardInformacionPersonal = ({ patient }: CardInformacionPersonalProps) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{translate('Information.title')}</Text>
