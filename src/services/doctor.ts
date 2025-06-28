@@ -34,5 +34,13 @@ export class DoctorService {
         }
     }
 
+    returnUrlImage(doctor: any): string {
+        return doctor?.profileImage?.path
+            ? doctor.profileImage.path.startsWith("http")
+                ? doctor.profileImage.path
+                : `${API_BASE_URL}/${doctor.profileImage.path}`
+            : "/default-avatar.png";
+    }
+
 
 }
