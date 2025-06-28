@@ -41,3 +41,5 @@ export interface CustomHeaderProps {
 }
 
 export type PatientDataType = RegisterFormData;
+
+export type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
