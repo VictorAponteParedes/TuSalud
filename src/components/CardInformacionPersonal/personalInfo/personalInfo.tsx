@@ -5,10 +5,10 @@ import SvgWrapper from '../../SvgWrapper';
 import colors from '../../../theme/colors';
 import { translate } from '../../../lang';
 import styles from './styles';
-import { PatientDataType } from '../../../types/patient';
+import { PatientType } from '../../../types/patient';
 
 export type CardInformacionPersonalProps = {
-  patient: PatientDataType | null;
+  patient: PatientType | null;
 };
 
 const CardInformacionPersonal = ({ patient }: CardInformacionPersonalProps) => {
