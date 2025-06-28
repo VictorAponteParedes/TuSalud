@@ -14,6 +14,7 @@ import { usePatient } from "../../hooks/usePatient";
 import { useAppointment } from "../../hooks/useAppointment";
 import { InfoPatientCardEnum } from "../../enum/infoPatientCardEnum";
 import { TabType } from "../../types/patient";
+import { tabs } from "./TabButtom";
 
 //Cards Patient Information
 import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
@@ -77,64 +78,23 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[
-            styles.tabButton,
-            activeTab === InfoPatientCardEnum.PERSONAL && styles.activeTab,
-          ]}
-          onPress={() => setActiveTab(InfoPatientCardEnum.PERSONAL)}>
-          <Text
+        {tabs.map(tab => (
+          <TouchableOpacity
+            key={tab.key}
             style={[
-              styles.tabText,
-              activeTab === InfoPatientCardEnum.PERSONAL && styles.activeTabText,
-            ]}>
-            {/* {translate('Information.title')} */}
-            Personal
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.tabButton,
-            activeTab === InfoPatientCardEnum.APPOINTMENTS && styles.activeTab,
-          ]}
-          onPress={() => setActiveTab(InfoPatientCardEnum.APPOINTMENTS)}>
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === InfoPatientCardEnum.APPOINTMENTS && styles.activeTabText,
-            ]}>
-            {translate('Appointment.title')}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.tabButton,
-            activeTab === InfoPatientCardEnum.HISTORY && styles.activeTab,
-          ]}
-          onPress={() => setActiveTab(InfoPatientCardEnum.HISTORY)}>
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === InfoPatientCardEnum.HISTORY && styles.activeTabText,
-            ]}>
-            {translate('Historial.title')}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            styles.tabButton,
-            activeTab === InfoPatientCardEnum.DOCUMENTS && styles.activeTab,
-          ]}
-          onPress={() => setActiveTab(InfoPatientCardEnum.DOCUMENTS)}>
-          <Text
-            style={[
-              styles.tabText,
-              activeTab === InfoPatientCardEnum.DOCUMENTS && styles.activeTabText,
-            ]}>
-            {translate('Documents.title')}
-          </Text>
-        </TouchableOpacity>
+              styles.tabButton,
+              activeTab === tab.key && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab(tab.key)}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === tab.key && styles.activeTabText,
+              ]}>
+              {tab.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* Content Area */}
