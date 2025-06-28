@@ -16,8 +16,4 @@ export type PatientType = {
     profileImage?: any;
 };
 
-
-
-export type PatientDataType = PatientType;
-
 export type TabType = 'personal' | 'appointments' | 'historial' | 'documents';

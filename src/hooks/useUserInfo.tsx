@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import AuthServices from "../services/auth";
-import { PatientDataType } from "../types/patient";
+import { PatientType } from "../types/patient";
 
 
 const useUserInformation = () => {
@@ -11,7 +11,7 @@ const useUserInformation = () => {
   const [profileInformation, setProfileInformation] = useState<string | null>(
     null,
   );
-  const [patient, setPatient] = useState<PatientDataType | null>(null);
+  const [patient, setPatient] = useState<PatientType | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async () => {
