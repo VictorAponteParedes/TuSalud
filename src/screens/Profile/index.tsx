@@ -4,19 +4,21 @@ import CustomHeader from '../../components/customHeader';
 import { translate } from '../../lang';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
-import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
-import AppointmentCard from '../../components/CardInformacionPersonal/appointment';
 import colors from "../../theme/colors";
 import useShowPerfilImgen from "../../hooks/useShowPerfilImgen";
-import MedicalHistoryCard from "../../components/CardInformacionPersonal/MedicalHistoryCard";
 import { Edit } from "../../helpers";
 import SvgWrapper from "../../components/SvgWrapper";
 import styles from "./styles";
 import DocumentCard from "../../components/CardInformacionPersonal/DocumentCard";
-import useUserInformation from "../../hooks/useUserInfo";
+import { usePatient } from "../../hooks/usePatient";
 import { useAppointment } from "../../hooks/useAppointment";
 import { InfoPatientCardEnum } from "../../enum/infoPatientCardEnum";
-import { TabType } from "../../types/auth";
+import { TabType } from "../../types/patient";
+
+//Cards Patient Information
+import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
+import AppointmentCard from '../../components/CardInformacionPersonal/appointment';
+import MedicalHistoryCard from "../../components/CardInformacionPersonal/MedicalHistoryCard";
 
 
 
@@ -25,7 +27,8 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { loadingImage, logout, profileImageUri } = useShowPerfilImgen();
-  const { patient, loading } = useUserInformation();
+  const { patient } = usePatient(user?.id);
+
   const [activeTab, setActiveTab] = useState<TabType>(InfoPatientCardEnum.PERSONAL);
   const { appointment } = useAppointment(user?.id);
 
