@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary[400],
   },
   tabText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 12,
+    fontFamily: fontsOpenSans.regular,
     color: colors.primary[400],
   },
   activeTabText: {
