@@ -15,17 +15,19 @@ import styles from "./styles";
 import DocumentCard from "../../components/CardInformacionPersonal/DocumentCard";
 import useUserInformation from "../../hooks/useUserInfo";
 import { useAppointment } from "../../hooks/useAppointment";
+import { InfoPatientCardEnum } from "../../enum/infoPatientCardEnum";
+import { TabType } from "../../types/auth";
 
 
-type TabType = 'personal' | 'appointments' | 'historial' | 'documents';
+
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { loadingImage, logout, profileImageUri } = useShowPerfilImgen();
-  const {patient, loading} = useUserInformation();
-  const [activeTab, setActiveTab] = useState<TabType>('personal');
-  const {appointment} = useAppointment(user?.id);
+  const { patient, loading } = useUserInformation();
+  const [activeTab, setActiveTab] = useState<TabType>(InfoPatientCardEnum.PERSONAL);
+  const { appointment } = useAppointment(user?.id);
 
   return (
     <View style={styles.container}>
@@ -44,7 +46,7 @@ const ProfileScreen = () => {
           <>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: profileImageUri}}
+                source={{ uri: profileImageUri }}
                 style={styles.image}
                 resizeMode="cover"
               />
@@ -75,13 +77,13 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'personal' && styles.activeTab,
+            activeTab === InfoPatientCardEnum.PERSONAL && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('personal')}>
+          onPress={() => setActiveTab(InfoPatientCardEnum.PERSONAL)}>
           <Text
             style={[
               styles.tabText,
-              activeTab === 'personal' && styles.activeTabText,
+              activeTab === InfoPatientCardEnum.PERSONAL && styles.activeTabText,
             ]}>
             {/* {translate('Information.title')} */}
             Personal
@@ -90,13 +92,13 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'appointments' && styles.activeTab,
+            activeTab === InfoPatientCardEnum.APPOINTMENTS && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('appointments')}>
+          onPress={() => setActiveTab(InfoPatientCardEnum.APPOINTMENTS)}>
           <Text
             style={[
               styles.tabText,
-              activeTab === 'appointments' && styles.activeTabText,
+              activeTab === InfoPatientCardEnum.APPOINTMENTS && styles.activeTabText,
             ]}>
             {translate('Appointment.title')}
           </Text>
@@ -104,13 +106,13 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'historial' && styles.activeTab,
+            activeTab === InfoPatientCardEnum.HISTORY && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('historial')}>
+          onPress={() => setActiveTab(InfoPatientCardEnum.HISTORY)}>
           <Text
             style={[
               styles.tabText,
-              activeTab === 'historial' && styles.activeTabText,
+              activeTab === InfoPatientCardEnum.HISTORY && styles.activeTabText,
             ]}>
             {translate('Historial.title')}
           </Text>
@@ -119,13 +121,13 @@ const ProfileScreen = () => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'documents' && styles.activeTab,
+            activeTab === InfoPatientCardEnum.DOCUMENTS && styles.activeTab,
           ]}
-          onPress={() => setActiveTab('documents')}>
+          onPress={() => setActiveTab(InfoPatientCardEnum.DOCUMENTS)}>
           <Text
             style={[
               styles.tabText,
-              activeTab === 'documents' && styles.activeTabText,
+              activeTab === InfoPatientCardEnum.DOCUMENTS && styles.activeTabText,
             ]}>
             {translate('Documents.title')}
           </Text>
@@ -137,18 +139,18 @@ const ProfileScreen = () => {
         style={styles.contentContainer}
         contentContainerStyle={styles.scrollContent}>
         <View style={styles.paddingContainer}>
-          {activeTab === 'personal' && (
+          {activeTab === InfoPatientCardEnum.PERSONAL && (
             <CardInformacionPersonal key={patient?.id} patient={patient} />
           )}
 
-          {activeTab === 'appointments' && (
+          {activeTab === InfoPatientCardEnum.APPOINTMENTS && (
             <>
               {appointment.map(item => (
                 <AppointmentCard key={item.id} appointment={item} />
               ))}
             </>
           )}
-          {activeTab === 'historial' && (
+          {activeTab === InfoPatientCardEnum.HISTORY && (
             <>
               <MedicalHistoryCard
                 historyName="Allergy Test"
@@ -164,60 +166,12 @@ const ProfileScreen = () => {
               />
             </>
           )}
-          {activeTab === 'documents' && (
+          {activeTab === InfoPatientCardEnum.DOCUMENTS && (
             <>
-              <DocumentCard
-                documentName="Informe de Rayos X Torácicos"
-                date="12/05/2023"
-                onPress={() => console.log('Rayos X presionado')}
-              />
-
-              <DocumentCard
-                documentName="Análisis de Sangre Completo"
-                date="28/04/2023"
-              />
-
-              <DocumentCard
-                documentName="Informe de Ecografía Abdominal"
-                date="03/06/2023"
-                onPress={() => console.log('Ecografía presionada')}
-              />
-
-              <DocumentCard
-                documentName="Prescripción de Medicamentos"
-                date="15/05/2023"
-              />
-
-              <DocumentCard
-                documentName="Resultados de Prueba COVID-19"
-                date="20/03/2023"
-              />
-
               <DocumentCard
                 documentName="Informe de Consulta Cardiológica"
                 date="08/06/2023"
                 onPress={() => console.log('Cardiología presionado')}
-              />
-
-              <DocumentCard
-                documentName="Autorización para Cirugía"
-                date="01/07/2023"
-              />
-
-              <DocumentCard
-                documentName="Resultados de Prueba de Alergias"
-                date="14/04/2023"
-              />
-
-              <DocumentCard
-                documentName="Informe de Resonancia Magnética"
-                date="22/05/2023"
-              />
-
-              <DocumentCard
-                documentName="Certificado Médico Laboral"
-                date="05/06/2023"
-                onPress={() => console.log('Certificado presionado')}
               />
             </>
           )}
