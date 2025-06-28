@@ -11,7 +11,6 @@ const useUserInformation = () => {
   const [profileInformation, setProfileInformation] = useState<string | null>(
     null,
   );
-  const [patient, setPatient] = useState<PatientType | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async () => {
@@ -25,23 +24,13 @@ const useUserInformation = () => {
     }
   };
 
-  const getPatientDetail = async () => {
-    try {
-      const patientDetail = await authServices.getPatientDetail(user.id);
-      setPatient(patientDetail);
-    } catch (error) {
-      console.error('Error fetching patients:', error);
-    }
-  };
 
   useEffect(() => {
     fetchProfile();
-    getPatientDetail();
   }, [user?.id]);
 
   return {
     profileInformation,
-    patient,
     loading,
   };
 }
