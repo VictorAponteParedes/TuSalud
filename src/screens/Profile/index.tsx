@@ -15,6 +15,7 @@ import { useAppointment } from "../../hooks/useAppointment";
 import { InfoPatientCardEnum } from "../../enum/infoPatientCardEnum";
 import { TabType } from "../../types/patient";
 import { tabs } from "./TabButtom";
+import PatientServices from "../../services/patient";
 
 //Cards Patient Information
 import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
@@ -27,11 +28,16 @@ import MedicalHistoryCard from "../../components/CardInformacionPersonal/Medical
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
-  const { loadingImage, logout, profileImageUri } = useShowPerfilImgen();
+  const { loadingImage, logout } = useShowPerfilImgen();
+  const patientService = new PatientServices();
   const { patient } = usePatient(user?.id);
 
   const [activeTab, setActiveTab] = useState<TabType>(InfoPatientCardEnum.PERSONAL);
   const { appointment } = useAppointment(user?.id);
+
+  const imageUrl = patient
+    ? patientService.returnUrlImage(patient)
+    : "/default-avatar.png";
 
   return (
     <View style={styles.container}>
@@ -46,11 +52,11 @@ const ProfileScreen = () => {
           <View style={[styles.image, styles.placeholder]}>
             <Text style={styles.placeholderText}>Cargando...</Text>
           </View>
-        ) : profileImageUri ? (
+        ) : imageUrl ? (
           <>
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: profileImageUri }}
+                source={{ uri: imageUrl }}
                 style={styles.image}
                 resizeMode="cover"
               />
