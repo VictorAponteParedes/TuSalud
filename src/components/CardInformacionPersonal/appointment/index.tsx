@@ -7,6 +7,7 @@ import { AppointmentFormData } from '../../../types/appointment';
 import { API_BASE_URL } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { getStatusStyle } from '../../../helpers/status';
+import * as Animatable from 'react-native-animatable';
 
 interface Props {
     appointment: AppointmentFormData;
@@ -20,52 +21,55 @@ const AppointmentCard = ({ appointment }: Props) => {
         : '/default-profile.png';
 
     const goToDetails = () => {
-        // Puedes usar navigate.navigate('AppointmentDetail', { appointmentId: appointment.id });
         console.log("detalle de la cita");
     };
 
     const statusStyle = getStatusStyle(appointment.status);
 
     return (
-        <TouchableOpacity
-            style={[styles.card]}
-            onPress={goToDetails}
-            activeOpacity={0.8}
+        <Animatable.View
+            animation="fadeIn"
+            duration={700}
+            style={styles.card}
         >
-            <View style={styles.infoContainer}>
-
-                {/* Fecha de la cita */}
-                <View style={styles.dateContainer}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Calendar width={16} height={16} color={colors.primary[400]} />
-                        <Text style={styles.dateLabel}>  Cita programada:</Text>
+            <TouchableOpacity
+                onPress={goToDetails}
+                activeOpacity={0.8}
+                style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+                <View style={styles.infoContainer}>
+                    <View style={styles.dateContainer}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Calendar width={16} height={16} color={colors.primary[400]} />
+                            <Text style={styles.dateLabel}>  Cita programada:</Text>
+                        </View>
+                        <Text style={styles.dateText}>
+                            {`${appointment.appointmentDate} ${appointment.appointmentTime}`}
+                        </Text>
                     </View>
-                    <Text style={styles.dateText}>
-                        {`${appointment.appointmentDate} ${appointment.appointmentTime}`}
-                    </Text>
+
+                    <View style={styles.doctorInfo}>
+                        <Text style={styles.doctorName}>
+                            {appointment.doctor.firstName}{appointment.doctor.lastName}
+                        </Text>
+                        <View style={[styles.statusContainer, {
+                            backgroundColor: statusStyle.backgroundColor,
+                            borderColor: statusStyle.borderColor
+                        }]}>
+                            <Text style={styles.statusText}>{statusStyle.text}</Text>
+                        </View>
+                    </View>
                 </View>
 
-                {/* Información del doctor */}
-                <View style={styles.doctorInfo}>
-                    <Text style={styles.doctorName}>{appointment.doctor.firstName}{appointment.doctor.lastName}</Text>
-                    {/* Estado de la cita */}
-                    <View style={[styles.statusContainer, {
-                        backgroundColor: statusStyle.backgroundColor,
-                        borderColor: statusStyle.borderColor
-                    }]}>
-                        <Text style={styles.statusText}>{statusStyle.text}</Text>
-                    </View>
+                <View style={styles.rightIconContainer}>
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={styles.doctorImage}
+                        resizeMode="cover"
+                    />
                 </View>
-            </View>
-
-            <View style={styles.rightIconContainer}>
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={styles.doctorImage}
-                    resizeMode="cover"
-                />
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        </Animatable.View>
     );
 };
 

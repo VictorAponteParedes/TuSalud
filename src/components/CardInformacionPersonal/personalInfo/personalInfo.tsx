@@ -6,6 +6,8 @@ import colors from '../../../theme/colors';
 import { translate } from '../../../lang';
 import styles from './styles';
 import { PatientType } from '../../../types/patient';
+import * as Animatable from 'react-native-animatable';
+
 
 export type CardInformacionPersonalProps = {
   patient: PatientType | null;
@@ -13,7 +15,11 @@ export type CardInformacionPersonalProps = {
 
 const CardInformacionPersonal = ({ patient }: CardInformacionPersonalProps) => {
   return (
-    <View style={styles.card}>
+    <Animatable.View
+      animation="fadeIn"
+      duration={1000}
+      style={styles.card}
+    >
       <Text style={styles.title}>{translate('Information.title')}</Text>
 
       <View style={styles.infoRow}>
@@ -60,7 +66,7 @@ const CardInformacionPersonal = ({ patient }: CardInformacionPersonalProps) => {
           {translate('Information.madicalSecure')} {patient?.allergies}
         </Text>
       </View>
-    </View>
+    </Animatable.View>
   );
 };
 
