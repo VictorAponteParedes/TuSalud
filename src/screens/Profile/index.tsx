@@ -21,6 +21,8 @@ import PatientServices from "../../services/patient";
 import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
 import AppointmentCard from '../../components/CardInformacionPersonal/appointment';
 import MedicalHistoryCard from "../../components/CardInformacionPersonal/MedicalHistoryCard";
+import CardSkeleton from "../../components/Skeletons/CardSkeleton";
+import AppointmentCardSkeleton from "../../components/Skeletons/AppointmentCardSkeleton";
 
 
 
@@ -109,16 +111,26 @@ const ProfileScreen = () => {
         contentContainerStyle={styles.scrollContent}>
         <View style={styles.paddingContainer}>
           {activeTab === InfoPatientCardEnum.PERSONAL && (
-            <CardInformacionPersonal key={patient?.id} patient={patient} />
+            !patient ? (
+              <CardSkeleton />
+            ) : (
+              <CardInformacionPersonal patient={patient} />
+            )
           )}
 
           {activeTab === InfoPatientCardEnum.APPOINTMENTS && (
-            <>
-              {appointment.map(item => (
+            appointment.length === 0 ? (
+              <>
+                <AppointmentCardSkeleton />
+              </>
+            ) : (
+              appointment.map(item => (
                 <AppointmentCard key={item.id} appointment={item} />
-              ))}
-            </>
+              ))
+            )
           )}
+
+
           {activeTab === InfoPatientCardEnum.HISTORY && (
             <>
               <MedicalHistoryCard
