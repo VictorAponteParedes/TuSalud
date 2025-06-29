@@ -21,6 +21,8 @@ import PatientServices from "../../services/patient";
 import CardInformacionPersonal from "../../components/CardInformacionPersonal/personalInfo/personalInfo";
 import AppointmentCard from '../../components/CardInformacionPersonal/appointment';
 import MedicalHistoryCard from "../../components/CardInformacionPersonal/MedicalHistoryCard";
+
+//Skeletons
 import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 import AppointmentCardSkeleton from "../../components/Skeletons/AppointmentCardSkeleton";
 
