@@ -27,6 +27,8 @@ import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 import AppointmentCardSkeleton from "../../components/Skeletons/AppointmentCardSkeleton";
 import MedicalHistoryCardSkeleton from "../../components/Skeletons/MedicalHistoryCardSkeleton";
 import { mockHistories } from "../../mock/mockHistories";
+import DocumentCardSkeleton from "../../components/Skeletons/DocumentCardSkeleton";
+import { mockDocuments } from "../../mock/mockDocuments";
 
 
 
@@ -157,14 +159,20 @@ const ProfileScreen = () => {
           )}
 
           {activeTab === InfoPatientCardEnum.DOCUMENTS && (
-            <>
-              <DocumentCard
-                documentName="Informe de Consulta Cardiológica"
-                date="08/06/2023"
-                onPress={() => console.log('Cardiología presionado')}
-              />
-            </>
+            !mockDocuments || mockDocuments.length === 0 ? (
+              <DocumentCardSkeleton />
+            ) : (
+              mockDocuments.map(doc => (
+                <DocumentCard
+                  key={doc.id}
+                  documentName={doc.documentName}
+                  date={doc.date}
+                  onPress={() => console.log(`Documento ${doc.documentName} presionado`)}
+                />
+              ))
+            )
           )}
+
         </View>
       </ScrollView>
 

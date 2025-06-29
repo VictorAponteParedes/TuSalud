@@ -1,3 +1,4 @@
+// styles.ts
 import { StyleSheet } from 'react-native';
 import colors from '../../../theme/colors';
 
@@ -13,19 +14,14 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 4,
     },
-    historyTitle: {
+    documentName: {
         fontSize: 16,
         fontWeight: 'bold',
         color: colors.gray[900],
-        marginBottom: 6,
-    },
-    historyDescription: {
-        fontSize: 14,
-        color: colors.gray[700],
         marginBottom: 4,
     },
-    historyDate: {
-        fontSize: 12,
-        color: colors.gray[500],
+    date: {
+        fontSize: 13,
+        color: colors.gray[600],
     },
 });

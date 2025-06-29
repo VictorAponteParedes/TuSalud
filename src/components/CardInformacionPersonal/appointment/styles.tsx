@@ -4,21 +4,15 @@ import colors from "../../../theme/colors";
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: 'white',
-        borderRadius: 12,
+        backgroundColor: colors.white,
         padding: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
+        borderRadius: 5,
+        marginBottom: 12,
         shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
+        shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 3,
-        marginVertical: 8,
-        width: '100%',
+        elevation: 4,
     },
     dateContainer: {
         marginBottom: 6,

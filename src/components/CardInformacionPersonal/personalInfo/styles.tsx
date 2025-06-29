@@ -1,21 +1,17 @@
 import { StyleSheet } from "react-native";
+import colors from "../../../theme/colors";
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: 'white',
-        borderRadius: 15,
-        padding: 20,
+        backgroundColor: colors.white,
+        padding: 16,
+        borderRadius: 5,
+        marginBottom: 12,
         shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        width: '100%',
-        alignSelf: 'center',
-        marginVertical: 10,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 4,
     },
     title: {
         fontSize: 18,
