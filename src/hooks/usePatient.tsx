@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import PatientServices from "../services/patient";
 import { PatientType } from "../types/patient";
 import { translateError } from "../helpers/translateError";
@@ -10,31 +10,25 @@ export const usePatient = (id?: string) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchPatient = useCallback(async () => {
     if (!id) return;
-
-    const fetchPatient = async () => {
-      try {
-        const data = await patientService.getPatientById(id);
-
-        setPatient(data);
-      } catch (error: unknown) {
-        const errMessage =
-          error instanceof Error
-            ? translateError(error.message)
-            : "Error desconocido";
-        setError(errMessage);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPatient();
+    setIsLoading(true);
+    try {
+      const data = await patientService.getPatientById(id);
+      setPatient(data);
+      setError(null);
+    } catch (error: unknown) {
+      const errMessage =
+        error instanceof Error ? translateError(error.message) : "Error desconocido";
+      setError(errMessage);
+    } finally {
+      setIsLoading(false);
+    }
   }, [id]);
 
   useEffect(() => {
-    if (id) return;
-  }, [id]);
+    fetchPatient();
+  }, [fetchPatient]);
 
-  return { patient, isLoading, error };
+  return { patient, isLoading, error, refresh: fetchPatient };
 };

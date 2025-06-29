@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView, Image, RefreshControl } from 'react-native';
 import CustomHeader from '../../components/customHeader';
 import { translate } from '../../lang';
 import { useNavigation } from '@react-navigation/native';
@@ -38,7 +38,8 @@ const ProfileScreen = () => {
   const { user } = useAuth();
   const { loadingImage, logout } = useShowPerfilImgen();
   const patientService = new PatientServices();
-  const { patient } = usePatient(user?.id);
+  const { patient, isLoading, error, refresh } = usePatient(user?.id);
+  const [refreshing, setRefreshing] = useState(false);
 
   const [activeTab, setActiveTab] = useState<TabType>(InfoPatientCardEnum.PERSONAL);
   const { appointment } = useAppointment(user?.id);
@@ -46,6 +47,12 @@ const ProfileScreen = () => {
   const imageUrl = patient
     ? patientService.returnUrlImage(patient)
     : "/default-avatar.png";
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refresh();
+    setRefreshing(false);
+  }, [refresh]);
 
   return (
     <View style={styles.container}>
@@ -113,6 +120,7 @@ const ProfileScreen = () => {
 
       {/* Content Area */}
       <ScrollView
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         style={styles.contentContainer}
         contentContainerStyle={styles.scrollContent}>
         <View style={styles.paddingContainer}>
