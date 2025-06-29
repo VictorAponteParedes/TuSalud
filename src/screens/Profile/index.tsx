@@ -25,6 +25,8 @@ import MedicalHistoryCard from "../../components/CardInformacionPersonal/Medical
 //Skeletons
 import CardSkeleton from "../../components/Skeletons/CardSkeleton";
 import AppointmentCardSkeleton from "../../components/Skeletons/AppointmentCardSkeleton";
+import MedicalHistoryCardSkeleton from "../../components/Skeletons/MedicalHistoryCardSkeleton";
+import { mockHistories } from "../../mock/mockHistories";
 
 
 
@@ -135,20 +137,25 @@ const ProfileScreen = () => {
 
           {activeTab === InfoPatientCardEnum.HISTORY && (
             <>
-              <MedicalHistoryCard
-                historyName="Allergy Test"
-                description="Tested positive for pollen and dust mite allergies"
-                date="May 15, 2023"
-                onPress={() => console.log('History card pressed')}
-              />
-
-              <MedicalHistoryCard
-                historyName="Blood Test"
-                description="Complete blood count results within normal ranges"
-                date="April 28, 2023"
-              />
+              {mockHistories.length === 0 ? (
+                <>
+                  <MedicalHistoryCardSkeleton />
+                  <MedicalHistoryCardSkeleton />
+                </>
+              ) : (
+                mockHistories.map((item) => (
+                  <MedicalHistoryCard
+                    key={item.id}
+                    historyName={item.historyName}
+                    description={item.description}
+                    date={item.date}
+                    onPress={() => console.log(`Pressed: ${item.historyName}`)}
+                  />
+                ))
+              )}
             </>
           )}
+
           {activeTab === InfoPatientCardEnum.DOCUMENTS && (
             <>
               <DocumentCard
