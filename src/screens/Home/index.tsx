@@ -9,10 +9,12 @@ import DrawerHome from '../../components/DrawerHome';
 import { useAuth } from '../../context/AuthContext';
 import useShowPerfilImgen from '../../hooks/useShowPerfilImgen';
 import SwiperWrapper from "../../components/SwiperWrapper";
+import { useInformationCards } from "../../hooks/useInformationCards";
 
 const HomeScreen = () => {
   const { user } = useAuth();
   const { profileImageUri } = useShowPerfilImgen();
+  const { cards } = useInformationCards();
   const userName = user
     ? `${user.firstName} ${user.lastName}`
     : translate('profile.name');
@@ -41,24 +43,21 @@ const HomeScreen = () => {
         <View style={styles.container}>
           <Text style={styles.title}>{translate('newServices')}</Text>
           <SwiperWrapper
-            data={informationHome}
+            data={cards}
             renderItem={(item) => (
               <CardInfo
-                title={item.title}
-                description={item.description}
-                image={item.image}
-                screen={item.screen}
+                key={item.id}
+                card={item}
               />
             )}
           />
           <Text style={styles.title}>Informacion global</Text>
           <SwiperWrapper
-            data={informationCovid}
+            data={cards}
             renderItem={(item) => (
               <CardInfo
-                title={item.title}
-                description={item.description}
-                image={item.image}
+                key={item.id}
+                card={item}
               />
             )}
           />
