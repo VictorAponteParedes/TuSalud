@@ -5,7 +5,10 @@ import { fontsOpenSans } from "../../../types/fonts";
 const styles = StyleSheet.create({
     card: {
         width: '98%',
-        height: 200,
+        alignSelf: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        // height: 200,
         borderRadius: 12, // Bordes ligeramente menos redondeados
         backgroundColor: '#fff',
         overflow: 'hidden',

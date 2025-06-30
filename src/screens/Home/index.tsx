@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import useShowPerfilImgen from '../../hooks/useShowPerfilImgen';
 import SwiperWrapper from "../../components/SwiperWrapper";
 import { useInformationCards } from "../../hooks/useInformationCards";
+import InformationCardSkeleton from "../../components/Skeletons/InformationCardSkeleton";
 
 const HomeScreen = () => {
   const { user } = useAuth();
@@ -52,16 +53,24 @@ const HomeScreen = () => {
           <Text style={styles.title}>{translate('newServices')}</Text>
           <SwiperWrapper
             data={cards}
-            renderItem={(item) => (
-              <CardInfo key={item.id} card={item} />
-            )}
+            renderItem={(item) =>
+              cards.length === 0 ? (
+                <InformationCardSkeleton key={item.id} />
+              ) : (
+                <CardInfo key={item.id} card={item} />
+              )
+            }
           />
           <Text style={styles.title}>Informacion global</Text>
           <SwiperWrapper
             data={cards}
-            renderItem={(item) => (
-              <CardInfo key={item.id} card={item} />
-            )}
+            renderItem={(item) =>
+              cards.length === 0 ? (
+                <InformationCardSkeleton key={item.id} />
+              ) : (
+                <CardInfo key={item.id} card={item} />
+              )
+            }
           />
         </View>
       </ScrollView>
