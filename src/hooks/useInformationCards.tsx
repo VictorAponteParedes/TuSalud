@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import InformationCardService from "../services/informationCard";
 import type { InformationCardFormData } from "../types/InformationCardFormData";
 import { translateError } from "../helpers/translateError";
@@ -11,43 +11,28 @@ export const useInformationCards = (id?: string) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (!id) return;
-
-        const fetchCard = async () => {
-            try {
+    const fetchCards = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            if (id) {
                 const response = await informationCardService.getById(id);
-                setCard(response.data || []);
-            } catch (error: unknown) {
-                const errMessage =
-                    error instanceof Error ? translateError(error.message) : "Error desconocido";
-                setError(errMessage);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchCard();
-    }, [id]);
-
-    useEffect(() => {
-        if (id) return;
-
-        const fetchCards = async () => {
-            try {
+                setCard(response.data || null);
+            } else {
                 const response = await informationCardService.getAll();
                 setCards(response.data || []);
-            } catch (error: unknown) {
-                const errMessage =
-                    error instanceof Error ? translateError(error.message) : "Error desconocido";
-                setError(errMessage);
-            } finally {
-                setIsLoading(false);
             }
-        };
-
-        fetchCards();
+        } catch (error: unknown) {
+            const errMessage =
+                error instanceof Error ? translateError(error.message) : "Error desconocido";
+            setError(errMessage);
+        } finally {
+            setIsLoading(false);
+        }
     }, [id]);
 
-    return { card, cards, isLoading, error };
+    useEffect(() => {
+        fetchCards();
+    }, [fetchCards]);
+
+    return { card, cards, isLoading, error, refresh: fetchCards };
 };
