@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import colors from '../../../theme/colors';
 import { Dimensions } from 'react-native';
-import {fontsOpenSans} from '../../../types/fonts';
-const {height} = Dimensions.get('window');
+import { fontsOpenSans } from '../../../types/fonts';
+const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 150,
     marginBottom: 20,
     resizeMode: 'contain',
   },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     padding: 20,
     elevation: 10,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: -2},
+    shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     justifyContent: 'center',
