@@ -86,7 +86,7 @@ const ProfileScreen = () => {
               </TouchableOpacity>
             </View>
             <Text style={styles.userNameText}>
-              {user?.firstName} {user?.lastName}
+              {user?.firstName}
             </Text>
           </>
         ) : (

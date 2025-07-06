@@ -17,7 +17,7 @@ const HomeScreen = () => {
   const { cards, refresh } = useInformationCards();
 
   const userName = user
-    ? `${user.firstName} ${user.lastName}`
+    ? `${user.firstName}`
     : translate('profile.name');
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

@@ -8,22 +8,19 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        // height: 200,
-        borderRadius: 12, // Bordes ligeramente menos redondeados
+        borderRadius: 12,
         backgroundColor: '#fff',
         overflow: 'hidden',
-        // Sombra para Android
         elevation: 3,
-        // Sombra para iOS - más sutil y definida
         shadowColor: colors.grayDark,
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.15, // Más transparente
-        shadowRadius: 4, // Menos difuminada
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
         marginBottom: 16,
-        borderWidth: 0.5, // Opcional: borde sutil
+        borderWidth: 0.5,
         borderColor: colors.grayLight,
     },
     image: {
