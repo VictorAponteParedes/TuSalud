@@ -37,7 +37,7 @@ const LoginForm = () => {
         type: 'success',
         position: 'top',
         text1: translate('successRegister.title'),
-        text2: translate('successRegister.subTile'),
+        text2: translate('successRegister.successMessage'),
         visibilityTime: 3000,
         autoHide: true,
         topOffset: 30,

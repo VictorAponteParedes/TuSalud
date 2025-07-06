@@ -40,7 +40,7 @@
     "insertLastName": "Inserte su apellido",
     "insertPhone": "Inserte su teléfono",
     "insertAddress": "Inserte su dirección",
-    "insertEmail": "Inserte su correo electrónico",
+    "insertEmail": "Inserte su correo electrónico"
   },
   "buttons": {
     "preview": "Atrás",
@@ -49,6 +49,7 @@
   },
   "successRegister": {
     "title": "Registro exitoso",
+    "successMessage": "Bienvenido a la gestion de tu salud",
     "subTitle": "Inicie sesion"
   },
   "errorRegister": {
