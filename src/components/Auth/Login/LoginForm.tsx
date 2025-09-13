@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, ScrollView, Text } from 'react-native';
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
@@ -19,15 +19,28 @@ const LoginForm = () => {
   const navigation = useNavigation();
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  // Login por contraseña
+  const email = watch('email');
+
+  useEffect(() => {
+    console.log('LoginForm useEffect - Email actual:', email);
+    if (email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      console.log('Email válido detectado, abriendo BiometricModal');
+      setIsModalVisible(true);
+    } else {
+      console.log('Email inválido o vacío, cerrando BiometricModal');
+      setIsModalVisible(false);
+    }
+  }, [email]);
+
   const onSubmit = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
@@ -44,6 +57,7 @@ const LoginForm = () => {
         text2Style: { color: colors.black },
       });
     } catch (error: any) {
+      console.log('Error en login:', error.message);
       Toast.show({
         type: 'error',
         position: 'top',
@@ -115,7 +129,6 @@ const LoginForm = () => {
             </Text>
           </TouchableOpacity>
 
-
           <Button
             title={translate('SignIn')}
             onPress={handleSubmit(onSubmit)}
@@ -127,7 +140,11 @@ const LoginForm = () => {
 
       <BiometricModal
         isVisible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
+        onClose={() => {
+          console.log('Cerrando BiometricModal');
+          setIsModalVisible(false);
+        }}
+        email={email}
       />
     </>
   );
