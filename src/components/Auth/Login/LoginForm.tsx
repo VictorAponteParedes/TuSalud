@@ -1,13 +1,11 @@
-// src/components/Auth/LoginForm.tsx
 import React, { useState } from 'react';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TouchableOpacity, ScrollView, Text } from 'react-native';
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
 import { translate } from '../../../lang';
 import { useNavigation } from '@react-navigation/native';
 import Routes from '../../../navigation/routes';
 import styles from './styles';
-import { Text } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
 import { LoginFormData } from '../../../types/auth';
 import { useAuth } from '../../../context/AuthContext';
@@ -15,11 +13,13 @@ import Toast from 'react-native-toast-message';
 import colors from '../../../theme/colors';
 import { Email, Lock } from '../../../helpers';
 import SecureInput from '../../ui/SecureInput';
+import BiometricModal from '../../BiometricModal';
 
 const LoginForm = () => {
   const navigation = useNavigation();
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   const {
     control,
@@ -27,12 +27,11 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
+  // Login por contraseña
   const onSubmit = async (data: LoginFormData) => {
-    console.log('Datos antes de onSubmit:', data.email, data.password);
     try {
       setIsLoading(true);
       await login(data.email, data.password);
-
       Toast.show({
         type: 'success',
         position: 'top',
@@ -44,8 +43,6 @@ const LoginForm = () => {
         text1Style: { color: colors.black },
         text2Style: { color: colors.black },
       });
-
-      console.log('Datos en onSubmit:', data.email, data.password);
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -64,67 +61,75 @@ const LoginForm = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollContainer}
-      keyboardShouldPersistTaps="handled">
-      <View style={styles.form}>
-        <Input
-          label={translate('email')}
-          placeholder={translate('email')}
-          control={control}
-          name="email"
-          rules={{
-            required: translate('usernameRequerd'),
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: translate('invalidEmailFormat'),
-            },
-          }}
-          error={errors.email?.message}
-          iconName={<Email />}
-        />
+    <>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.form}>
+          <Input
+            label={translate('email')}
+            placeholder={translate('email')}
+            control={control}
+            name="email"
+            rules={{
+              required: translate('usernameRequerd'),
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: translate('invalidEmailFormat'),
+              },
+            }}
+            error={errors.email?.message}
+            iconName={<Email />}
+          />
 
-        <SecureInput
-          label={translate('Password')}
-          placeholder={translate('InsertPassword')}
-          secureTextEntry={true}
-          control={control}
-          name="password"
-          rules={{
-            required: translate('passwordRequerd'),
-            minLength: {
-              value: 6,
-              message: translate('passwordMinLength'),
-            },
-          }}
-          error={errors.password?.message}
-          iconName={<Lock />}
-        />
+          <SecureInput
+            label={translate('Password')}
+            placeholder={translate('InsertPassword')}
+            secureTextEntry={true}
+            control={control}
+            name="password"
+            rules={{
+              required: translate('passwordRequerd'),
+              minLength: {
+                value: 6,
+                message: translate('passwordMinLength'),
+              },
+            }}
+            error={errors.password?.message}
+            iconName={<Lock />}
+          />
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate(Routes.FORGOT_PASSWORD)}
-          style={styles.forgotPasswordButton}>
-          <Text style={styles.forgotPasswordText}>
-            {translate('ForgotPassword')}
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Routes.FORGOT_PASSWORD)}
+            style={styles.forgotPasswordButton}>
+            <Text style={styles.forgotPasswordText}>
+              {translate('ForgotPassword')}
+            </Text>
+          </TouchableOpacity>
 
-        <Button
-          title={translate('Login')}
-          onPress={handleSubmit(onSubmit)}
-          loading={isLoading}
-          disabled={isLoading}
-        />
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Routes.REGISTER)}
+            style={styles.registerButton}>
+            <Text style={styles.registerText}>
+              {translate('DontHaveAccount')}
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate(Routes.REGISTER)}
-          style={styles.registerButton}>
-          <Text style={styles.registerText}>
-            {translate('DontHaveAccount')}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+
+          <Button
+            title={translate('SignIn')}
+            onPress={handleSubmit(onSubmit)}
+            loading={isLoading}
+            disabled={isLoading}
+          />
+        </View>
+      </ScrollView>
+
+      <BiometricModal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      />
+    </>
   );
 };
 
