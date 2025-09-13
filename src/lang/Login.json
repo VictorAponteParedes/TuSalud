@@ -24,5 +24,16 @@
   "InvalidCode": "Código inválido. Intenta de nuevo.",
   "WelcomeBack": "Bienvenido de nuevo!",
   "passwordRequerd": "Contraseña requerida",
-  "usernameRequerd": "Nombre de usuario requerido"
+  "usernameRequerd": "Nombre de usuario requerido",
+  "AuthenticateWithBiometrics": "Autenticarse con biometría",
+  "LoginWithFingerprint": "Iniciar sesión con huella",
+  "LoginWithFaceID": "Iniciar sesión con Face ID",
+  "successBiometric": {
+    "title": "Autenticación exitosa",
+    "message": "Autenticación biométrica completada"
+  },
+  "errorBiometric": {
+    "title": "Error en autenticación",
+    "message": "No se pudo autenticar con biometría"
+  }
 }

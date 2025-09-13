@@ -27,6 +27,7 @@ import EyesOpen from "../assets/svg/eyesOpen.svg"
 import EyesClose from "../assets/svg/eyesClose.svg"
 import BackIcon from '../assets/svg/backIcon.svg';
 import MenuIcon from '../assets/svg/drawerCustom.svg';
+import FingerPrinter from '../assets/svg/fingerPrinter.svg';
 
 export {
     Home,
@@ -57,7 +58,8 @@ export {
     EyesOpen,
     EyesClose,
     BackIcon,
-    MenuIcon
+    MenuIcon,
+    FingerPrinter
 }
 
 
