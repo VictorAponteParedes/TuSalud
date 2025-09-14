@@ -1,3 +1,4 @@
+// src/components/BiometricModal.tsx
 import React, { useState, useEffect } from 'react';
 import { Animated, TouchableOpacity, Text } from 'react-native';
 import Modal from 'react-native-modal';
@@ -9,8 +10,9 @@ import colors from '../../theme/colors';
 import { FingerPrinter } from '../../helpers';
 import SvgWrapper from '../SvgWrapper';
 import styles from './styles';
-
-import { API_BASE_URL } from '../../constants';  // Asegúrate de que esto esté importado correctamente
+import { useAuth } from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_BASE_URL } from '../../constants';
 
 interface BiometricModalProps {
     isVisible: boolean;
@@ -25,6 +27,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
     const [challengeData, setChallengeData] = useState<{ challengeId: string; challenge: string } | null>(null);
     const [needsRegistration, setNeedsRegistration] = useState(false);
     const slideAnim = useState(new Animated.Value(0))[0];
+    const { login } = useAuth();
 
     useEffect(() => {
         console.log('BiometricModal useEffect - isVisible:', isVisible, 'email:', email);
@@ -49,7 +52,6 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                         setChallengeData(response.data);
                         console.log('Challenge obtenido:', response.data);
 
-                        // NUEVO: Verificación proactiva de claves después de obtener challenge
                         console.log('Verificando si existen claves biométricas en el dispositivo...');
                         try {
                             const { keysExist, error: keysError } = await rnBiometrics.biometryKeysExist();
@@ -62,7 +64,6 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                             }
                         } catch (keysErr) {
                             console.log('Error al verificar claves:', keysErr);
-                            // Si falla la verificación, asume que no existen y fuerza registro
                             setNeedsRegistration(true);
                         }
 
@@ -106,7 +107,6 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
         try {
             setIsLoading(true);
             const rnBiometrics = new ReactNativeBiometrics();
-            // Eliminar claves antiguas para evitar conflictos
             await rnBiometrics.deleteKeys();
             console.log('Claves biométricas antiguas eliminadas');
             const { publicKey } = await rnBiometrics.createKeys({
@@ -117,7 +117,6 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
             }
 
             console.log('Registrando clave biométrica para:', email);
-            // CORREGIDO: BASE_URL -> API_BASE_URL
             await axios.post(`${API_BASE_URL}/auth/biometric/register`, {
                 email,
                 publicKey,
@@ -133,7 +132,6 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                 text2Style: { color: colors.black },
             });
 
-            // OPCIONAL: Recargar challenge después de registrar para consistencia
             const response = await axios.post(`${API_BASE_URL}/auth/biometric/challenge`, { email });
             setChallengeData(response.data);
             setNeedsRegistration(false);
@@ -154,31 +152,47 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
     };
 
     const handleBiometricLogin = async () => {
-        if (!challengeData || !email) {
-            console.log('Faltan datos para autenticación:', { challengeData, email });
+        if (!email) {
+            console.log('Falta email para autenticación');
             return;
         }
         try {
             setIsLoading(true);
+
+            // Solicitar un challenge fresco antes de intentar la autenticación
+            console.log('Solicitando nuevo challenge para:', email);
+            const challengeResponse = await axios.post(`${API_BASE_URL}/auth/biometric/challenge`, { email });
+            const newChallengeData = challengeResponse.data;
+            setChallengeData(newChallengeData);
+            console.log('Nuevo challenge obtenido:', newChallengeData);
+
             const rnBiometrics = new ReactNativeBiometrics();
             const { success, signature, error } = await rnBiometrics.createSignature({
                 promptMessage: translate('AuthenticateWithBiometrics'),
-                payload: challengeData.challenge,
+                payload: newChallengeData.challenge,
             });
 
             if (success && signature) {
                 console.log('Autenticación biométrica local exitosa', {
                     biometryType,
                     signature,
+                    challengeId: newChallengeData.challengeId,
                     timestamp: new Date().toISOString(),
                 });
-                // CORREGIDO: BASE_URL -> API_BASE_URL
                 const response = await axios.post(`${API_BASE_URL}/auth/biometric/login`, {
                     email,
-                    challengeId: challengeData.challengeId,
+                    challengeId: newChallengeData.challengeId,
                     signature,
                 });
                 console.log('Respuesta del backend:', response.data);
+                const { access_token, user } = response.data;
+                if (!user || !access_token) {
+                    throw new Error('Datos de usuario o token no recibidos');
+                }
+
+                // Actualizar AuthContext con los datos del login biométrico
+                await login(email, undefined, { access_token, user });
+
                 Toast.show({
                     type: 'success',
                     position: 'top',
@@ -197,7 +211,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                     error.includes('No installed provider supports this key') ||
                     error.includes('Error generating signature') ||
                     error.includes('key: (null)')
-                )) {  // MEJORADO: Condición más robusta para capturar variaciones
+                )) {
                     console.log('No hay clave biométrica, forzando registro');
                     setNeedsRegistration(true);
                 } else {
@@ -209,17 +223,33 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                 message: error.response?.data?.message || error.message,
                 timestamp: new Date().toISOString(),
             });
-            Toast.show({
-                type: 'error',
-                position: 'top',
-                text1: translate('errorRegister.title'),
-                text2: error.response?.data?.message || translate('errorRegister.subTitle'),
-                visibilityTime: 3000,
-                autoHide: true,
-                topOffset: 30,
-                text1Style: { color: colors.black },
-                text2Style: { color: colors.black },
-            });
+            if (error.response?.data?.message === 'Challenge inválido o ya usado') {
+                console.log('Challenge inválido detectado, intentando con nuevo challenge...');
+                setChallengeData(null); // Limpiar challenge actual
+                Toast.show({
+                    type: 'error',
+                    position: 'top',
+                    text1: translate('errorRegister.title'),
+                    text2: 'Por favor, intenta de nuevo',
+                    visibilityTime: 3000,
+                    autoHide: true,
+                    topOffset: 30,
+                    text1Style: { color: colors.black },
+                    text2Style: { color: colors.black },
+                });
+            } else {
+                Toast.show({
+                    type: 'error',
+                    position: 'top',
+                    text1: translate('errorRegister.title'),
+                    text2: error.response?.data?.message || translate('errorRegister.subTitle'),
+                    visibilityTime: 3000,
+                    autoHide: true,
+                    topOffset: 30,
+                    text1Style: { color: colors.black },
+                    text2Style: { color: colors.black },
+                });
+            }
         } finally {
             setIsLoading(false);
         }

@@ -15,7 +15,7 @@ interface User {
 interface AuthContextProps {
     isAuthenticated: boolean;
     user: User | null;
-    login: (email: string, password: string) => Promise<void>;
+    login: (email: string, password?: string, biometricData?: { access_token: string, user: User }) => Promise<void>;
     logout: () => void;
     loading: boolean;
 }
@@ -25,7 +25,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
-    const { loginUser } = new AuthServices()
+    const { loginUser } = new AuthServices();
 
     useEffect(() => {
         const loadAuthData = async () => {
@@ -34,30 +34,43 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 const userData = await AsyncStorage.getItem('user');
 
                 if (token && userData) {
-                    setUser(JSON.parse(userData));
+                    const parsedUser = JSON.parse(userData);
+                    setUser(parsedUser);
+                    console.log('AuthContext: Usuario cargado desde AsyncStorage:', parsedUser);
                 }
             } catch (error) {
                 console.error('Error loading auth data:', error);
             } finally {
                 setLoading(false);
+                console.log('AuthContext: Loading finalizado, isAuthenticated:', !!user);
             }
         };
 
         loadAuthData();
     }, []);
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string, password?: string, biometricData?: { access_token: string, user: User }) => {
         try {
-            const response = await loginUser({ email, password });
+            let response;
+            if (biometricData) {
+                // Login biométrico: usar datos directamente del endpoint /auth/biometric/login
+                response = biometricData;
+                console.log('AuthContext: Login biométrico con datos:', biometricData);
+            } else if (password) {
+                // Login normal con correo/contraseña
+                response = await loginUser({ email, password });
+            } else {
+                throw new Error('Se requiere contraseña o datos biométricos');
+            }
 
-            if (!response.user) {
-                throw new Error('Datos de usuario no recibidos');
+            if (!response.user || !response.access_token) {
+                throw new Error('Datos de usuario o token no recibidos');
             }
 
             await AsyncStorage.setItem('authToken', response.access_token);
             await AsyncStorage.setItem('user', JSON.stringify(response.user));
-
             setUser(response.user);
+            console.log('AuthContext: Login exitoso, usuario establecido:', response.user, 'isAuthenticated:', !!response.user);
         } catch (error) {
             console.error('Login error:', error);
             Alert.alert(
@@ -73,6 +86,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             await AsyncStorage.removeItem('authToken');
             await AsyncStorage.removeItem('user');
             setUser(null);
+            console.log('AuthContext: Logout exitoso, isAuthenticated:', false);
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }
