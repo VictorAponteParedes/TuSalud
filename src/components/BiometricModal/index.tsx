@@ -1,14 +1,9 @@
 // src/components/BiometricModal.tsx
 import React, { useState, useEffect } from 'react';
-import { Animated, TouchableOpacity, Text } from 'react-native';
-import Modal from 'react-native-modal';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import Toast from 'react-native-toast-message';
 import { translate } from '../../lang';
 import colors from '../../theme/colors';
-import { FingerPrinter } from '../../helpers';
-import SvgWrapper from '../SvgWrapper';
-import styles from './styles';
 import { useAuth } from '../../context/AuthContext';
 import AuthServices from '../../services/auth';
 
@@ -24,9 +19,8 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
     const [biometryType, setBiometryType] = useState<string | null>(null);
     const [challengeData, setChallengeData] = useState<{ challengeId: string; challenge: string } | null>(null);
     const [needsRegistration, setNeedsRegistration] = useState(false);
-    const slideAnim = useState(new Animated.Value(0))[0];
     const { login, isAuthenticated } = useAuth();
-    const authServices = new AuthServices(); // NUEVO: Instanciar AuthServices
+    const authServices = new AuthServices();
 
     useEffect(() => {
         console.log('BiometricModal useEffect - isVisible:', isVisible, 'email:', email, 'isAuthenticated:', isAuthenticated);
@@ -34,7 +28,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
             console.log('No ejecutando useEffect: modal no visible, sin email, o ya autenticado');
             setBiometricsAvailable(false);
             if (isAuthenticated) {
-                console.log('Usuario ya autenticado, cerrando modal...');
+                console.log('Usuario ya autenticado, cerrando flujo...');
                 onClose();
             }
             return;
@@ -64,17 +58,12 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                                 setNeedsRegistration(true);
                             } else {
                                 console.log('Claves biométricas existen, procediendo a login');
+                                handleBiometricLogin(); // Ejecutar autenticación automáticamente
                             }
                         } catch (keysErr) {
                             console.log('Error al verificar claves:', keysErr);
                             setNeedsRegistration(true);
                         }
-
-                        Animated.timing(slideAnim, {
-                            toValue: 1,
-                            duration: 300,
-                            useNativeDriver: true,
-                        }).start();
                     } catch (err: any) {
                         console.log('Error al obtener challenge:', err.message);
                         if (err.message.includes('Usuario no encontrado') || err.message.includes('sin clave biométrica')) {
@@ -91,6 +80,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                                 text1Style: { color: colors.black },
                                 text2Style: { color: colors.black },
                             });
+                            onClose();
                         }
                     }
                 } else {
@@ -104,7 +94,14 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                 setBiometricsAvailable(false);
                 onClose();
             });
-    }, [slideAnim, onClose, email, isVisible, isAuthenticated]);
+    }, [isVisible, email, isAuthenticated]);
+
+    useEffect(() => {
+        if (needsRegistration && isVisible && email && biometricsAvailable) {
+            console.log('Ejecutando registro biométrico automáticamente para:', email);
+            handleRegisterBiometric();
+        }
+    }, [needsRegistration, isVisible, email, biometricsAvailable]);
 
     const handleRegisterBiometric = async () => {
         try {
@@ -135,6 +132,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
             const response = await authServices.generateBiometricChallenge(email);
             setChallengeData(response);
             setNeedsRegistration(false);
+            handleBiometricLogin(); // Intentar login después de registro
         } catch (error: any) {
             console.log('Error al registrar biometría:', error.message);
             Toast.show({
@@ -146,6 +144,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                 text1Style: { color: colors.black },
                 text2Style: { color: colors.black },
             });
+            onClose();
         } finally {
             setIsLoading(false);
         }
@@ -154,10 +153,11 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
     const handleBiometricLogin = async () => {
         if (!email) {
             console.log('Falta email para autenticación');
+            onClose();
             return;
         }
         if (isAuthenticated) {
-            console.log('Usuario ya autenticado, cerrando modal...');
+            console.log('Usuario ya autenticado, cerrando flujo...');
             onClose();
             return;
         }
@@ -191,7 +191,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                 }
 
                 await login(email, undefined, { access_token, user });
-                console.log('AuthContext actualizado, cerrando modal...');
+                console.log('AuthContext actualizado, cerrando flujo...');
 
                 Toast.show({
                     type: 'success',
@@ -251,6 +251,7 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
                     text2Style: { color: colors.black },
                 });
             }
+            onClose();
         } finally {
             setIsLoading(false);
         }
@@ -258,57 +259,8 @@ const BiometricModal: React.FC<BiometricModalProps> = ({ isVisible, onClose, ema
 
     console.log('Renderizando BiometricModal - biometricsAvailable:', biometricsAvailable, 'isVisible:', isVisible, 'isAuthenticated:', isAuthenticated);
 
-    if (!biometricsAvailable || !isVisible || isAuthenticated) {
-        console.log('No renderizando modal debido a: biometricsAvailable=', biometricsAvailable, 'isVisible=', isVisible, 'isAuthenticated=', isAuthenticated);
-        return null;
-    }
-
-    return (
-        <Modal
-            isVisible={isVisible}
-            onBackdropPress={onClose}
-            swipeDirection="down"
-            onSwipeComplete={onClose}
-            animationIn="slideInUp"
-            animationOut="slideOutDown"
-            style={styles.modal}
-            backdropOpacity={0.3}>
-            <Animated.View
-                style={[
-                    styles.modalContent,
-                    {
-                        transform: [
-                            {
-                                translateY: slideAnim.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [300, 0],
-                                }),
-                            },
-                        ],
-                    },
-                ]}>
-                <Text style={styles.modalTitle}>
-                    {needsRegistration
-                        ? translate('RegisterBiometrics')
-                        : translate(biometryType === 'FaceID' ? 'LoginWithFaceID' : 'LoginWithFingerprint')}
-                </Text>
-                <TouchableOpacity
-                    style={[styles.biometricButton, isLoading && styles.biometricButtonDisabled]}
-                    onPress={needsRegistration ? handleRegisterBiometric : handleBiometricLogin}
-                    disabled={isLoading || (!needsRegistration && !challengeData)}
-                    activeOpacity={0.7}>
-                    <SvgWrapper
-                        size={80}
-                        color={isLoading ? colors.gray[400] : colors.primary[400]}>
-                        <FingerPrinter />
-                    </SvgWrapper>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onClose} style={styles.cancelButton}>
-                    <Text style={styles.cancelButtonText}>{translate('Cancel')}</Text>
-                </TouchableOpacity>
-            </Animated.View>
-        </Modal>
-    );
+    // No renderizar ninguna UI, solo ejecutar la lógica biométrica
+    return null;
 };
 
 export default BiometricModal;
