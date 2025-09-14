@@ -49,15 +49,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loadAuthData();
     }, []);
 
+    useEffect(() => {
+        console.log('AuthContext: isAuthenticated cambió:', !!user, 'user:', user);
+    }, [user]);
+
     const login = async (email: string, password?: string, biometricData?: { access_token: string, user: User }) => {
         try {
             let response;
             if (biometricData) {
-                // Login biométrico: usar datos directamente del endpoint /auth/biometric/login
                 response = biometricData;
-                console.log('AuthContext: Login biométrico con datos:', biometricData);
             } else if (password) {
-                // Login normal con correo/contraseña
                 response = await loginUser({ email, password });
             } else {
                 throw new Error('Se requiere contraseña o datos biométricos');
@@ -71,6 +72,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             await AsyncStorage.setItem('user', JSON.stringify(response.user));
             setUser(response.user);
             console.log('AuthContext: Login exitoso, usuario establecido:', response.user, 'isAuthenticated:', !!response.user);
+            console.log('AsyncStorage post-login:', {
+                token: await AsyncStorage.getItem('authToken'),
+                user: await AsyncStorage.getItem('user'),
+            });
         } catch (error) {
             console.error('Login error:', error);
             Alert.alert(

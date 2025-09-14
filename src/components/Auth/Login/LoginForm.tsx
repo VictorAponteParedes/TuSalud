@@ -1,3 +1,4 @@
+// src/components/Auth/Login/LoginForm.tsx
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, ScrollView, Text } from 'react-native';
 import Button from '../../ui/Button';
@@ -17,7 +18,7 @@ import BiometricModal from '../../BiometricModal';
 
 const LoginForm = () => {
   const navigation = useNavigation();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth(); // NUEVO: Usar isAuthenticated
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -31,7 +32,12 @@ const LoginForm = () => {
   const email = watch('email');
 
   useEffect(() => {
-    console.log('LoginForm useEffect - Email actual:', email);
+    console.log('LoginForm useEffect - Email:', email, 'isAuthenticated:', isAuthenticated);
+    if (isAuthenticated) {
+      console.log('LoginForm: Usuario ya autenticado, cerrando modal');
+      setIsModalVisible(false);
+      return;
+    }
     if (email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
       console.log('Email válido detectado, abriendo BiometricModal');
       setIsModalVisible(true);
@@ -39,7 +45,7 @@ const LoginForm = () => {
       console.log('Email inválido o vacío, cerrando BiometricModal');
       setIsModalVisible(false);
     }
-  }, [email]);
+  }, [email, isAuthenticated]); // NUEVO: Agregar isAuthenticated como dependencia
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -141,7 +147,7 @@ const LoginForm = () => {
       <BiometricModal
         isVisible={isModalVisible}
         onClose={() => {
-          console.log('Cerrando BiometricModal');
+          console.log('Cerrando BiometricModal desde LoginForm');
           setIsModalVisible(false);
         }}
         email={email}
